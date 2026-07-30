@@ -1,0 +1,160 @@
+{
+  "common": {
+    "navbar": {
+      "home": "Beranda",
+      "products": "Produk",
+      "about": "Tentang",
+      "contact": "Kontak",
+      "getQuote": "Dapatkan Penawaran",
+      "cart": "Keranjang"
+    },
+    "footer": {
+      "enterpriseProcurement": "PENGADAAN PERUSAHAAN",
+      "bannerText": "Pesanan massal, dokumen tender, dan lembar spesifikasi teknis — ditangani oleh ahli K3 profesional.",
+      "requestQuote": "Minta Penawaran",
+      "companyDesc": "PT Arie Putra Permana — menyediakan pakaian keselamatan industri bersertifikat, Baju pemadam kebakaran, Wearpack, dan perlindungan hazmat untuk industri terkemuka di seluruh Indonesia.",
+      "isoBadge": "ISO 9001 - SNI CERTIFIED - SUPPLIER TERPERCAYA",
+      "explore": "JELAJAHI",
+      "contact": "KONTAK",
+      "companyName": "PT Arie Putra Permana",
+      "address": "Komplek Cimareme Indah",
+      "city": "Bandung Barat, Jawa Barat 40552",
+      "phone": "Telepon: +62 878-2460-4747",
+      "email": "Email: hello@appsafety.id",
+      "copyright": "© 2026 APP SAFETY. Hak cipta dilindungi.",
+      "version": "v1.0.0"
+    },
+    "cart": {
+      "title": "KERANJANG",
+      "empty": "Keranjang Anda kosong",
+      "total": "TOTAL",
+      "checkout": "SELESAIKAN PESANAN VIA WA >>",
+      "remove": "Hapus"
+    },
+    "productCard": {
+      "addToCart": "+ Tambah ke Keranjang",
+      "productPlaceholder": "[PRODUK]"
+    },
+    "productDetail": {
+      "backToCatalog": "KEMBALI KE KATALOG",
+      "imagePlaceholder": "[GMB]",
+      "material": "bahan",
+      "size": "ukuran",
+      "certification": "sertifikasi",
+      "addToCart": "TAMBAH KE KERANJANG",
+      "notFound": "Produk tidak ditemukan."
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "PT ARIE PUTRA PERMANA - SEJAK 2015",
+      "title": "Pakaian Safety Premium untuk",
+      "highlight": "Performa Industri Terbaik",
+      "subtitle": "Dipercaya oleh berbagai industri terkemuka sebagai penyedia pakaian safety berkualitas tinggi yang dirancang khusus untuk memenuhi standar keselamatan internasional.",
+      "browseProducts": "Lihat Produk",
+      "contactUs": "Hubungi Kami",
+      "imagePlaceholder": "[GAMBAR INDUSTRI]",
+      "imageRef": "REF // APP-2500",
+      "imageRefDesc": "Seri Proximity Aluminized",
+      "imageBadge": "EN 469"
+    },
+    "stats": {
+      "years": "TAHUN MELAYANI INDUSTRI",
+      "clients": "KLIEN B2B",
+      "certified": "BERSERTIFIKAT 9001"
+    },
+    "features": {
+      "qualityTitle": "Kualitas Bersertifikat",
+      "qualityDesc": "Semua produk memenuhi standar keselamatan internasional (ISO, ANSI, EN) dengan ketertelusuran dan dokumentasi lengkap.",
+      "deliveryTitle": "Pengiriman Cepat",
+      "deliveryDesc": "Pemrosesan di hari yang sama untuk pesanan sebelum pukul 12:00 WIB. Kirim ke semua kota besar di Indonesia.",
+      "sizingTitle": "Ukuran Kustom",
+      "sizingDesc": "Minta ukuran khusus untuk pesanan dalam jumlah besar. Minimal 50 unit per spesifikasi kustom."
+    },
+    "highlightedGear": {
+      "overline": "PRODUK PILIHAN",
+      "title": "Dirancang Presisi untuk Menghadapi Kondisi Paling Ekstrem",
+      "viewAll": "Lihat Semua Produk →"
+    }
+  },
+  "products": {
+    "breadcrumb": "BERANDA / PRODUK",
+    "title": "Produk Kami",
+    "subtitle": "Pakaian pelindung yang dirancang khusus — cari berdasarkan nama atau kategori dan urutkan berdasarkan harga atau spesifikasi.",
+    "sku": "{count} / {total} SKU",
+    "searchPlaceholder": "Cari produk atau kategori...",
+    "sortFeatured": "Unggulan",
+    "sortPriceLowHigh": "Harga: Rendah ke Tinggi",
+    "sortPriceHighLow": "Harga: Tinggi ke Rendah",
+    "sortNameAZ": "Nama: A-Z",
+    "noResults": "Tidak ada produk yang sesuai dengan pencarian Anda.",
+    "categories": {
+      "all": "SEMUA",
+      "firefighting": "PEMADAM KEBAKARAN",
+      "welding": "LAS",
+      "hazmat": "HAZMAT",
+      "handProtection": "PERLINDUNGAN TANGAN"
+    },
+    "products": {
+      "fireProximitySuit": "Jas Proximity Aluminized",
+      "weldingJacket": "Jaket Las Nomex",
+      "beekeeperSuit": "Jas Peternak Lebah Ventilasi",
+      "impactGloves": "Sarung Tangan Heavy Duty Impact"
+    }
+  },
+  "productDetail": {
+    "description_1": "Jas proximity aluminized berkinerja tinggi yang dirancang untuk lingkungan panas ekstrem hingga 1000°C. Lapisan luar reflektif melindungi dari panas radiasi sementara isolasi dalam memberikan penghalang termal. Ideal untuk pengecoran, operasi kiln, dan skenario pemadaman kebakaran.",
+    "description_2": "Jaket las Nomex IIIA premium dengan ketahanan api dan daya tahan unggul. Dirancang untuk tukang las yang menginginkan kenyamanan tanpa mengorbankan keselamatan. Dilengkapi penutup kancing dan jahitan yang diperkuat.",
+    "description_3": "Jas peternak lebah ventilasi seluruh tubuh dengan veil terintegrasi dan manset elastis. Kain ringan dan bernapas membuat Anda tetap sejuk selama penggunaan dalam waktu lama. Bagian depan ritsleting dengan flap ganda mencegah celah.",
+    "description_4": "Sarung tangan rated TPR-impact dengan telapak tangan yang diperkuat dan perlindungan jari. Dirancang untuk operasi mesin berat, pertambangan, dan konstruksi. Penutup pergelangan hook-and-loop memastikan pemasangan yang aman."
+  },
+  "about": {
+    "overline": "TENTANG PERUSAHAAN",
+    "title": "10 Tahun Dedikasi Menjaga Keselamatan Industri Nasional.",
+    "description": "PT Arie Putra Permana didirikan pada tahun 2015 untuk menutup kesenjangan di pasar lokal untuk pakaian keselamatan industri bersertifikat dan andal secara teknis. Saat ini, APP Safety memasok kilang, galangan kapal, pemadam kebakaran, dan pabrik manufaktur di seluruh nusantara dengan perlengkapan yang dibuat sesuai standar internasional.",
+    "stats": {
+      "clients": "Klien perusahaan di seluruh pertambangan, minyak & gas, dan manufaktur.",
+      "certified": "Manajemen mutu bersertifikat sejak 2018.",
+      "engineers": "Insinyur keselamatan, penjahit, dan teknisi QA internal."
+    },
+    "mission": {
+      "overline": "MISI KAMI",
+      "title": "Memastikan setiap pekerja pulang dengan selamat, di setiap shift.",
+      "description": "Bagi kami, keselamatan adalah soal presisi teknis. Spesifikasi pada setiap jaket, jas, dan sarung tangan safety yang kami buat dirancang khusus untuk menahan bahaya nyata yang dihadapi klien kami setiap hari—mulai dari paparan panas ekstrem di kilang petrokimia hingga risiko arc flash di sektor kelistrikan. Tim teknis kami berkolaborasi langsung dengan para ahli K3 untuk menyeleksi material terbaik, memvalidasi sertifikasi, dan memastikan setiap pakaian telah memenuhi standar ketat sebelum tiba di area kerja Anda."
+    },
+    "approach": {
+      "overline": "CARA KAMI BEKERJA",
+      "title": "Suplai Tangan Pertama. Detail Spesifikasi Terjamin Akurat.",
+      "description": "Tanpa perantara. Semua material kami datangkan dari pabrik bersertifikat, diproduksi langsung di fasilitas kami di Bekasi, dan didistribusikan dengan sistem pelacakan (traceability) menyeluruh untuk menjamin kualitas tanpa kompromi. Setiap pesanan selalu dilengkapi dengan dokumen spesifikasi teknis, laporan hasil uji, dan sertifikat kesesuaian (CoC). Baik untuk pesanan satu unit jaket maupun pemenuhan tender ribuan unit, standar operasional kami tetap sama: ketat, terdokumentasi dengan baik, dan divalidasi langsung oleh tim engineer."
+    }
+  },
+  "contact": {
+    "overline": "KONTAK",
+    "title": "Terhubung dengan Ahli Teknis Kami.",
+    "subtitle": "Pesanan partai besar, ukuran khusus, maupun kelengkapan dokumen tender — sampaikan kebutuhan Anda, dan kami akan merespons dalam satu hari kerja.",
+    "addressLabel": "ALAMAT",
+    "addressValue": "Komplek Cimareme Indah, Bandung Barat, Jawa Barat",
+    "phoneLabel": "TELEPON",
+    "phoneValue": "+62 878-2460-4747",
+    "whatsappLabel": "WHATSAPP",
+    "whatsappValue": "+62 878-2460-4747",
+    "emailLabel": "EMAIL",
+    "emailValue": "sales@appsafety.co.id",
+    "form": {
+      "overline": "MINTA PENAWARAN",
+      "title": "Kirim kebutuhan Anda",
+      "fullName": "NAMA LENGKAP *",
+      "fullNamePlaceholder": "Budi Santoso",
+      "company": "PERUSAHAAN",
+      "companyPlaceholder": "PT Contoh",
+      "email": "EMAIL *",
+      "emailPlaceholder": "anda@perusahaan.co.id",
+      "whatsapp": "WHATSAPP *",
+      "whatsappPlaceholder": "+62 ...",
+      "requirements": "KEBUTUHAN *",
+      "requirementsPlaceholder": "Produk, jumlah, ukuran, jadwal pengiriman...",
+      "submit": "Kirim Permintaan Penawaran",
+      "disclaimer": "Dengan mengirimkan, Anda setuju untuk dihubungi mengenai pertanyaan Anda."
+    }
+  }
+}

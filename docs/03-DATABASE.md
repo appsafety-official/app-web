@@ -5,15 +5,12 @@
 ```markdown
 # 02-DATABASE.md - Database Schema & Strategy
 
-## 1. Prisma Schema (`prisma/schema.prisma`)
+## 1. Prisma 7+ Schema (`prisma/schema.prisma`)
+*Note: In Prisma 7, the `datasource` block is removed from schema.prisma and moved to `prisma.config.ts`.*
 ```prisma
 generator client {
   provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  output   = "../src/generated/prisma"
 }
 
 model Product {
@@ -23,7 +20,7 @@ model Product {
   price       Int
   description String?
   imageUrl    String?  // URL from storage, NOT binary data
-  specs       Json?    // Flexible specifications (e.g., {"material": "Nomex", "size": "L"})
+  specs       Json?    // Flexible specifications
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
@@ -36,12 +33,12 @@ model Prospect {
   whatsapp              String
   address               String?
   tokopediaOrderId      String?  // Optional, for Tokopedia shifting verification
-  acquisitionChannel    String   // "organic_web", "tokopedia_insert", "walk_in", "phone_order", "event"
+  acquisitionChannel    String   // "organic_web", "tokopedia_insert", "walk_in", "phone_order"
   status                String   @default("cold") // "cold", "warm", "hot"
   notesAdmin            String?
   totalAmount           Int      @default(0)
   orderItems            Json     // Array of objects: [{ productId, name, quantity, price }]
-  createdBy             String?  // "system" or admin email (for manual admin input)
+  createdBy             String?  // "system" or admin email
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
   

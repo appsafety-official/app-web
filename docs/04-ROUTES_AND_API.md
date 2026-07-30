@@ -21,10 +21,20 @@
 
 ## 3. Server Actions (`actions/`)
 - `createProspectAction(data: ProspectInput)`: Validates data, calls `IProspectRepository.create()`, returns success/WA redirect URL.
-- `createProductAction(data: ProductInput, file: File)`: Calls `IStorageService.upload()`, then `IProductRepository.create()` with the returned URL.
+- `createProductAction(data: ProductInput, file: File)`: Calls `IStorageService.upload()`, then `IProductRepository.create()`.
 - `updateProspectStatusAction(id: string, status: string, notes: string)`: Updates prospect record.
 - `loginAction(email: string, password: string)`: NextAuth credentials handler.
 
 ## 4. API Routes (`app/api`)
 - `/api/auth/[...nextauth]/route.ts` : NextAuth handler
-- *(Optional V2)* `/api/export/prospects/route.ts` : CSV export endpoint for admin
+
+## 5. Middleware & i18n Routing
+- **File**: `middleware.ts` (Root directory)
+- **Logic**: Uses `next-intl/middleware` to detect locale from cookies.
+- **Config**: 
+  ```typescript
+  export default createMiddleware({
+    locales: ['en', 'id'],
+    defaultLocale: 'en', // Default to English for MVP
+    localeDetection: true
+  });

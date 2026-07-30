@@ -2,18 +2,14 @@
 
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useCartStore } from "@/store/useCartStore";
 import { useEffect, useState } from "react";
 import CartDrawer from "./CartDrawer";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/products", label: "Products" },
-  { href: "/contact", label: "Contact" },
-];
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
+  const t = useTranslations("common.navbar");
   const totalItems = useCartStore((s) => s.totalItems());
   const [mounted, setMounted] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -27,6 +23,13 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const navLinks = [
+    { href: "/", label: t("home") },
+    { href: "/about", label: t("about") },
+    { href: "/products", label: t("products") },
+    { href: "/contact", label: t("contact") },
+  ];
+
   return (
     <>
       <nav
@@ -35,15 +38,10 @@ export default function Navbar() {
         }`}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center bg-black text-xs font-bold text-white">
-              APP
-            </span>
-            <span className="text-sm font-bold text-black">APP SAFETY</span>
+            <img src="/images/logo-app.png" alt="APP SAFETY" className="h-8 w-auto" />
           </Link>
 
-          {/* Center links */}
           <div className="hidden items-center gap-8 text-sm font-medium sm:flex">
             {navLinks.map((link) => (
               <Link
@@ -60,13 +58,13 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Right */}
           <div className="flex items-center gap-3">
+            <LanguageSwitcher />
             <Link
               href="/contact"
               className="rounded-sm bg-yellow px-4 py-2 text-sm font-semibold text-black transition-opacity hover:opacity-90"
             >
-              Get a Quote
+              {t("getQuote")}
             </Link>
             <button
               onClick={() => setCartOpen(true)}

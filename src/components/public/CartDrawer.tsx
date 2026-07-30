@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { X, Minus, Plus, ShoppingCart } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useCartStore } from "@/store/useCartStore";
 
 interface CartDrawerProps {
@@ -10,6 +11,7 @@ interface CartDrawerProps {
 }
 
 export default function CartDrawer({ open, onClose }: CartDrawerProps) {
+  const t = useTranslations("common.cart");
   const { items, removeItem, updateQuantity, totalAmount } = useCartStore();
 
   useEffect(() => {
@@ -49,12 +51,11 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
         onClick={onClose}
       />
       <div className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-gray-200 bg-white">
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-gray-200 px-4 py-4">
           <div className="flex items-center gap-2">
             <ShoppingCart className="h-4 w-4" />
             <span className="text-sm font-bold">
-              CART ({items.length})
+              {t("title")} ({items.length})
             </span>
           </div>
           <button onClick={onClose} className="transition-colors hover:text-gray-400">
@@ -62,12 +63,11 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
           </button>
         </div>
 
-        {/* Items */}
         <div className="flex-1 overflow-y-auto">
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-24 text-xs text-gray-400">
               <ShoppingCart className="mb-2 h-8 w-8" strokeWidth={1} />
-              Your cart is empty
+              {t("empty")}
             </div>
           ) : (
             <div className="divide-y divide-gray-200">
@@ -108,11 +108,10 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
           )}
         </div>
 
-        {/* Footer */}
         {items.length > 0 && (
           <div className="border-t border-gray-200 px-4 py-4">
             <div className="mb-4 flex justify-between text-sm font-bold">
-              <span>TOTAL</span>
+              <span>{t("total")}</span>
               <span className="font-mono">
                 Rp {totalAmount().toLocaleString("id-ID")}
               </span>
@@ -123,7 +122,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
               rel="noopener noreferrer"
               className="flex w-full items-center justify-center rounded-sm bg-yellow px-6 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"
             >
-              COMPLETE ORDER VIA WA &gt;&gt;
+              {t("checkout")}
             </a>
           </div>
         )}

@@ -1,0 +1,160 @@
+{
+  "common": {
+    "navbar": {
+      "home": "Home",
+      "products": "Products",
+      "about": "About",
+      "contact": "Contact",
+      "getQuote": "Get a Quote",
+      "cart": "Cart"
+    },
+    "footer": {
+      "enterpriseProcurement": "ENTERPRISE PROCUREMENT",
+      "bannerText": "Bulk orders, tender documents, and technical spec sheets — handled by real safety engineers.",
+      "requestQuote": "Request a Quote",
+      "companyDesc": "PT Arie Putra Permana — supplying certified industrial safety apparel, firefighter suits, welding gear, and hazmat protection to leading industries across Indonesia.",
+      "isoBadge": "ISO 9001 - SNI CERTIFIED - TRUSTED SUPPLIER",
+      "explore": "EXPLORE",
+      "contact": "CONTACT",
+      "companyName": "PT Arie Putra Permana",
+      "address": "Komplek Cimareme Indah",
+      "city": "Bandung Barat, Jawa Barat 40552",
+      "phone": "Phone: +62 878-2460-4747",
+      "email": "Email: hello@appsafety.id",
+      "copyright": "© 2026 APP SAFETY. All rights reserved.",
+      "version": "v1.0.0"
+    },
+    "cart": {
+      "title": "CART",
+      "empty": "Your cart is empty",
+      "total": "TOTAL",
+      "checkout": "COMPLETE ORDER VIA WA >>",
+      "remove": "Remove"
+    },
+    "productCard": {
+      "addToCart": "+ Add to Cart",
+      "productPlaceholder": "[PRODUCT]"
+    },
+    "productDetail": {
+      "backToCatalog": "BACK TO CATALOG",
+      "imagePlaceholder": "[IMG]",
+      "material": "material",
+      "size": "size",
+      "certification": "certification",
+      "addToCart": "ADD TO CART",
+      "notFound": "Product not found."
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "PT ARIE PUTRA PERMANA - EST. 2015",
+      "title": "Premium Safety Apparel for",
+      "highlight": "Industrial Excellence",
+      "subtitle": "Trusted by leading industries for high-quality firefighter suits, welding gear, and hazmat protection engineered to meet international standards.",
+      "browseProducts": "Browse Products",
+      "contactUs": "Contact Us",
+      "imagePlaceholder": "[INDUSTRIAL IMAGE]",
+      "imageRef": "REF // APP-2500",
+      "imageRefDesc": "Aluminized Proximity Series",
+      "imageBadge": "EN 469"
+    },
+    "stats": {
+      "years": "YEARS SERVING INDUSTRY",
+      "clients": "B2B CLIENTS",
+      "certified": "9001 CERTIFIED"
+    },
+    "features": {
+      "qualityTitle": "Certified Quality",
+      "qualityDesc": "All products meet international safety standards (ISO, ANSI, EN) with full traceability and documentation.",
+      "deliveryTitle": "Fast Delivery",
+      "deliveryDesc": "Same-day processing for orders before 12:00 WIB. Ship to all major cities across Indonesia.",
+      "sizingTitle": "Custom Sizing",
+      "sizingDesc": "Request tailored measurements for bulk orders. Minimum 50 pieces per custom spec."
+    },
+    "highlightedGear": {
+      "overline": "HIGHLIGHTED GEAR",
+      "title": "Engineered for the worst-case day",
+      "viewAll": "View All Products →"
+    }
+  },
+  "products": {
+    "breadcrumb": "HOME / PRODUCTS",
+    "title": "Our Products",
+    "subtitle": "Purpose-built protective apparel — search by name or category and sort by price or specification.",
+    "sku": "{count} / {total} SKU",
+    "searchPlaceholder": "Search products or category...",
+    "sortFeatured": "Featured",
+    "sortPriceLowHigh": "Price: Low to High",
+    "sortPriceHighLow": "Price: High to Low",
+    "sortNameAZ": "Name: A-Z",
+    "noResults": "No products match your search.",
+    "categories": {
+      "all": "ALL",
+      "firefighting": "FIREFIGHTING",
+      "welding": "WELDING",
+      "hazmat": "HAZMAT",
+      "handProtection": "HAND PROTECTION"
+    },
+    "products": {
+      "fireProximitySuit": "Aluminized Fire Proximity Suit",
+      "weldingJacket": "Nomex Welding Jacket",
+      "beekeeperSuit": "Beekeeper Suit Ventilated",
+      "impactGloves": "Heavy Duty Impact Gloves"
+    }
+  },
+  "productDetail": {
+    "description_1": "High-performance aluminized proximity suit designed for extreme heat environments up to 1000°C. Reflective outer layer protects against radiant heat while the inner insulation provides thermal barrier. Ideal for foundries, kiln operations, and firefighting scenarios.",
+    "description_2": "Premium Nomex IIIA welding jacket with superior flame resistance and durability. Designed for welders who demand comfort without compromising safety. Features snap-button closure and reinforced seams.",
+    "description_3": "Full-body ventilated beekeeper suit with integrated veil and elastic cuffs. Lightweight breathable fabric keeps you cool during extended use. Zippered front with double flap prevents any gaps.",
+    "description_4": "TPR-impact rated gloves with reinforced palm and finger protection. Designed for heavy machinery operations, mining, and construction. Hook-and-loop wrist closure ensures secure fit."
+  },
+  "about": {
+    "overline": "ABOUT THE COMPANY",
+    "title": "Ten years of protecting Indonesian industry.",
+    "description": "PT Arie Putra Permana was founded in 2015 to close a gap in the local market for certified, technically sound industrial safety apparel. Today, APP Safety supplies refineries, shipyards, fire brigades and manufacturing plants across the archipelago with gear built to international standards.",
+    "stats": {
+      "clients": "Enterprise clients across mining, oil & gas, and manufacturing.",
+      "certified": "Quality management certified since 2018.",
+      "engineers": "In-house safety engineers, sewers, and QA technicians."
+    },
+    "mission": {
+      "overline": "OUR MISSION",
+      "title": "Bring every worker home, every shift.",
+      "description": "We treat safety as an engineering problem. Every jacket, glove and suit we ship is spec'd against the hazards our clients face daily — from radiant heat in petrochemical plants to arc flash in electrical utilities. Our technical team works directly with safety officers to select materials, validate certifications, and ensure every garment meets the standard before it reaches the warehouse floor."
+    },
+    "approach": {
+      "overline": "HOW WE WORK",
+      "title": "Direct supply, transparent specs.",
+      "description": "No middlemen. Materials are sourced from certified mills, sewn in our Bekasi facility, and shipped with full traceability to ensure uncompromising quality. Every order is backed by a complete specification sheet, test report, and certificate of conformity. Whether it's a single replacement jacket or a thousand-piece tender, the process is the same — rigorous, documented, and engineer-reviewed."
+    }
+  },
+  "contact": {
+    "overline": "CONTACT",
+    "title": "Talk to our safety engineers",
+    "subtitle": "Bulk quotes, custom sizing, or tender documentation — send us the brief and we'll come back within one business day.",
+    "addressLabel": "ADDRESS",
+    "addressValue": "Komplek Cimareme Indah, Bandung Barat, Jawa Barat",
+    "phoneLabel": "PHONE",
+    "phoneValue": "+62 878-2460-4747",
+    "whatsappLabel": "WHATSAPP",
+    "whatsappValue": "+62 878-2460-4747",
+    "emailLabel": "EMAIL",
+    "emailValue": "sales@appsafety.co.id",
+    "form": {
+      "overline": "REQUEST A QUOTE",
+      "title": "Send us your requirements",
+      "fullName": "FULL NAME *",
+      "fullNamePlaceholder": "Budi Santoso",
+      "company": "COMPANY",
+      "companyPlaceholder": "PT Contoh",
+      "email": "EMAIL *",
+      "emailPlaceholder": "you@company.co.id",
+      "whatsapp": "WHATSAPP *",
+      "whatsappPlaceholder": "+62 ...",
+      "requirements": "REQUIREMENTS *",
+      "requirementsPlaceholder": "Product, quantity, sizing, delivery timeline...",
+      "submit": "Send Quote Request",
+      "disclaimer": "By submitting you agree to be contacted about your inquiry."
+    }
+  }
+}

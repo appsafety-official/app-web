@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useCartStore } from "@/store/useCartStore";
 
 interface ProductCardProps {
@@ -18,11 +19,11 @@ export default function ProductCard({
   price,
   imageUrl,
 }: ProductCardProps) {
+  const t = useTranslations("common.productCard");
   const addItem = useCartStore((s) => s.addItem);
 
   return (
     <div className="flex flex-col border border-gray-200 bg-white">
-      {/* Image Area */}
       <Link href={`/products/${id}`} className="group">
         <div className="relative aspect-[4/5] flex items-center justify-center bg-gray-100">
           {imageUrl ? (
@@ -33,7 +34,7 @@ export default function ProductCard({
             />
           ) : (
             <span className="font-mono text-xs tracking-widest text-gray-300">
-              [PRODUCT]
+              [{t("productPlaceholder")}]
             </span>
           )}
           <span className="absolute left-2 top-2 border border-gray-200 bg-white/90 px-2 py-0.5 font-mono text-[10px] font-semibold tracking-wider text-gray-600">
@@ -42,7 +43,6 @@ export default function ProductCard({
         </div>
       </Link>
 
-      {/* Card Body */}
       <div className="flex flex-1 flex-col px-4 py-4">
         <Link href={`/products/${id}`}>
           <h3 className="text-sm font-bold leading-tight text-black">
@@ -54,12 +54,11 @@ export default function ProductCard({
         </p>
       </div>
 
-      {/* Card Footer */}
       <button
         onClick={() => addItem({ productId: id, name, price })}
         className="mt-auto w-full rounded-sm bg-yellow px-4 py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
       >
-        + Add to Cart
+        {t("addToCart")}
       </button>
     </div>
   );

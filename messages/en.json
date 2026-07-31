@@ -74,6 +74,10 @@
       "expertTitle": "Expert Consultation",
       "expertDesc": "Direct guidance from certified safety engineers for product selection, specs, and compliance."
     },
+    "clients": {
+      "overline": "OUR CLIENTS",
+      "title": "Trusted by leading industries across Indonesia"
+    },
     "highlightedGear": {
       "overline": "HIGHLIGHTED GEAR",
       "title": "Engineered for the worst-case day",

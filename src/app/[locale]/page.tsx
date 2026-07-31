@@ -11,6 +11,7 @@ export default async function HomePage({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "home" });
   const ft = await getTranslations({ locale, namespace: "home.features" });
+  const ct = await getTranslations({ locale, namespace: "home.clients" });
   const pt = await getTranslations({ locale, namespace: "products.products" });
 
   const highlightProducts = [
@@ -24,6 +25,21 @@ export default async function HomePage({
     { icon: Truck, title: ft("deliveryTitle"), desc: ft("deliveryDesc") },
     { icon: Ruler, title: ft("sizingTitle"), desc: ft("sizingDesc") },
     { icon: Headset, title: ft("expertTitle"), desc: ft("expertDesc") },
+  ];
+
+  const clients = [
+    "PT Pertamina",
+    "PT PLN",
+    "PT Krakatau Steel",
+    "PT Freeport Indonesia",
+    "PT Pupuk Indonesia",
+    "PT Kaltim Prima Coal",
+    "PT Adaro Energy",
+    "PT Semen Indonesia",
+    "PT Aneka Tambang",
+    "PT Inalum",
+    "PT Pelindo",
+    "PT Timah",
   ];
 
   return (
@@ -116,6 +132,43 @@ export default async function HomePage({
                 <p className="text-xs leading-relaxed text-gray-500">{f.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="mx-auto max-w-6xl px-4 pt-16 sm:pt-20">
+          <div className="mb-10">
+            <p className="mb-1 font-mono text-xs font-semibold tracking-widest text-gray-400">
+              {ct("overline")}
+            </p>
+            <h2 className="text-2xl font-bold leading-tight sm:text-3xl">
+              {ct("title")}
+            </h2>
+          </div>
+        </div>
+        <div className="overflow-hidden border-y border-gray-200 py-8">
+          <div className="space-y-8">
+            <div className="marquee-row animate-marquee-left flex w-max items-center">
+              {[...clients, ...clients].map((name, i) => (
+                <span
+                  key={`${name}-${i}`}
+                  className="mx-8 shrink-0 font-mono text-sm font-semibold uppercase tracking-wider text-gray-400 transition-colors hover:text-black"
+                >
+                  {name}
+                </span>
+              ))}
+            </div>
+            <div className="marquee-row animate-marquee-right flex w-max items-center">
+              {[...clients, ...clients].map((name, i) => (
+                <span
+                  key={`${name}-${i}`}
+                  className="mx-8 shrink-0 font-mono text-sm font-semibold uppercase tracking-wider text-gray-400 transition-colors hover:text-black"
+                >
+                  {name}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>

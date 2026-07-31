@@ -48,8 +48,9 @@
   "home": {
     "hero": {
       "badge": "PT ARIE PUTRA PERMANA - SEJAK 2015",
-      "title": "Pakaian Safety Premium untuk",
-      "highlight": "Performa Industri Terbaik",
+      "title": "Pakaian Safety",
+      "titleLine2": "Premium untuk",
+      "highlight": "Performa Terbaik",
       "subtitle": "Dipercaya oleh berbagai industri terkemuka sebagai penyedia pakaian safety berkualitas tinggi yang dirancang khusus untuk memenuhi standar keselamatan internasional.",
       "browseProducts": "Lihat Produk",
       "contactUs": "Hubungi Kami",
@@ -69,7 +70,9 @@
       "deliveryTitle": "Pengiriman Cepat",
       "deliveryDesc": "Pemrosesan di hari yang sama untuk pesanan sebelum pukul 12:00 WIB. Kirim ke semua kota besar di Indonesia.",
       "sizingTitle": "Ukuran Kustom",
-      "sizingDesc": "Minta ukuran khusus untuk pesanan dalam jumlah besar. Minimal 50 unit per spesifikasi kustom."
+      "sizingDesc": "Minta ukuran khusus untuk pesanan dalam jumlah besar. Minimal 50 unit per spesifikasi kustom.",
+      "expertTitle": "Konsultasi Ahli",
+      "expertDesc": "Panduan langsung dari ahli K3 bersertifikat untuk pemilihan produk, spesifikasi, dan kepatuhan."
     },
     "highlightedGear": {
       "overline": "PRODUK PILIHAN",

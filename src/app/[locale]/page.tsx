@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import { ShieldCheck, Truck, Ruler } from "lucide-react";
+import { ShieldCheck, Truck, Ruler, Headset } from "lucide-react";
 import ProductCard from "@/components/public/ProductCard";
 
 export default async function HomePage({
@@ -23,6 +23,7 @@ export default async function HomePage({
     { icon: ShieldCheck, title: ft("qualityTitle"), desc: ft("qualityDesc") },
     { icon: Truck, title: ft("deliveryTitle"), desc: ft("deliveryDesc") },
     { icon: Ruler, title: ft("sizingTitle"), desc: ft("sizingDesc") },
+    { icon: Headset, title: ft("expertTitle"), desc: ft("expertDesc") },
   ];
 
   return (
@@ -40,7 +41,10 @@ export default async function HomePage({
                 {t("hero.badge")}
               </p>
               <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-                {t("hero.title")}{" "}
+                {t("hero.title")}
+                <br />
+                {t("hero.titleLine2")}
+                <br />
                 <span className="whitespace-nowrap text-yellow">{t("hero.highlight")}</span>
               </h1>
               <p className="mt-4 max-w-lg text-sm leading-relaxed text-gray-500 sm:text-base">
@@ -59,6 +63,23 @@ export default async function HomePage({
                 >
                   {t("hero.contactUs")}
                 </Link>
+              </div>
+
+              <div className="mt-8 grid grid-cols-3 gap-4 border-t border-gray-200 pt-6">
+                {[
+                  { stat: "10+", label: t("stats.years") },
+                  { stat: "500+", label: t("stats.clients") },
+                  { stat: "ISO", label: t("stats.certified") },
+                ].map((item) => (
+                  <div key={item.label}>
+                    <div className="font-mono text-2xl font-bold text-black sm:text-3xl">
+                      {item.stat}
+                    </div>
+                    <div className="mt-1 font-mono text-[10px] font-semibold tracking-widest text-gray-400">
+                      {item.label}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -80,33 +101,16 @@ export default async function HomePage({
         </div>
       </section>
 
-      <section className="border-b border-gray-200">
-        <div className="mx-auto flex max-w-6xl flex-col divide-y divide-gray-200 px-4 sm:flex-row sm:divide-x sm:divide-y-0">
-          {[
-            { stat: "10+", label: t("stats.years") },
-            { stat: "500+", label: t("stats.clients") },
-            { stat: "ISO", label: t("stats.certified") },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="flex flex-col items-center justify-center py-10 sm:flex-1 sm:py-14"
-            >
-              <span className="font-mono text-4xl font-bold text-black sm:text-5xl">
-                {item.stat}
-              </span>
-              <span className="mt-2 font-mono text-[10px] font-semibold tracking-widest text-gray-400">
-                {item.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="border-b border-gray-200">
+      <section>
         <div className="mx-auto max-w-6xl px-4 py-16 sm:py-20">
-          <div className="grid gap-6 sm:grid-cols-3">
-            {features.map((f) => (
-              <div key={f.title} className="border border-gray-200 px-6 py-8">
+          <div className="grid border-y border-gray-200 sm:grid-cols-4">
+            {features.map((f, i) => (
+              <div
+                key={f.title}
+                className={`px-8 py-6 ${
+                  i < features.length - 1 ? "sm:border-r sm:border-gray-200" : ""
+                }`}
+              >
                 <f.icon className="mb-4 h-6 w-6 text-orange" strokeWidth={1.5} />
                 <h3 className="mb-2 text-base font-bold text-black">{f.title}</h3>
                 <p className="text-xs leading-relaxed text-gray-500">{f.desc}</p>

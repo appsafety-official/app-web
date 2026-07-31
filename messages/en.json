@@ -48,7 +48,8 @@
   "home": {
     "hero": {
       "badge": "PT ARIE PUTRA PERMANA - EST. 2015",
-      "title": "Premium Safety Apparel for",
+      "title": "Premium Safety",
+      "titleLine2": "Apparel for",
       "highlight": "Industrial Excellence",
       "subtitle": "Trusted by leading industries for high-quality firefighter suits, welding gear, and hazmat protection engineered to meet international standards.",
       "browseProducts": "Browse Products",
@@ -69,7 +70,9 @@
       "deliveryTitle": "Fast Delivery",
       "deliveryDesc": "Same-day processing for orders before 12:00 WIB. Ship to all major cities across Indonesia.",
       "sizingTitle": "Custom Sizing",
-      "sizingDesc": "Request tailored measurements for bulk orders. Minimum 50 pieces per custom spec."
+      "sizingDesc": "Request tailored measurements for bulk orders. Minimum 50 pieces per custom spec.",
+      "expertTitle": "Expert Consultation",
+      "expertDesc": "Direct guidance from certified safety engineers for product selection, specs, and compliance."
     },
     "highlightedGear": {
       "overline": "HIGHLIGHTED GEAR",

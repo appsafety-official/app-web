@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
+import { Menu, ShoppingCart, User, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCartStore } from "@/store/useCartStore";
 import { useEffect, useState } from "react";
@@ -14,6 +14,7 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
@@ -59,13 +60,14 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-3">
-            <LanguageSwitcher />
             <Link
-              href="/contact"
-              className="rounded-sm bg-yellow px-4 py-2 text-sm font-semibold text-black transition-opacity hover:opacity-90"
+              href="/admin/login"
+              className="hidden items-center gap-2 rounded-sm border border-gray-900 px-3 py-2 text-sm font-semibold text-black transition-colors hover:bg-gray-50 sm:flex"
             >
-              {t("getQuote")}
+              <User className="h-4 w-4" />
+              {t("signIn")}
             </Link>
+            <LanguageSwitcher />
             <button
               onClick={() => setCartOpen(true)}
               className="rounded-sm border border-gray-200 bg-white p-2 transition-colors hover:bg-gray-50"
@@ -77,8 +79,48 @@ export default function Navbar() {
                 </span>
               )}
             </button>
+            <button
+              onClick={() => setMobileOpen((v) => !v)}
+              className="rounded-sm border border-gray-200 bg-white p-2 transition-colors hover:bg-gray-50 sm:hidden"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? (
+                <X className="h-4 w-4 text-gray-600" />
+              ) : (
+                <Menu className="h-4 w-4 text-gray-600" />
+              )}
+            </button>
           </div>
         </div>
+
+        {mobileOpen && (
+          <div className="border-t border-gray-100 bg-white px-4 py-4 sm:hidden">
+            <div className="flex flex-col gap-4">
+              <Link
+                href="/admin/login"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-center gap-2 rounded-sm border border-gray-900 px-3 py-2.5 text-sm font-semibold text-black"
+              >
+                <User className="h-4 w-4" />
+                {t("signIn")}
+              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={
+                    link.href === "/"
+                      ? "text-base font-medium text-black"
+                      : "text-base font-medium text-gray-500 transition-colors hover:text-black"
+                  }
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </nav>
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </>

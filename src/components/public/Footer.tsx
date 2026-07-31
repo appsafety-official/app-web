@@ -30,8 +30,9 @@ export default async function Footer() {
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-10 sm:grid-cols-3">
             <div>
-              <div className="mb-3">
+              <div className="mb-3 flex items-center gap-2">
                 <img src="/images/logo-app.png" alt="APP SAFETY" className="h-7 w-auto brightness-0 invert" />
+                <span className="font-mono text-lg font-bold tracking-wide text-white">APP SAFETY</span>
               </div>
               <p className="mb-3 text-xs leading-relaxed text-gray-500">
                 {t("companyDesc")}

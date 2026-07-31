@@ -41,6 +41,7 @@ export default function Navbar() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
           <Link href="/" className="flex items-center gap-2">
             <img src="/images/logo-app.png" alt="APP SAFETY" className="h-8 w-auto" />
+            <span className="font-mono text-lg font-bold tracking-wide text-black">APP SAFETY</span>
           </Link>
 
           <div className="hidden items-center gap-8 text-sm font-medium sm:flex">

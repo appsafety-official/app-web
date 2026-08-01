@@ -163,5 +163,54 @@
       "submit": "Send Quote Request",
       "disclaimer": "By submitting you agree to be contacted about your inquiry."
     }
+  },
+  "admin": {
+    "nav": {
+      "appName": "APP SAFETY ADMIN",
+      "dashboard": "Dashboard",
+      "products": "Products",
+      "prospects": "Prospects",
+      "orders": "Orders",
+      "logout": "LOGOUT"
+    },
+    "login": {
+      "title": "ADMIN ACCESS",
+      "subtitle": "Restricted area — authentication required.",
+      "email": "EMAIL",
+      "emailPlaceholder": "admin@appsafety.com",
+      "password": "PASSWORD",
+      "passwordPlaceholder": "Enter your password",
+      "submit": "SIGN IN",
+      "loading": "SIGNING IN...",
+      "success": "Welcome back.",
+      "invalidCredentials": "Invalid email or password.",
+      "error": "Something went wrong. Please try again.",
+      "emailInvalid": "Please enter a valid email address.",
+      "passwordMin": "Password must be at least 6 characters."
+    },
+    "dashboard": {
+      "title": "Dashboard Overview",
+      "subtitle": "Real-time operational snapshot",
+      "totalProducts": "Total Products",
+      "totalProspects": "Total Prospects",
+      "totalOrders": "Total Orders",
+      "revenue": "Revenue",
+      "recentProspects": "Recent Prospects",
+      "name": "NAME",
+      "whatsapp": "WHATSAPP",
+      "status": "STATUS",
+      "source": "SOURCE",
+      "date": "DATE",
+      "noData": "No prospects yet.",
+      "statusCold": "COLD",
+      "statusWarm": "WARM",
+      "statusHot": "HOT"
+    },
+    "placeholder": {
+      "comingSoon": "COMING SOON",
+      "productsSoon": "Products Management - Coming Soon di Sprint 3",
+      "prospectsSoon": "Prospects Management - Coming Soon di Sprint 4",
+      "ordersSoon": "Orders Management - Coming Soon di Sprint 4"
+    }
   }
 }

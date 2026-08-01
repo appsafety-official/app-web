@@ -163,5 +163,54 @@
       "submit": "Kirim Permintaan Penawaran",
       "disclaimer": "Dengan mengirimkan, Anda setuju untuk dihubungi mengenai pertanyaan Anda."
     }
+  },
+  "admin": {
+    "nav": {
+      "appName": "APP SAFETY ADMIN",
+      "dashboard": "Dashboard",
+      "products": "Produk",
+      "prospects": "Prospek",
+      "orders": "Pesanan",
+      "logout": "KELUAR"
+    },
+    "login": {
+      "title": "AKSES ADMIN",
+      "subtitle": "Area terbatas — autentikasi diperlukan.",
+      "email": "EMAIL",
+      "emailPlaceholder": "admin@appsafety.com",
+      "password": "KATA SANDI",
+      "passwordPlaceholder": "Masukkan kata sandi Anda",
+      "submit": "MASUK",
+      "loading": "MEMASUKI...",
+      "success": "Selamat datang kembali.",
+      "invalidCredentials": "Email atau kata sandi salah.",
+      "error": "Terjadi kesalahan. Silakan coba lagi.",
+      "emailInvalid": "Masukkan alamat email yang valid.",
+      "passwordMin": "Kata sandi minimal 6 karakter."
+    },
+    "dashboard": {
+      "title": "Ikhtisar Dashboard",
+      "subtitle": "Ringkasan operasional real-time",
+      "totalProducts": "Total Produk",
+      "totalProspects": "Total Prospek",
+      "totalOrders": "Total Pesanan",
+      "revenue": "Pendapatan",
+      "recentProspects": "Prospek Terbaru",
+      "name": "NAMA",
+      "whatsapp": "WHATSAPP",
+      "status": "STATUS",
+      "source": "SUMBER",
+      "date": "TANGGAL",
+      "noData": "Belum ada prospek.",
+      "statusCold": "DINGIN",
+      "statusWarm": "HANGAT",
+      "statusHot": "PANAS"
+    },
+    "placeholder": {
+      "comingSoon": "SEGERA HADIR",
+      "productsSoon": "Products Management - Coming Soon di Sprint 3",
+      "prospectsSoon": "Prospects Management - Coming Soon di Sprint 4",
+      "ordersSoon": "Orders Management - Coming Soon di Sprint 4"
+    }
   }
 }

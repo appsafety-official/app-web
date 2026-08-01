@@ -3,6 +3,7 @@ export interface ProductData {
   name: string;
   category: string;
   price: number;
+  stock: number;
   description: string | null;
   imageUrl: string | null;
   specs: unknown;
@@ -14,8 +15,9 @@ export interface ProductInput {
   name: string;
   category: string;
   price: number;
-  description?: string;
-  imageUrl?: string;
+  stock?: number;
+  description?: string | null;
+  imageUrl?: string | null;
   specs?: unknown;
 }
 

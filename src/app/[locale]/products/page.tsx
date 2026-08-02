@@ -24,7 +24,7 @@ export default function ProductsPage() {
 
   const products = allProducts.map((p) => ({
     ...p,
-    name: pt(p.nameKey as any),
+    name: pt(p.nameKey),
   }));
 
   const filtered = products.filter((p) => {
@@ -67,7 +67,7 @@ export default function ProductsPage() {
                   : "border border-gray-200 bg-white text-gray-600 hover:border-gray-400"
               }`}
             >
-              {ct(key as any)}
+              {ct(key)}
             </button>
           ))}
         </div>

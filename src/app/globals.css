@@ -71,6 +71,11 @@ body {
   font-family: "Inter", "Helvetica", ui-sans-serif, system-ui, sans-serif;
 }
 
+[data-base-ui-portal] {
+  position: relative;
+  z-index: 9999;
+}
+
 @keyframes marquee-left {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }

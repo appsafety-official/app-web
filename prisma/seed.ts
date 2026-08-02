@@ -24,9 +24,6 @@ const orderItem = (productName: string, qty: number, price: number): OrderItem =
   subtotal: qty * price,
 });
 
-const lineItemsTotal = (items: OrderItem[]) =>
-  items.reduce((sum, item) => sum + item.subtotal, 0);
-
 const products = [
   {
     name: "Aluminized Fire Proximity Suit",

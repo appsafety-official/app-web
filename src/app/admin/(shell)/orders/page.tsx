@@ -1,5 +1,10 @@
-import { PlaceholderPage } from "@/components/admin/PlaceholderPage";
+import { orderRepository } from "@/repositories/implementations/PrismaOrderRepository";
+import { OrdersManager } from "@/components/admin/OrdersManager";
 
-export default function AdminOrdersPage() {
-  return <PlaceholderPage messageKey="ordersSoon" />;
+export const dynamic = "force-dynamic";
+
+export default async function AdminOrdersPage() {
+  const orders = await orderRepository.findAll();
+
+  return <OrdersManager initialOrders={orders} />;
 }

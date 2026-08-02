@@ -11,12 +11,9 @@ import LanguageSwitcher from "./LanguageSwitcher";
 export default function Navbar() {
   const t = useTranslations("common.navbar");
   const totalItems = useCartStore((s) => s.totalItems());
-  const [mounted, setMounted] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
@@ -74,7 +71,7 @@ export default function Navbar() {
               className="rounded-sm border border-gray-200 bg-white p-2 transition-colors hover:bg-gray-50"
             >
               <ShoppingCart className="h-4 w-4 text-gray-600" />
-              {mounted && totalItems > 0 && (
+              {totalItems > 0 && (
                 <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center bg-black text-[10px] text-white">
                   {totalItems}
                 </span>

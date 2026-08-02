@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { X, Minus, Plus, ShoppingCart } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCartStore } from "@/store/useCartStore";
+import { CheckoutForm } from "@/components/public/CheckoutForm";
 
 interface CartDrawerProps {
   open: boolean;
@@ -34,15 +35,6 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
   }, [onClose]);
 
   if (!open) return null;
-
-  const waText = encodeURIComponent(
-    `Halo APP Safety! Saya mau order:\n${items
-      .map(
-        (i) =>
-          `- ${i.name} x${i.quantity} = Rp ${(i.price * i.quantity).toLocaleString("id-ID")}`
-      )
-      .join("\n")}\n\nTotal: Rp ${totalAmount().toLocaleString("id-ID")}`
-  );
 
   return (
     <div className="fixed inset-0 z-[60]">
@@ -109,21 +101,14 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
         </div>
 
         {items.length > 0 && (
-          <div className="border-t border-gray-200 px-4 py-4">
-            <div className="mb-4 flex justify-between text-sm font-bold">
+          <div className="space-y-4 border-t border-gray-200 px-4 py-4">
+            <div className="flex justify-between text-sm font-bold">
               <span>{t("total")}</span>
               <span className="font-mono">
                 Rp {totalAmount().toLocaleString("id-ID")}
               </span>
             </div>
-            <a
-              href={`https://wa.me/6281234567890?text=${waText}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex w-full items-center justify-center rounded-sm bg-yellow px-6 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"
-            >
-              {t("checkout")}
-            </a>
+            <CheckoutForm />
           </div>
         )}
       </div>

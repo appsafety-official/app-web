@@ -92,12 +92,12 @@ export default function ProductDetailPage() {
           <span className="inline-block border border-stone-900 px-3 py-1 text-[10px] font-bold tracking-widest text-stone-600">
             {product.categoryLabel}
           </span>
-          <h1 className="mt-4 text-2xl font-bold leading-tight">{pt(product.nameKey as any)}</h1>
+          <h1 className="mt-4 text-2xl font-bold leading-tight">{pt(product.nameKey)}</h1>
           <p className="mt-4 text-2xl font-bold text-stone-900">
             Rp {product.price.toLocaleString("id-ID")}
           </p>
           <p className="mt-4 text-xs leading-relaxed text-stone-600">
-            {dt(product.descKey as any)}
+            {dt(product.descKey)}
           </p>
 
           <div className="mt-6 border border-stone-900">
@@ -133,7 +133,7 @@ export default function ProductDetailPage() {
 
           <button
             onClick={() => {
-              addItem({ productId: product.id, name: pt(product.nameKey as any), price: product.price });
+              addItem({ productId: product.id, name: pt(product.nameKey), price: product.price });
             }}
             className="mt-4 w-full border border-stone-900 bg-stone-900 px-6 py-3 text-sm font-bold text-safety transition-colors hover:bg-stone-800"
           >

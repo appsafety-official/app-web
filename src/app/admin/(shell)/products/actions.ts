@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { auth } from "@/lib/auth";
 import { productRepository } from "@/repositories/product.repository";
 import {
-  getStoragePathFromUrl,
+  PRODUCT_IMAGE_BUCKET,
   storageService,
 } from "@/repositories/storage.service";
 
@@ -41,7 +41,11 @@ async function requireAdmin() {
   }
 }
 
-function toProductInput(data: z.infer<typeof productSchema>) {
+type ProductInput = Omit<z.infer<typeof productSchema>, "imageUrl"> & {
+  imageUrl?: string | null;
+};
+
+function toProductInput(data: ProductInput) {
   return {
     name: data.name,
     category: data.category,
@@ -61,11 +65,18 @@ function toProductInput(data: z.infer<typeof productSchema>) {
 
 export async function createProductAction(
   input: unknown,
+  imageFile?: File | null,
 ): Promise<ProductActionResult> {
   try {
     await requireAdmin();
     const parsed = productSchema.parse(input);
-    const product = await productRepository.create(toProductInput(parsed));
+    let imageUrl = parsed.imageUrl || null;
+    if (imageFile && imageFile.size > 0) {
+      imageUrl = await storageService.upload(imageFile, PRODUCT_IMAGE_BUCKET);
+    }
+    const product = await productRepository.create(
+      toProductInput({ ...parsed, imageUrl }),
+    );
     revalidatePath("/admin/products");
     return { ok: true, productId: product.id };
   } catch (error) {
@@ -79,11 +90,28 @@ export async function createProductAction(
 export async function updateProductAction(
   id: string,
   input: unknown,
+  imageFile?: File | null,
 ): Promise<ProductActionResult> {
   try {
     await requireAdmin();
     const parsed = productSchema.parse(input);
-    const product = await productRepository.update(id, toProductInput(parsed));
+    const existing = await productRepository.findById(id);
+    if (!existing) throw new Error("Product not found");
+    let imageUrl = parsed.imageUrl || null;
+    if (imageFile && imageFile.size > 0) {
+      imageUrl = await storageService.upload(imageFile, PRODUCT_IMAGE_BUCKET);
+      if (existing.imageUrl) {
+        try {
+          await storageService.delete(existing.imageUrl, PRODUCT_IMAGE_BUCKET);
+        } catch {
+          // best-effort cleanup
+        }
+      }
+    }
+    const product = await productRepository.update(
+      id,
+      toProductInput({ ...parsed, imageUrl }),
+    );
     revalidatePath("/admin/products");
     return { ok: true, productId: product.id };
   } catch (error) {
@@ -101,13 +129,10 @@ export async function deleteProductAction(
     await requireAdmin();
     const existing = await productRepository.findById(id);
     if (existing?.imageUrl) {
-      const path = getStoragePathFromUrl(existing.imageUrl);
-      if (path) {
-        try {
-          await storageService.delete(path);
-        } catch {
-          // best-effort cleanup
-        }
+      try {
+        await storageService.delete(existing.imageUrl, PRODUCT_IMAGE_BUCKET);
+      } catch {
+        // best-effort cleanup
       }
     }
     await productRepository.delete(id);

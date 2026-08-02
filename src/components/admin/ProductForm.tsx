@@ -18,7 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { storageService } from "@/repositories/storage.service";
 import {
   createProductAction,
   updateProductAction,
@@ -60,7 +59,10 @@ export function ProductForm({
 }) {
   const t = useTranslations("admin.products");
   const router = useRouter();
-  const [imageUrl, setImageUrl] = useState(initialData?.imageUrl ?? "");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    initialData?.imageUrl ?? null,
+  );
   const [uploading, setUploading] = useState(false);
 
   const specData =
@@ -108,7 +110,7 @@ export function ProductForm({
     },
   });
 
-  async function handleImageChange(file: File) {
+  function handleImageChange(file: File) {
     if (!file.type.startsWith("image/")) {
       toast.error(t("imageTypeInvalid"));
       return;
@@ -117,46 +119,40 @@ export function ProductForm({
       toast.error(t("imageTooLarge"));
       return;
     }
-    setUploading(true);
-    try {
-      const path = `products/${crypto.randomUUID()}-${file.name}`;
-      const url = await storageService.upload(file, path);
-      setImageUrl(url);
-      toast.success(t("imageUploaded"));
-    } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : t("imageUploadError"),
-      );
-    } finally {
-      setUploading(false);
-    }
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
   }
 
   async function onSubmit(values: ProductFormValues) {
-    const payload = {
-      name: values.name,
-      category: values.category,
-      price: Number(values.price),
-      stock: Number(values.stock),
-      description: values.description,
-      imageUrl,
-      specs: {
-        material: values.material,
-        size: values.size,
-        certification: values.certification,
-      },
-    };
+    setUploading(true);
+    try {
+      const payload = {
+        name: values.name,
+        category: values.category,
+        price: Number(values.price),
+        stock: Number(values.stock),
+        description: values.description,
+        imageUrl: initialData?.imageUrl ?? "",
+        specs: {
+          material: values.material,
+          size: values.size,
+          certification: values.certification,
+        },
+      };
 
-    const result = initialData
-      ? await updateProductAction(initialData.id, payload)
-      : await createProductAction(payload);
+      const result = initialData
+        ? await updateProductAction(initialData.id, payload, imageFile)
+        : await createProductAction(payload, imageFile);
 
-    if (result.ok) {
-      toast.success(initialData ? t("updated") : t("created"));
-      router.push("/admin/products");
-      router.refresh();
-    } else {
-      toast.error(result.error);
+      if (result.ok) {
+        toast.success(initialData ? t("updated") : t("created"));
+        router.push("/admin/products");
+        router.refresh();
+      } else {
+        toast.error(result.error);
+      }
+    } finally {
+      setUploading(false);
     }
   }
 
@@ -276,10 +272,10 @@ export function ProductForm({
           </label>
           <div className="flex items-center gap-4">
             <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-none border border-stone-900 bg-stone-50">
-              {imageUrl ? (
+              {imagePreview ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={imageUrl}
+                  src={imagePreview}
                   alt=""
                   className="h-full w-full object-cover"
                 />
@@ -306,8 +302,9 @@ export function ProductForm({
               onChange={(event) => {
                 const file = event.target.files?.[0];
                 if (file) {
-                  void handleImageChange(file);
+                  handleImageChange(file);
                 }
+                event.target.value = "";
               }}
             />
           </div>

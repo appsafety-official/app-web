@@ -230,6 +230,7 @@ export function ProspectsManager({
                     <Button
                       variant="ghost"
                       size="icon-sm"
+                      nativeButton={false}
                       render={<Link href={`/admin/prospects/${prospect.id}`} />}
                     >
                       <Eye />

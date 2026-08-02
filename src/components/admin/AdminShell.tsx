@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
+  FileText,
   HardHat,
   LayoutDashboard,
   Package,
@@ -17,6 +18,7 @@ const navItems = [
   { href: "/admin/products", labelKey: "products", icon: Package },
   { href: "/admin/prospects", labelKey: "prospects", icon: Users },
   { href: "/admin/orders", labelKey: "orders", icon: ShoppingCart },
+  { href: "/admin/blog", labelKey: "blog", icon: FileText },
 ] as const;
 
 export function AdminShell({

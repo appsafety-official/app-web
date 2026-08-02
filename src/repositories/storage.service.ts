@@ -1,59 +1,48 @@
-import { isSupabaseConfigured, supabase } from "@/lib/supabase/client";
+import { supabaseAdmin } from "@/lib/supabase/server";
 import type { IStorageService } from "./interfaces/IStorageService";
 
 export const PRODUCT_IMAGE_BUCKET = "product-images";
+export const BLOG_IMAGE_BUCKET = "blog-images";
 
-export function getStoragePathFromUrl(url: string): string | null {
+function getFileNameFromUrl(fileUrl: string): string | null {
   try {
-    const parsed = new URL(url);
-    const segments = parsed.pathname.split("/").filter(Boolean);
-    const bucketIndex = segments.indexOf(PRODUCT_IMAGE_BUCKET);
-    if (bucketIndex === -1 || bucketIndex === segments.length - 1) {
-      return null;
-    }
-    return segments.slice(bucketIndex + 1).join("/");
+    const pathname = new URL(fileUrl).pathname;
+    const segments = pathname.split("/").filter(Boolean);
+    const fileName = segments[segments.length - 1];
+    return fileName || null;
   } catch {
     return null;
   }
 }
 
 export class SupabaseStorageService implements IStorageService {
-  private requireClient() {
-    if (!supabase) {
+  private requireAdmin() {
+    if (!supabaseAdmin) {
       throw new Error(
-        "Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+        "Supabase Admin is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.",
       );
     }
-    return supabase;
+    return supabaseAdmin;
   }
 
-  async upload(file: File, path: string): Promise<string> {
-    if (!isSupabaseConfigured) {
-      throw new Error(
-        "Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
-      );
-    }
-    const client = this.requireClient();
+  async upload(file: File, bucket: string): Promise<string> {
+    const client = this.requireAdmin();
+    const fileName = `${Date.now()}-${file.name}`;
     const { error } = await client.storage
-      .from(PRODUCT_IMAGE_BUCKET)
-      .upload(path, file, { cacheControl: "3600", upsert: false });
+      .from(bucket)
+      .upload(fileName, file, { cacheControl: "3600", upsert: false });
     if (error) throw error;
-    return this.getUrl(path);
+    const { data } = client.storage.from(bucket).getPublicUrl(fileName);
+    return data.publicUrl;
   }
 
-  getUrl(path: string): Promise<string> {
-    const client = this.requireClient();
-    return Promise.resolve(
-      client.storage.from(PRODUCT_IMAGE_BUCKET).getPublicUrl(path).data
-        .publicUrl,
-    );
-  }
-
-  async delete(path: string): Promise<void> {
-    const client = this.requireClient();
-    const { error } = await client.storage
-      .from(PRODUCT_IMAGE_BUCKET)
-      .remove([path]);
+  async delete(fileUrl: string, bucket: string): Promise<void> {
+    const client = this.requireAdmin();
+    const fileName = getFileNameFromUrl(fileUrl);
+    if (!fileName) {
+      throw new Error("Invalid file URL");
+    }
+    const { error } = await client.storage.from(bucket).remove([fileName]);
     if (error) throw error;
   }
 }

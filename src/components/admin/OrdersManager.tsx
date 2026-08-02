@@ -153,6 +153,7 @@ export function OrdersManager({ initialOrders }: { initialOrders: OrderData[] })
                     <Button
                       variant="ghost"
                       size="icon-sm"
+                      nativeButton={false}
                       render={<Link href={`/admin/orders/${order.id}`} />}
                     >
                       <Eye />

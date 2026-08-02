@@ -3,6 +3,7 @@ import type { IStorageService } from "./interfaces/IStorageService";
 
 export const PRODUCT_IMAGE_BUCKET = "product-images";
 export const BLOG_IMAGE_BUCKET = "blog-images";
+export const LEAD_MAGNET_BUCKET = "lead-magnets";
 
 function getFileNameFromUrl(fileUrl: string): string | null {
   try {

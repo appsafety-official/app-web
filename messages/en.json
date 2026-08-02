@@ -178,6 +178,19 @@
       "disclaimer": "By submitting you agree to be contacted about your inquiry."
     }
   },
+  "leadMagnet": {
+    "title": "Free Download",
+    "subtitle": "Get the latest K3 ebook",
+    "name": "Full Name",
+    "namePlaceholder": "Budi Santoso",
+    "whatsapp": "WhatsApp Number",
+    "whatsappPlaceholder": "0812-3456-7890",
+    "download": "Download Now",
+    "downloading": "DOWNLOADING...",
+    "success": "Thank you! Download started.",
+    "nameRequired": "Please enter your name.",
+    "whatsappInvalid": "Enter a valid WhatsApp number (min 10 digits)."
+  },
   "admin": {
     "nav": {
       "appName": "APP SAFETY ADMIN",
@@ -186,6 +199,7 @@
       "prospects": "Prospects",
       "orders": "Orders",
       "blog": "Blog",
+      "leadMagnets": "Lead Magnets",
       "logout": "LOGOUT"
     },
     "login": {
@@ -407,6 +421,49 @@
       "imageTooLarge": "Image must be smaller than 5MB.",
       "statusLabel": "PUBLISHING STATUS",
       "publishedToggle": "Publish this post (visible on public blog)"
+    },
+    "leadMagnets": {
+      "title": "Lead Magnets",
+      "subtitle": "Manage downloadable freebies (ebooks, catalogs, guides)",
+      "addFreebie": "UPLOAD NEW FREEBIE",
+      "newFreebie": "New Freebie",
+      "editFreebie": "Edit Freebie",
+      "back": "BACK",
+      "empty": "No freebies yet. Upload your first lead magnet.",
+      "notFound": "Lead magnet not found.",
+      "titleColumn": "TITLE",
+      "pdfColumn": "PDF NAME",
+      "status": "STATUS",
+      "active": "ACTIVE",
+      "inactive": "INACTIVE",
+      "date": "DATE",
+      "actions": "ACTIONS",
+      "edit": "Edit",
+      "created": "Lead magnet created.",
+      "updated": "Lead magnet updated.",
+      "deleted": "Lead magnet deleted.",
+      "deleteTitle": "Delete lead magnet?",
+      "deleteConfirm": "This action cannot be undone. The freebie and its PDF will be permanently removed.",
+      "delete": "DELETE",
+      "deleting": "DELETING...",
+      "cancel": "CANCEL",
+      "saving": "SAVING...",
+      "save": "SAVE",
+      "create": "UPLOAD FREEBIE",
+      "titleLabel": "TITLE",
+      "titlePlaceholder": "e.g. K3 Safety Ebook 2026",
+      "titleRequired": "Title is required.",
+      "descriptionLabel": "DESCRIPTION",
+      "descriptionPlaceholder": "Short description shown next to the download form...",
+      "pdfLabel": "PDF FILE",
+      "chooseFile": "CHOOSE FILE",
+      "noFile": "No file selected",
+      "pdfTypeInvalid": "Please choose a PDF file.",
+      "pdfTooLarge": "PDF must be smaller than 20MB.",
+      "pdfSelected": "PDF selected.",
+      "statusLabel": "ACTIVE STATUS",
+      "activeToggle": "Set as active freebie (visible on public site)",
+      "activeHint": "Only one freebie can be active at a time. Activating this one will deactivate others."
     }
   },
   "blog": {

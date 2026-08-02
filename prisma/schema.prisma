@@ -36,6 +36,18 @@ model Post {
   @@map("posts")
 }
 
+model LeadMagnet {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  pdfUrl      String
+  isActive    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("lead_magnets")
+}
+
 model Prospect {
   id                 String   @id @default(cuid())
   name               String

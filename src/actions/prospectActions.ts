@@ -4,6 +4,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/lib/auth";
 import { prospectRepository } from "@/repositories/implementations/PrismaProspectRepository";
+import { leadMagnetRepository } from "@/repositories/implementations/PrismaLeadMagnetRepository";
 import type { ProspectFilters } from "@/repositories/interfaces/IProspectRepository";
 
 type ActionResult<T> = { ok: true; data: T } | { ok: false; error: string };
@@ -77,6 +78,40 @@ export async function exportProspectsToCSV(): Promise<ActionResult<string>> {
     await requireAdmin();
     const data = await prospectRepository.exportToCSV();
     return { ok: true, data };
+  } catch (error) {
+    return toError(error);
+  }
+}
+
+const captureSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(200),
+  whatsapp: z
+    .string()
+    .trim()
+    .min(10, "WhatsApp number must be at least 10 digits")
+    .regex(/^[0-9+\s()-]+$/, "Invalid WhatsApp number"),
+  leadMagnetId: z.string().min(1),
+});
+
+export async function captureLeadMagnetDownload(data: {
+  name: string;
+  whatsapp: string;
+  leadMagnetId: string;
+}): Promise<ActionResult<{ id: string }>> {
+  try {
+    const parsed = captureSchema.parse(data);
+    const leadMagnet = await leadMagnetRepository.findById(parsed.leadMagnetId);
+    if (!leadMagnet) {
+      return { ok: false, error: "Lead magnet not found" };
+    }
+    const prospect = await prospectRepository.create({
+      name: parsed.name,
+      whatsapp: parsed.whatsapp,
+      acquisitionChannel: "lead_magnet",
+      status: "warm",
+      orderItems: [],
+    });
+    return { ok: true, data: { id: prospect.id } };
   } catch (error) {
     return toError(error);
   }

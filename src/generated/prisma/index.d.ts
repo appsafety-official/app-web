@@ -24,6 +24,11 @@ export type Product = $Result.DefaultSelection<Prisma.$ProductPayload>
  */
 export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
 /**
+ * Model LeadMagnet
+ * 
+ */
+export type LeadMagnet = $Result.DefaultSelection<Prisma.$LeadMagnetPayload>
+/**
  * Model Prospect
  * 
  */
@@ -194,6 +199,16 @@ export class PrismaClient<
     * ```
     */
   get post(): Prisma.PostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.leadMagnet`: Exposes CRUD operations for the **LeadMagnet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LeadMagnets
+    * const leadMagnets = await prisma.leadMagnet.findMany()
+    * ```
+    */
+  get leadMagnet(): Prisma.LeadMagnetDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.prospect`: Exposes CRUD operations for the **Prospect** model.
@@ -703,6 +718,7 @@ export namespace Prisma {
   export const ModelName: {
     Product: 'Product',
     Post: 'Post',
+    LeadMagnet: 'LeadMagnet',
     Prospect: 'Prospect',
     Order: 'Order',
     User: 'User',
@@ -724,7 +740,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "product" | "post" | "prospect" | "order" | "user" | "account" | "session" | "verificationToken"
+      modelProps: "product" | "post" | "leadMagnet" | "prospect" | "order" | "user" | "account" | "session" | "verificationToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -873,6 +889,80 @@ export namespace Prisma {
           count: {
             args: Prisma.PostCountArgs<ExtArgs>
             result: $Utils.Optional<PostCountAggregateOutputType> | number
+          }
+        }
+      }
+      LeadMagnet: {
+        payload: Prisma.$LeadMagnetPayload<ExtArgs>
+        fields: Prisma.LeadMagnetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LeadMagnetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadMagnetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LeadMagnetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadMagnetPayload>
+          }
+          findFirst: {
+            args: Prisma.LeadMagnetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadMagnetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LeadMagnetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadMagnetPayload>
+          }
+          findMany: {
+            args: Prisma.LeadMagnetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadMagnetPayload>[]
+          }
+          create: {
+            args: Prisma.LeadMagnetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadMagnetPayload>
+          }
+          createMany: {
+            args: Prisma.LeadMagnetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LeadMagnetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadMagnetPayload>[]
+          }
+          delete: {
+            args: Prisma.LeadMagnetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadMagnetPayload>
+          }
+          update: {
+            args: Prisma.LeadMagnetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadMagnetPayload>
+          }
+          deleteMany: {
+            args: Prisma.LeadMagnetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LeadMagnetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LeadMagnetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadMagnetPayload>[]
+          }
+          upsert: {
+            args: Prisma.LeadMagnetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadMagnetPayload>
+          }
+          aggregate: {
+            args: Prisma.LeadMagnetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLeadMagnet>
+          }
+          groupBy: {
+            args: Prisma.LeadMagnetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LeadMagnetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LeadMagnetCountArgs<ExtArgs>
+            result: $Utils.Optional<LeadMagnetCountAggregateOutputType> | number
           }
         }
       }
@@ -1445,6 +1535,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     product?: ProductOmit
     post?: PostOmit
+    leadMagnet?: LeadMagnetOmit
     prospect?: ProspectOmit
     order?: OrderOmit
     user?: UserOmit
@@ -3718,6 +3809,1032 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LeadMagnet
+   */
+
+  export type AggregateLeadMagnet = {
+    _count: LeadMagnetCountAggregateOutputType | null
+    _min: LeadMagnetMinAggregateOutputType | null
+    _max: LeadMagnetMaxAggregateOutputType | null
+  }
+
+  export type LeadMagnetMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    pdfUrl: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LeadMagnetMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    pdfUrl: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LeadMagnetCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    pdfUrl: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LeadMagnetMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    pdfUrl?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LeadMagnetMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    pdfUrl?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LeadMagnetCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    pdfUrl?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LeadMagnetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LeadMagnet to aggregate.
+     */
+    where?: LeadMagnetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadMagnets to fetch.
+     */
+    orderBy?: LeadMagnetOrderByWithRelationInput | LeadMagnetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LeadMagnetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadMagnets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadMagnets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LeadMagnets
+    **/
+    _count?: true | LeadMagnetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LeadMagnetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LeadMagnetMaxAggregateInputType
+  }
+
+  export type GetLeadMagnetAggregateType<T extends LeadMagnetAggregateArgs> = {
+        [P in keyof T & keyof AggregateLeadMagnet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLeadMagnet[P]>
+      : GetScalarType<T[P], AggregateLeadMagnet[P]>
+  }
+
+
+
+
+  export type LeadMagnetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeadMagnetWhereInput
+    orderBy?: LeadMagnetOrderByWithAggregationInput | LeadMagnetOrderByWithAggregationInput[]
+    by: LeadMagnetScalarFieldEnum[] | LeadMagnetScalarFieldEnum
+    having?: LeadMagnetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LeadMagnetCountAggregateInputType | true
+    _min?: LeadMagnetMinAggregateInputType
+    _max?: LeadMagnetMaxAggregateInputType
+  }
+
+  export type LeadMagnetGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    pdfUrl: string
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: LeadMagnetCountAggregateOutputType | null
+    _min: LeadMagnetMinAggregateOutputType | null
+    _max: LeadMagnetMaxAggregateOutputType | null
+  }
+
+  type GetLeadMagnetGroupByPayload<T extends LeadMagnetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LeadMagnetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LeadMagnetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LeadMagnetGroupByOutputType[P]>
+            : GetScalarType<T[P], LeadMagnetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LeadMagnetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    pdfUrl?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["leadMagnet"]>
+
+  export type LeadMagnetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    pdfUrl?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["leadMagnet"]>
+
+  export type LeadMagnetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    pdfUrl?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["leadMagnet"]>
+
+  export type LeadMagnetSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    pdfUrl?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LeadMagnetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "pdfUrl" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["leadMagnet"]>
+
+  export type $LeadMagnetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LeadMagnet"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      pdfUrl: string
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["leadMagnet"]>
+    composites: {}
+  }
+
+  type LeadMagnetGetPayload<S extends boolean | null | undefined | LeadMagnetDefaultArgs> = $Result.GetResult<Prisma.$LeadMagnetPayload, S>
+
+  type LeadMagnetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LeadMagnetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LeadMagnetCountAggregateInputType | true
+    }
+
+  export interface LeadMagnetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LeadMagnet'], meta: { name: 'LeadMagnet' } }
+    /**
+     * Find zero or one LeadMagnet that matches the filter.
+     * @param {LeadMagnetFindUniqueArgs} args - Arguments to find a LeadMagnet
+     * @example
+     * // Get one LeadMagnet
+     * const leadMagnet = await prisma.leadMagnet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LeadMagnetFindUniqueArgs>(args: SelectSubset<T, LeadMagnetFindUniqueArgs<ExtArgs>>): Prisma__LeadMagnetClient<$Result.GetResult<Prisma.$LeadMagnetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LeadMagnet that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LeadMagnetFindUniqueOrThrowArgs} args - Arguments to find a LeadMagnet
+     * @example
+     * // Get one LeadMagnet
+     * const leadMagnet = await prisma.leadMagnet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LeadMagnetFindUniqueOrThrowArgs>(args: SelectSubset<T, LeadMagnetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LeadMagnetClient<$Result.GetResult<Prisma.$LeadMagnetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LeadMagnet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadMagnetFindFirstArgs} args - Arguments to find a LeadMagnet
+     * @example
+     * // Get one LeadMagnet
+     * const leadMagnet = await prisma.leadMagnet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LeadMagnetFindFirstArgs>(args?: SelectSubset<T, LeadMagnetFindFirstArgs<ExtArgs>>): Prisma__LeadMagnetClient<$Result.GetResult<Prisma.$LeadMagnetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LeadMagnet that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadMagnetFindFirstOrThrowArgs} args - Arguments to find a LeadMagnet
+     * @example
+     * // Get one LeadMagnet
+     * const leadMagnet = await prisma.leadMagnet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LeadMagnetFindFirstOrThrowArgs>(args?: SelectSubset<T, LeadMagnetFindFirstOrThrowArgs<ExtArgs>>): Prisma__LeadMagnetClient<$Result.GetResult<Prisma.$LeadMagnetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LeadMagnets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadMagnetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LeadMagnets
+     * const leadMagnets = await prisma.leadMagnet.findMany()
+     * 
+     * // Get first 10 LeadMagnets
+     * const leadMagnets = await prisma.leadMagnet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const leadMagnetWithIdOnly = await prisma.leadMagnet.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LeadMagnetFindManyArgs>(args?: SelectSubset<T, LeadMagnetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadMagnetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LeadMagnet.
+     * @param {LeadMagnetCreateArgs} args - Arguments to create a LeadMagnet.
+     * @example
+     * // Create one LeadMagnet
+     * const LeadMagnet = await prisma.leadMagnet.create({
+     *   data: {
+     *     // ... data to create a LeadMagnet
+     *   }
+     * })
+     * 
+     */
+    create<T extends LeadMagnetCreateArgs>(args: SelectSubset<T, LeadMagnetCreateArgs<ExtArgs>>): Prisma__LeadMagnetClient<$Result.GetResult<Prisma.$LeadMagnetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LeadMagnets.
+     * @param {LeadMagnetCreateManyArgs} args - Arguments to create many LeadMagnets.
+     * @example
+     * // Create many LeadMagnets
+     * const leadMagnet = await prisma.leadMagnet.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LeadMagnetCreateManyArgs>(args?: SelectSubset<T, LeadMagnetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LeadMagnets and returns the data saved in the database.
+     * @param {LeadMagnetCreateManyAndReturnArgs} args - Arguments to create many LeadMagnets.
+     * @example
+     * // Create many LeadMagnets
+     * const leadMagnet = await prisma.leadMagnet.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LeadMagnets and only return the `id`
+     * const leadMagnetWithIdOnly = await prisma.leadMagnet.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LeadMagnetCreateManyAndReturnArgs>(args?: SelectSubset<T, LeadMagnetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadMagnetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LeadMagnet.
+     * @param {LeadMagnetDeleteArgs} args - Arguments to delete one LeadMagnet.
+     * @example
+     * // Delete one LeadMagnet
+     * const LeadMagnet = await prisma.leadMagnet.delete({
+     *   where: {
+     *     // ... filter to delete one LeadMagnet
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LeadMagnetDeleteArgs>(args: SelectSubset<T, LeadMagnetDeleteArgs<ExtArgs>>): Prisma__LeadMagnetClient<$Result.GetResult<Prisma.$LeadMagnetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LeadMagnet.
+     * @param {LeadMagnetUpdateArgs} args - Arguments to update one LeadMagnet.
+     * @example
+     * // Update one LeadMagnet
+     * const leadMagnet = await prisma.leadMagnet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LeadMagnetUpdateArgs>(args: SelectSubset<T, LeadMagnetUpdateArgs<ExtArgs>>): Prisma__LeadMagnetClient<$Result.GetResult<Prisma.$LeadMagnetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LeadMagnets.
+     * @param {LeadMagnetDeleteManyArgs} args - Arguments to filter LeadMagnets to delete.
+     * @example
+     * // Delete a few LeadMagnets
+     * const { count } = await prisma.leadMagnet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LeadMagnetDeleteManyArgs>(args?: SelectSubset<T, LeadMagnetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LeadMagnets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadMagnetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LeadMagnets
+     * const leadMagnet = await prisma.leadMagnet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LeadMagnetUpdateManyArgs>(args: SelectSubset<T, LeadMagnetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LeadMagnets and returns the data updated in the database.
+     * @param {LeadMagnetUpdateManyAndReturnArgs} args - Arguments to update many LeadMagnets.
+     * @example
+     * // Update many LeadMagnets
+     * const leadMagnet = await prisma.leadMagnet.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LeadMagnets and only return the `id`
+     * const leadMagnetWithIdOnly = await prisma.leadMagnet.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LeadMagnetUpdateManyAndReturnArgs>(args: SelectSubset<T, LeadMagnetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadMagnetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LeadMagnet.
+     * @param {LeadMagnetUpsertArgs} args - Arguments to update or create a LeadMagnet.
+     * @example
+     * // Update or create a LeadMagnet
+     * const leadMagnet = await prisma.leadMagnet.upsert({
+     *   create: {
+     *     // ... data to create a LeadMagnet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LeadMagnet we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LeadMagnetUpsertArgs>(args: SelectSubset<T, LeadMagnetUpsertArgs<ExtArgs>>): Prisma__LeadMagnetClient<$Result.GetResult<Prisma.$LeadMagnetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LeadMagnets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadMagnetCountArgs} args - Arguments to filter LeadMagnets to count.
+     * @example
+     * // Count the number of LeadMagnets
+     * const count = await prisma.leadMagnet.count({
+     *   where: {
+     *     // ... the filter for the LeadMagnets we want to count
+     *   }
+     * })
+    **/
+    count<T extends LeadMagnetCountArgs>(
+      args?: Subset<T, LeadMagnetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LeadMagnetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LeadMagnet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadMagnetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LeadMagnetAggregateArgs>(args: Subset<T, LeadMagnetAggregateArgs>): Prisma.PrismaPromise<GetLeadMagnetAggregateType<T>>
+
+    /**
+     * Group by LeadMagnet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadMagnetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LeadMagnetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LeadMagnetGroupByArgs['orderBy'] }
+        : { orderBy?: LeadMagnetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LeadMagnetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLeadMagnetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LeadMagnet model
+   */
+  readonly fields: LeadMagnetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LeadMagnet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LeadMagnetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LeadMagnet model
+   */
+  interface LeadMagnetFieldRefs {
+    readonly id: FieldRef<"LeadMagnet", 'String'>
+    readonly title: FieldRef<"LeadMagnet", 'String'>
+    readonly description: FieldRef<"LeadMagnet", 'String'>
+    readonly pdfUrl: FieldRef<"LeadMagnet", 'String'>
+    readonly isActive: FieldRef<"LeadMagnet", 'Boolean'>
+    readonly createdAt: FieldRef<"LeadMagnet", 'DateTime'>
+    readonly updatedAt: FieldRef<"LeadMagnet", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LeadMagnet findUnique
+   */
+  export type LeadMagnetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadMagnet
+     */
+    select?: LeadMagnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadMagnet
+     */
+    omit?: LeadMagnetOmit<ExtArgs> | null
+    /**
+     * Filter, which LeadMagnet to fetch.
+     */
+    where: LeadMagnetWhereUniqueInput
+  }
+
+  /**
+   * LeadMagnet findUniqueOrThrow
+   */
+  export type LeadMagnetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadMagnet
+     */
+    select?: LeadMagnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadMagnet
+     */
+    omit?: LeadMagnetOmit<ExtArgs> | null
+    /**
+     * Filter, which LeadMagnet to fetch.
+     */
+    where: LeadMagnetWhereUniqueInput
+  }
+
+  /**
+   * LeadMagnet findFirst
+   */
+  export type LeadMagnetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadMagnet
+     */
+    select?: LeadMagnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadMagnet
+     */
+    omit?: LeadMagnetOmit<ExtArgs> | null
+    /**
+     * Filter, which LeadMagnet to fetch.
+     */
+    where?: LeadMagnetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadMagnets to fetch.
+     */
+    orderBy?: LeadMagnetOrderByWithRelationInput | LeadMagnetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LeadMagnets.
+     */
+    cursor?: LeadMagnetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadMagnets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadMagnets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeadMagnets.
+     */
+    distinct?: LeadMagnetScalarFieldEnum | LeadMagnetScalarFieldEnum[]
+  }
+
+  /**
+   * LeadMagnet findFirstOrThrow
+   */
+  export type LeadMagnetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadMagnet
+     */
+    select?: LeadMagnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadMagnet
+     */
+    omit?: LeadMagnetOmit<ExtArgs> | null
+    /**
+     * Filter, which LeadMagnet to fetch.
+     */
+    where?: LeadMagnetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadMagnets to fetch.
+     */
+    orderBy?: LeadMagnetOrderByWithRelationInput | LeadMagnetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LeadMagnets.
+     */
+    cursor?: LeadMagnetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadMagnets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadMagnets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeadMagnets.
+     */
+    distinct?: LeadMagnetScalarFieldEnum | LeadMagnetScalarFieldEnum[]
+  }
+
+  /**
+   * LeadMagnet findMany
+   */
+  export type LeadMagnetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadMagnet
+     */
+    select?: LeadMagnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadMagnet
+     */
+    omit?: LeadMagnetOmit<ExtArgs> | null
+    /**
+     * Filter, which LeadMagnets to fetch.
+     */
+    where?: LeadMagnetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadMagnets to fetch.
+     */
+    orderBy?: LeadMagnetOrderByWithRelationInput | LeadMagnetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LeadMagnets.
+     */
+    cursor?: LeadMagnetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadMagnets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadMagnets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeadMagnets.
+     */
+    distinct?: LeadMagnetScalarFieldEnum | LeadMagnetScalarFieldEnum[]
+  }
+
+  /**
+   * LeadMagnet create
+   */
+  export type LeadMagnetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadMagnet
+     */
+    select?: LeadMagnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadMagnet
+     */
+    omit?: LeadMagnetOmit<ExtArgs> | null
+    /**
+     * The data needed to create a LeadMagnet.
+     */
+    data: XOR<LeadMagnetCreateInput, LeadMagnetUncheckedCreateInput>
+  }
+
+  /**
+   * LeadMagnet createMany
+   */
+  export type LeadMagnetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LeadMagnets.
+     */
+    data: LeadMagnetCreateManyInput | LeadMagnetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LeadMagnet createManyAndReturn
+   */
+  export type LeadMagnetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadMagnet
+     */
+    select?: LeadMagnetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadMagnet
+     */
+    omit?: LeadMagnetOmit<ExtArgs> | null
+    /**
+     * The data used to create many LeadMagnets.
+     */
+    data: LeadMagnetCreateManyInput | LeadMagnetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LeadMagnet update
+   */
+  export type LeadMagnetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadMagnet
+     */
+    select?: LeadMagnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadMagnet
+     */
+    omit?: LeadMagnetOmit<ExtArgs> | null
+    /**
+     * The data needed to update a LeadMagnet.
+     */
+    data: XOR<LeadMagnetUpdateInput, LeadMagnetUncheckedUpdateInput>
+    /**
+     * Choose, which LeadMagnet to update.
+     */
+    where: LeadMagnetWhereUniqueInput
+  }
+
+  /**
+   * LeadMagnet updateMany
+   */
+  export type LeadMagnetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LeadMagnets.
+     */
+    data: XOR<LeadMagnetUpdateManyMutationInput, LeadMagnetUncheckedUpdateManyInput>
+    /**
+     * Filter which LeadMagnets to update
+     */
+    where?: LeadMagnetWhereInput
+    /**
+     * Limit how many LeadMagnets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeadMagnet updateManyAndReturn
+   */
+  export type LeadMagnetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadMagnet
+     */
+    select?: LeadMagnetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadMagnet
+     */
+    omit?: LeadMagnetOmit<ExtArgs> | null
+    /**
+     * The data used to update LeadMagnets.
+     */
+    data: XOR<LeadMagnetUpdateManyMutationInput, LeadMagnetUncheckedUpdateManyInput>
+    /**
+     * Filter which LeadMagnets to update
+     */
+    where?: LeadMagnetWhereInput
+    /**
+     * Limit how many LeadMagnets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeadMagnet upsert
+   */
+  export type LeadMagnetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadMagnet
+     */
+    select?: LeadMagnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadMagnet
+     */
+    omit?: LeadMagnetOmit<ExtArgs> | null
+    /**
+     * The filter to search for the LeadMagnet to update in case it exists.
+     */
+    where: LeadMagnetWhereUniqueInput
+    /**
+     * In case the LeadMagnet found by the `where` argument doesn't exist, create a new LeadMagnet with this data.
+     */
+    create: XOR<LeadMagnetCreateInput, LeadMagnetUncheckedCreateInput>
+    /**
+     * In case the LeadMagnet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LeadMagnetUpdateInput, LeadMagnetUncheckedUpdateInput>
+  }
+
+  /**
+   * LeadMagnet delete
+   */
+  export type LeadMagnetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadMagnet
+     */
+    select?: LeadMagnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadMagnet
+     */
+    omit?: LeadMagnetOmit<ExtArgs> | null
+    /**
+     * Filter which LeadMagnet to delete.
+     */
+    where: LeadMagnetWhereUniqueInput
+  }
+
+  /**
+   * LeadMagnet deleteMany
+   */
+  export type LeadMagnetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LeadMagnets to delete
+     */
+    where?: LeadMagnetWhereInput
+    /**
+     * Limit how many LeadMagnets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeadMagnet without action
+   */
+  export type LeadMagnetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadMagnet
+     */
+    select?: LeadMagnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadMagnet
+     */
+    omit?: LeadMagnetOmit<ExtArgs> | null
   }
 
 
@@ -10401,6 +11518,19 @@ export namespace Prisma {
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
 
 
+  export const LeadMagnetScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    pdfUrl: 'pdfUrl',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LeadMagnetScalarFieldEnum = (typeof LeadMagnetScalarFieldEnum)[keyof typeof LeadMagnetScalarFieldEnum]
+
+
   export const ProspectScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -10773,6 +11903,68 @@ export namespace Prisma {
     published?: BoolWithAggregatesFilter<"Post"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+  }
+
+  export type LeadMagnetWhereInput = {
+    AND?: LeadMagnetWhereInput | LeadMagnetWhereInput[]
+    OR?: LeadMagnetWhereInput[]
+    NOT?: LeadMagnetWhereInput | LeadMagnetWhereInput[]
+    id?: StringFilter<"LeadMagnet"> | string
+    title?: StringFilter<"LeadMagnet"> | string
+    description?: StringNullableFilter<"LeadMagnet"> | string | null
+    pdfUrl?: StringFilter<"LeadMagnet"> | string
+    isActive?: BoolFilter<"LeadMagnet"> | boolean
+    createdAt?: DateTimeFilter<"LeadMagnet"> | Date | string
+    updatedAt?: DateTimeFilter<"LeadMagnet"> | Date | string
+  }
+
+  export type LeadMagnetOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    pdfUrl?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LeadMagnetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LeadMagnetWhereInput | LeadMagnetWhereInput[]
+    OR?: LeadMagnetWhereInput[]
+    NOT?: LeadMagnetWhereInput | LeadMagnetWhereInput[]
+    title?: StringFilter<"LeadMagnet"> | string
+    description?: StringNullableFilter<"LeadMagnet"> | string | null
+    pdfUrl?: StringFilter<"LeadMagnet"> | string
+    isActive?: BoolFilter<"LeadMagnet"> | boolean
+    createdAt?: DateTimeFilter<"LeadMagnet"> | Date | string
+    updatedAt?: DateTimeFilter<"LeadMagnet"> | Date | string
+  }, "id">
+
+  export type LeadMagnetOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    pdfUrl?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LeadMagnetCountOrderByAggregateInput
+    _max?: LeadMagnetMaxOrderByAggregateInput
+    _min?: LeadMagnetMinOrderByAggregateInput
+  }
+
+  export type LeadMagnetScalarWhereWithAggregatesInput = {
+    AND?: LeadMagnetScalarWhereWithAggregatesInput | LeadMagnetScalarWhereWithAggregatesInput[]
+    OR?: LeadMagnetScalarWhereWithAggregatesInput[]
+    NOT?: LeadMagnetScalarWhereWithAggregatesInput | LeadMagnetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LeadMagnet"> | string
+    title?: StringWithAggregatesFilter<"LeadMagnet"> | string
+    description?: StringNullableWithAggregatesFilter<"LeadMagnet"> | string | null
+    pdfUrl?: StringWithAggregatesFilter<"LeadMagnet"> | string
+    isActive?: BoolWithAggregatesFilter<"LeadMagnet"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"LeadMagnet"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"LeadMagnet"> | Date | string
   }
 
   export type ProspectWhereInput = {
@@ -11398,6 +12590,76 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
     published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadMagnetCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    pdfUrl: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LeadMagnetUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    pdfUrl: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LeadMagnetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    pdfUrl?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadMagnetUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    pdfUrl?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadMagnetCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    pdfUrl: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LeadMagnetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    pdfUrl?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadMagnetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    pdfUrl?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12178,6 +13440,36 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type LeadMagnetCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    pdfUrl?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LeadMagnetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    pdfUrl?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LeadMagnetMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    pdfUrl?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<

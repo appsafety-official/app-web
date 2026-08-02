@@ -3,12 +3,15 @@ import { format } from "date-fns";
 import { getTranslations } from "next-intl/server";
 import { ImageIcon } from "lucide-react";
 import { getAllPosts } from "@/actions/postActions";
+import { getActiveLeadMagnet } from "@/actions/leadMagnetActions";
+import { LeadMagnetWidget } from "@/components/public/LeadMagnetWidget";
 
 export const dynamic = "force-dynamic";
 
 export default async function BlogPage() {
   const t = await getTranslations("blog");
   const posts = await getAllPosts(true);
+  const activeLeadMagnet = await getActiveLeadMagnet();
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
@@ -66,6 +69,8 @@ export default async function BlogPage() {
           ))}
         </div>
       )}
+
+      {activeLeadMagnet && <LeadMagnetWidget leadMagnet={activeLeadMagnet} />}
     </div>
   );
 }

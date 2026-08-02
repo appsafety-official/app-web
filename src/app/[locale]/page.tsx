@@ -2,6 +2,8 @@ import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { ShieldCheck, Truck, Ruler, Headset } from "lucide-react";
 import ProductCard from "@/components/public/ProductCard";
+import { LeadMagnetWidget } from "@/components/public/LeadMagnetWidget";
+import { getActiveLeadMagnet } from "@/actions/leadMagnetActions";
 
 export default async function HomePage({
   params,
@@ -41,6 +43,8 @@ export default async function HomePage({
     "PT Pelindo",
     "PT Timah",
   ];
+
+  const activeLeadMagnet = await getActiveLeadMagnet();
 
   return (
     <>
@@ -135,6 +139,8 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+
+      {activeLeadMagnet && <LeadMagnetWidget leadMagnet={activeLeadMagnet} />}
 
       <section>
         <div className="mx-auto max-w-6xl px-4 pt-16 sm:pt-20">

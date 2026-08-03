@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, ShoppingCart, User, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCartStore } from "@/store/useCartStore";
@@ -10,6 +11,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
   const t = useTranslations("common.navbar");
+  const pathname = usePathname();
   const totalItems = useCartStore((s) => s.totalItems());
   const [cartOpen, setCartOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -25,8 +27,12 @@ export default function Navbar() {
     { href: "/", label: t("home") },
     { href: "/about", label: t("about") },
     { href: "/products", label: t("products") },
+    { href: "/blog", label: t("blog") },
     { href: "/contact", label: t("contact") },
   ];
+
+  const isActive = (href: string) =>
+    href === "/" ? false : pathname.includes(href);
 
   return (
     <>
@@ -47,7 +53,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={
-                  link.href === "/"
+                  link.href === "/" || isActive(link.href)
                     ? "text-black"
                     : "text-gray-400 transition-colors hover:text-black"
                 }
@@ -108,7 +114,7 @@ export default function Navbar() {
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={
-                    link.href === "/"
+                    link.href === "/" || isActive(link.href)
                       ? "text-base font-medium text-black"
                       : "text-base font-medium text-gray-500 transition-colors hover:text-black"
                   }

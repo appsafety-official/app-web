@@ -72,17 +72,19 @@ export default function Navbar() {
               {t("signIn")}
             </Link>
             <LanguageSwitcher />
-            <button
-              onClick={() => setCartOpen(true)}
-              className="rounded-sm border border-gray-200 bg-white p-2 transition-colors hover:bg-gray-50"
-            >
-              <ShoppingCart className="h-4 w-4 text-gray-600" />
+            <div className="relative">
+              <button
+                onClick={() => setCartOpen(true)}
+                className="rounded-sm border border-gray-200 bg-white p-2 transition-colors hover:bg-gray-50"
+              >
+                <ShoppingCart className="h-4 w-4 text-gray-600" />
+              </button>
               {totalItems > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center bg-black text-[10px] text-white">
+                <span className="absolute -right-2 -top-2 z-10 flex h-5 min-w-5 items-center justify-center rounded-full bg-yellow-500 px-1 font-mono text-xs font-bold text-stone-900">
                   {totalItems}
                 </span>
               )}
-            </button>
+            </div>
             <button
               onClick={() => setMobileOpen((v) => !v)}
               className="rounded-sm border border-gray-200 bg-white p-2 transition-colors hover:bg-gray-50 sm:hidden"

@@ -64,7 +64,7 @@
       "badge": "PT ARIE PUTRA PERMANA - SEJAK 2015",
       "title": "Pakaian Safety",
       "titleLine2": "Premium untuk",
-      "highlight": "Performa Terbaik",
+      "highlight": "Kinerja Terbaik",
       "subtitle": "Dipercaya oleh berbagai industri terkemuka sebagai penyedia pakaian safety berkualitas tinggi yang dirancang khusus untuk memenuhi standar keselamatan internasional.",
       "browseProducts": "Lihat Produk",
       "contactUs": "Hubungi Kami",
@@ -181,6 +181,8 @@
   "leadMagnet": {
     "title": "Unduh Gratis",
     "subtitle": "Dapatkan Ebook K3 Terbaru",
+    "cta": "Unduh Ebook K3 Gratis",
+    "close": "Tutup",
     "name": "Nama Lengkap",
     "namePlaceholder": "Budi Santoso",
     "whatsapp": "Nomor WhatsApp",

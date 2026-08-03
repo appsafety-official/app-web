@@ -83,6 +83,9 @@ export default async function HomePage({
                 >
                   {t("hero.contactUs")}
                 </Link>
+                {activeLeadMagnet && (
+                  <LeadMagnetWidget leadMagnet={activeLeadMagnet} />
+                )}
               </div>
 
               <div className="mt-8 grid grid-cols-3 gap-4 border-t border-gray-200 pt-6">
@@ -139,8 +142,6 @@ export default async function HomePage({
           </div>
         </div>
       </section>
-
-      {activeLeadMagnet && <LeadMagnetWidget leadMagnet={activeLeadMagnet} />}
 
       <section>
         <div className="mx-auto max-w-6xl px-4 pt-16 sm:pt-20">

@@ -70,7 +70,11 @@ export default async function BlogPage() {
         </div>
       )}
 
-      {activeLeadMagnet && <LeadMagnetWidget leadMagnet={activeLeadMagnet} />}
+      {activeLeadMagnet && (
+        <div className="mt-12 flex justify-center">
+          <LeadMagnetWidget leadMagnet={activeLeadMagnet} />
+        </div>
+      )}
     </div>
   );
 }

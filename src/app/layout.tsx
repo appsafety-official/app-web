@@ -13,9 +13,9 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "APP SAFETY | Premium Industrial Safety Apparel",
+  title: "APP SAFETY | Pakaian Keselamatan Industri Premium",
   description:
-    "PT Arie Putra Permana — supplying certified industrial safety apparel, firefighter suits, welding gear, and hazmat protection since 2015.",
+    "PT Arie Putra Permana — penyedia pakaian keselamatan industri bersertifikat, jas pemadam kebakaran, peralatan las, dan perlindungan bahan berbahaya untuk industri terkemuka di Indonesia sejak 2015.",
 };
 
 export default function RootLayout({

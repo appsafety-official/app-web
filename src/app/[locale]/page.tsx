@@ -30,18 +30,17 @@ export default async function HomePage({
   ];
 
   const clients = [
-    "PT Pertamina",
-    "PT PLN",
-    "PT Krakatau Steel",
-    "PT Freeport Indonesia",
-    "PT Pupuk Indonesia",
-    "PT Kaltim Prima Coal",
-    "PT Adaro Energy",
-    "PT Semen Indonesia",
-    "PT Aneka Tambang",
-    "PT Inalum",
-    "PT Pelindo",
-    "PT Timah",
+    { src: "/images/logo-partner/logo-pertamina-removebg-preview.webp", name: "Pertamina" },
+    { src: "/images/logo-partner/logo-pindad-removebg-preview.webp", name: "Pindad" },
+    { src: "/images/logo-partner/logo-bnpb-removebg-preview.webp", name: "BNPB" },
+    { src: "/images/logo-partner/logo-hpal-removebg-preview.webp", name: "HPAL" },
+    { src: "/images/logo-partner/logo-hjf-removebg-preview.webp", name: "HJF" },
+    { src: "/images/logo-partner/logo-miniships-removebg-preview.webp", name: "Miniships" },
+    { src: "/images/logo-partner/logo-darma-persada-removebg-preview.webp", name: "Darma Persada" },
+    { src: "/images/logo-partner/logo-triguna-mandala-removebg-preview.webp", name: "Triguna Mandala" },
+    { src: "/images/logo-partner/logo-gearindo-swadaya-perkasa-removebg-preview.webp", name: "Gearindo Swadaya Perkasa" },
+    { src: "/images/logo-partner/logo-swadaya-graha-removebg-preview.webp", name: "Swadaya Graha" },
+    { src: "/images/logo-partner/logo_proma_energi-removebg-preview.webp", name: "Proma Energi" },
   ];
 
   const activeLeadMagnet = await getActiveLeadMagnet();
@@ -157,23 +156,25 @@ export default async function HomePage({
         <div className="overflow-hidden border-y border-gray-200 py-8">
           <div className="space-y-8">
             <div className="marquee-row animate-marquee-left flex w-max items-center">
-              {[...clients, ...clients].map((name, i) => (
-                <span
-                  key={`${name}-${i}`}
-                  className="mx-8 shrink-0 font-mono text-sm font-semibold uppercase tracking-wider text-gray-400 transition-colors hover:text-black"
-                >
-                  {name}
-                </span>
+              {[...clients, ...clients].map((client, i) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={`${client.src}-${i}`}
+                  src={client.src}
+                  alt={client.name}
+                  className="mx-8 h-10 w-auto shrink-0 object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                />
               ))}
             </div>
             <div className="marquee-row animate-marquee-right flex w-max items-center">
-              {[...clients, ...clients].map((name, i) => (
-                <span
-                  key={`${name}-${i}`}
-                  className="mx-8 shrink-0 font-mono text-sm font-semibold uppercase tracking-wider text-gray-400 transition-colors hover:text-black"
-                >
-                  {name}
-                </span>
+              {[...clients, ...clients].map((client, i) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={`${client.src}-${i}`}
+                  src={client.src}
+                  alt={client.name}
+                  className="mx-8 h-10 w-auto shrink-0 object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                />
               ))}
             </div>
           </div>

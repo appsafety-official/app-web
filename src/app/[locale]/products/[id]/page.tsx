@@ -133,9 +133,11 @@ export default function ProductDetailPage() {
 
           <button
             onClick={() => {
-              addItem({ productId: product.id, name: pt(product.nameKey), price: product.price });
+              for (let i = 0; i < qty; i++) {
+                addItem({ productId: product.id, name: pt(product.nameKey), price: product.price });
+              }
             }}
-            className="mt-4 w-full border border-stone-900 bg-stone-900 px-6 py-3 text-sm font-bold text-safety transition-colors hover:bg-stone-800"
+            className="mt-4 w-full rounded-sm bg-yellow px-4 py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
           >
             {t("addToCart")}
           </button>

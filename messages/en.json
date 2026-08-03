@@ -48,6 +48,7 @@
     },
     "productCard": {
       "addToCart": "+ Add to Cart",
+      "viewDetail": "View Detail",
       "productPlaceholder": "[PRODUCT]"
     },
     "productDetail": {

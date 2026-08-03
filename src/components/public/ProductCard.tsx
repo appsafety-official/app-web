@@ -10,6 +10,7 @@ interface ProductCardProps {
   category: string;
   price: number;
   imageUrl?: string | null;
+  viewDetail?: boolean;
 }
 
 export default function ProductCard({
@@ -18,6 +19,7 @@ export default function ProductCard({
   category,
   price,
   imageUrl,
+  viewDetail = false,
 }: ProductCardProps) {
   const t = useTranslations("common.productCard");
   const addItem = useCartStore((s) => s.addItem);
@@ -54,12 +56,21 @@ export default function ProductCard({
         </p>
       </div>
 
-      <button
-        onClick={() => addItem({ productId: id, name, price })}
-        className="mt-auto w-full rounded-sm bg-yellow px-4 py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
-      >
-        {t("addToCart")}
-      </button>
+      {viewDetail ? (
+        <Link
+          href={`/products/${id}`}
+          className="mt-auto block w-full rounded-sm bg-yellow px-4 py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
+        >
+          {t("viewDetail")}
+        </Link>
+      ) : (
+        <button
+          onClick={() => addItem({ productId: id, name, price })}
+          className="mt-auto w-full rounded-sm bg-yellow px-4 py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
+        >
+          {t("addToCart")}
+        </button>
+      )}
     </div>
   );
 }

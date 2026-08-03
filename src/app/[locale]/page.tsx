@@ -201,7 +201,7 @@ export default async function HomePage({
           </div>
           <div className="grid gap-6 sm:grid-cols-3">
             {highlightProducts.map((p) => (
-              <ProductCard key={p.id} {...p} />
+              <ProductCard key={p.id} {...p} viewDetail />
             ))}
           </div>
         </div>

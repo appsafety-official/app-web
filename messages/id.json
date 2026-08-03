@@ -48,6 +48,7 @@
     },
     "productCard": {
       "addToCart": "+ Tambah ke Keranjang",
+      "viewDetail": "Lihat Detail",
       "productPlaceholder": "[PRODUK]"
     },
     "productDetail": {

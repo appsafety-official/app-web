@@ -105,10 +105,13 @@ export default async function HomePage({
               </div>
             </div>
 
-            <div className="relative aspect-[4/3] flex items-center justify-center bg-gray-100">
-              <span className="font-mono text-sm tracking-widest text-gray-300">
-                [{t("hero.imagePlaceholder")}]
-              </span>
+            <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/hero-safety-image.jpg"
+                alt={t("hero.imageBadge")}
+                className="h-full w-full object-cover"
+              />
               <div className="absolute bottom-3 left-3 flex items-center gap-3 bg-black/70 px-3 py-2">
                 <span className="font-mono text-[10px] leading-tight text-gray-300">
                   {t("hero.imageRef")} <br />

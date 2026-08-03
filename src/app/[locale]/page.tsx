@@ -162,7 +162,7 @@ export default async function HomePage({
                   key={`${client.src}-${i}`}
                   src={client.src}
                   alt={client.name}
-                  className="mx-8 h-10 w-auto shrink-0 object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                  className="mx-8 h-10 w-auto shrink-0 object-contain opacity-85 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
                 />
               ))}
             </div>
@@ -173,7 +173,7 @@ export default async function HomePage({
                   key={`${client.src}-${i}`}
                   src={client.src}
                   alt={client.name}
-                  className="mx-8 h-10 w-auto shrink-0 object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                  className="mx-8 h-10 w-auto shrink-0 object-contain opacity-85 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
                 />
               ))}
             </div>

@@ -178,24 +178,32 @@ export default async function HomePage({
           <div className="space-y-8">
             <div className="marquee-row animate-marquee-left flex w-max items-center">
               {[...clients, ...clients].map((client, i) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <div
                   key={`${client.src}-${i}`}
-                  src={client.src}
-                  alt={client.name}
-                  className="mx-8 h-10 w-auto shrink-0 object-contain opacity-85 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
-                />
+                  className="mx-6 flex h-12 w-36 shrink-0 items-center justify-center opacity-85 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={client.src}
+                    alt={client.name}
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
               ))}
             </div>
             <div className="marquee-row animate-marquee-right flex w-max items-center">
               {[...clients, ...clients].map((client, i) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <div
                   key={`${client.src}-${i}`}
-                  src={client.src}
-                  alt={client.name}
-                  className="mx-8 h-10 w-auto shrink-0 object-contain opacity-85 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
-                />
+                  className="mx-6 flex h-12 w-36 shrink-0 items-center justify-center opacity-85 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={client.src}
+                    alt={client.name}
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
               ))}
             </div>
           </div>

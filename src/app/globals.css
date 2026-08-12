@@ -87,11 +87,11 @@ body {
 }
 
 .animate-marquee-left {
-  animation: marquee-left 40s linear infinite;
+    animation: marquee-left 30s linear infinite;
 }
 
 .animate-marquee-right {
-  animation: marquee-right 40s linear infinite;
+    animation: marquee-right 30s linear infinite;
 }
 
 .marquee-row:hover {

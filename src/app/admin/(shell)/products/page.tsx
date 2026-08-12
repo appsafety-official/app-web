@@ -56,16 +56,16 @@ export default async function AdminProductsPage() {
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden border border-stone-900 bg-stone-50">
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden border border-stone-900 bg-stone-100">
                         {product.imageUrl ? (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={product.imageUrl}
                             alt={product.name}
-                            className="h-full w-full object-cover"
+                            className="h-full w-full object-cover object-center"
                           />
                         ) : (
-                          <ImageIcon className="h-4 w-4 text-stone-400" />
+                          <ImageIcon className="h-5 w-5 text-stone-400" />
                         )}
                       </div>
                       <span className="font-bold text-stone-900">

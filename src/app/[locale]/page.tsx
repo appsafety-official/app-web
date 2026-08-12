@@ -2,8 +2,12 @@ import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { ShieldCheck, Truck, Ruler, Headset } from "lucide-react";
 import ProductCard from "@/components/public/ProductCard";
+import ClientsMarquee from "@/components/public/ClientsMarquee";
 import { LeadMagnetWidget } from "@/components/public/LeadMagnetWidget";
 import { getActiveLeadMagnet } from "@/actions/leadMagnetActions";
+import { productRepository } from "@/repositories/product.repository";
+
+export const dynamic = "force-dynamic";
 
 export default async function HomePage({
   params,
@@ -14,13 +18,15 @@ export default async function HomePage({
   const t = await getTranslations({ locale, namespace: "home" });
   const ft = await getTranslations({ locale, namespace: "home.features" });
   const ct = await getTranslations({ locale, namespace: "home.clients" });
-  const pt = await getTranslations({ locale, namespace: "products.products" });
 
-  const highlightProducts = [
-    { id: "dummy-1", name: pt("fireProximitySuit"), category: "FIREFIGHTING", price: 2500000 },
-    { id: "dummy-2", name: pt("weldingJacket"), category: "WELDING", price: 850000 },
-    { id: "dummy-3", name: pt("beekeeperSuit"), category: "HAZMAT", price: 1200000 },
-  ];
+  const allProducts = await productRepository.findAll();
+  const highlightProducts = allProducts.slice(0, 3).map((p) => ({
+    id: p.id,
+    name: p.name,
+    category: p.category,
+    price: p.price,
+    imageUrl: p.imageUrl,
+  }));
 
   const features = [
     { icon: ShieldCheck, title: ft("qualityTitle"), desc: ft("qualityDesc") },
@@ -32,15 +38,14 @@ export default async function HomePage({
   const clients = [
     { src: "/images/logo-partner/logo-pertamina-removebg-preview.webp", name: "Pertamina" },
     { src: "/images/logo-partner/logo-pindad-removebg-preview.webp", name: "Pindad" },
-    { src: "/images/logo-partner/logo-bnpb-removebg-preview.webp", name: "BNPB" },
-    { src: "/images/logo-partner/logo-hpal-removebg-preview.webp", name: "HPAL" },
+    { src: "/images/logo-partner/logo-bnpb-removebg-preview%20(1).png", name: "BNPB" },
+    { src: "/images/logo-partner/logo-hpal-removebg-preview%20(1).png", name: "HPAL" },
     { src: "/images/logo-partner/logo-hjf-removebg-preview.webp", name: "HJF" },
     { src: "/images/logo-partner/logo-miniships-removebg-preview.webp", name: "Miniships" },
     { src: "/images/logo-partner/logo-darma-persada-removebg-preview.webp", name: "Darma Persada" },
     { src: "/images/logo-partner/logo-triguna-mandala-removebg-preview.webp", name: "Triguna Mandala" },
     { src: "/images/logo-partner/logo-gearindo-swadaya-perkasa-removebg-preview.webp", name: "Gearindo Swadaya Perkasa" },
-    { src: "/images/logo-partner/logo-swadaya-graha-removebg-preview.webp", name: "Swadaya Graha" },
-    { src: "/images/logo-partner/logo_proma_energi-removebg-preview.webp", name: "Proma Energi" },
+    { src: "/images/logo-partner/logo-swadaya-graha-removebg-preview%20(1).png", name: "Swadaya Graha" },
   ];
 
   const activeLeadMagnet = await getActiveLeadMagnet();
@@ -174,40 +179,7 @@ export default async function HomePage({
             </h2>
           </div>
         </div>
-        <div className="overflow-hidden border-y border-gray-200 py-8">
-          <div className="space-y-8">
-            <div className="marquee-row animate-marquee-left flex w-max items-center">
-              {[...clients, ...clients].map((client, i) => (
-                <div
-                  key={`${client.src}-${i}`}
-                  className="mx-6 flex h-12 w-36 shrink-0 items-center justify-center opacity-85 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={client.src}
-                    alt={client.name}
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="marquee-row animate-marquee-right flex w-max items-center">
-              {[...clients, ...clients].map((client, i) => (
-                <div
-                  key={`${client.src}-${i}`}
-                  className="mx-6 flex h-12 w-36 shrink-0 items-center justify-center opacity-85 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={client.src}
-                    alt={client.name}
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <ClientsMarquee clients={clients} />
       </section>
 
       <section>

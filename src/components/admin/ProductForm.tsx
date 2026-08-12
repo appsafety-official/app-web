@@ -271,13 +271,13 @@ export function ProductForm({
             {t("image")}
           </label>
           <div className="flex items-center gap-4">
-            <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-none border border-stone-900 bg-stone-50">
+            <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-none border border-stone-900 bg-stone-100">
               {imagePreview ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={imagePreview}
                   alt=""
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover object-center"
                 />
               ) : (
                 <ImageIcon className="h-6 w-6 text-stone-400" />

@@ -25,21 +25,22 @@ export default function ProductCard({
   const addItem = useCartStore((s) => s.addItem);
 
   return (
-    <div className="flex flex-col border border-gray-200 bg-white">
+    <div className="flex flex-col rounded-none border border-stone-900 bg-white">
       <Link href={`/products/${id}`} className="group">
-        <div className="relative aspect-[4/5] flex items-center justify-center bg-gray-100">
+        <div className="relative aspect-square w-full overflow-hidden border-b border-stone-900 bg-stone-100">
           {imageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={imageUrl}
               alt={name}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-center"
             />
           ) : (
-            <span className="font-mono text-xs tracking-widest text-gray-300">
+            <span className="font-mono text-xs tracking-widest text-stone-400">
               [{t("productPlaceholder")}]
             </span>
           )}
-          <span className="absolute left-2 top-2 border border-gray-200 bg-white/90 px-2 py-0.5 font-mono text-[10px] font-semibold tracking-wider text-gray-600">
+          <span className="absolute left-2 top-2 border border-stone-900 bg-white/90 px-2 py-0.5 font-mono text-[10px] font-semibold tracking-wider text-stone-600">
             {category}
           </span>
         </div>

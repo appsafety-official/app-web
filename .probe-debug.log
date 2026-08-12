@@ -1,0 +1,7 @@
+launching npx @playwright/mcp --mobile --headless
+pid=22916
+TIMEOUT initialize
+exit code=0 sig=null
+closed
+killed
+killed

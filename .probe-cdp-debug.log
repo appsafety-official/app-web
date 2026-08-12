@@ -1,0 +1,8 @@
+START
+launch chrome headless
+pid=18884
+tgerr connect ECONNREFUSED 127.0.0.1:9344
+tgerr connect ECONNREFUSED 127.0.0.1:9344
+tgerr connect ECONNREFUSED 127.0.0.1:9344
+ws=ws://127.0.0.1:9344/devtools/page/4341D60B3DA15B39F1DF2A360B1BE3C5
+recv id=1

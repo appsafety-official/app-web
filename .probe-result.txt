@@ -1,0 +1,2 @@
+STARTING
+RESULT: initialize timed out

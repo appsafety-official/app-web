@@ -1,0 +1,7 @@
+START
+launch chrome headless at 390x844
+pid=12908
+tgerr connect ECONNREFUSED 127.0.0.1:9345
+tgerr connect ECONNREFUSED 127.0.0.1:9345
+found target chrome://webui-toolbar.top-chrome/
+recv id=1

@@ -6,6 +6,10 @@ import { ArrowLeft } from "lucide-react";
 import { getPostBySlug } from "@/actions/postActions";
 import { MarkdownContent } from "@/components/public/MarkdownContent";
 
+function stripLeadingH1(markdown: string): string {
+  return markdown.replace(/^#\s+.+\n?/, "");
+}
+
 export const dynamic = "force-dynamic";
 
 export default async function BlogPostPage({
@@ -51,7 +55,7 @@ export default async function BlogPostPage({
       )}
 
       <div className="mt-8 border-t border-stone-200 pt-6">
-        <MarkdownContent content={post.content} />
+        <MarkdownContent content={stripLeadingH1(post.content)} />
       </div>
     </article>
   );

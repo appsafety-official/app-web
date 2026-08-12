@@ -1,2 +1,0 @@
-STARTING
-DIMENSIONS: "{\"viewportW\":500,\"viewportH\":749,\"rowCount\":0,\"itemCount\":0,\"first\":null,\"bodyText\":\"\"}"

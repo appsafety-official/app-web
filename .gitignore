@@ -44,3 +44,11 @@ next-env.d.ts
 .playwright-mcp/
 dev-server.log
 /prospects-status-open.png
+
+# browser debugging probes
+.probe-*
+_probe*
+.probe*.mjs
+.raw*
+expr.js
+.mobile-check.png

@@ -1,2 +1,0 @@
-STARTING
-RESULT: "{\"err\":\"no items\"}"

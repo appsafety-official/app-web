@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Minus, Plus } from "lucide-react";
+import { ArrowLeft, ArrowRight, Minus, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCartStore } from "@/store/useCartStore";
 import { useCheckoutStore } from "@/store/useCheckoutStore";
@@ -14,6 +14,7 @@ export type PublicProductDetail = {
   category: string;
   price: number;
   imageUrl: string | null;
+  imageGallery: string[];
   descriptionHtml: string;
   specs: SpecPair[];
 };
@@ -42,6 +43,10 @@ export default function ProductDetailView({
     );
   }
 
+  const productImages = product.imageUrl
+    ? [product.imageUrl, ...product.imageGallery]
+    : product.imageGallery;
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
       <Link
@@ -52,20 +57,7 @@ export default function ProductDetailView({
       </Link>
 
       <div className="grid gap-8 sm:grid-cols-2">
-        <div className="aspect-square flex items-center justify-center overflow-hidden border border-stone-900 bg-stone-100">
-          {product.imageUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              className="h-full w-full object-cover object-center"
-            />
-          ) : (
-            <span className="text-4xl tracking-widest text-stone-400">
-              [{t("imagePlaceholder")}]
-            </span>
-          )}
-        </div>
+        <ProductGallery images={productImages} productName={product.name} />
 
         <div>
           <span className="inline-block border border-stone-900 px-3 py-1 text-[10px] font-bold tracking-widest text-stone-600">
@@ -156,6 +148,72 @@ export default function ProductDetailView({
           </button>
         </div>
       </div>
+
+      <Link
+        href="/products"
+        className="mt-12 flex items-center justify-end gap-2 text-xs font-medium text-stone-600 transition-colors hover:text-stone-900"
+      >
+        {t("viewAllProducts")} <ArrowRight className="h-4 w-4" />
+      </Link>
+    </div>
+  );
+}
+
+function ProductGallery({
+  images,
+  productName,
+}: {
+  images: string[];
+  productName: string;
+}) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const t = useTranslations("common.productDetail");
+  const safeIndex = activeIndex < images.length ? activeIndex : 0;
+
+  if (images.length === 0) {
+    return (
+      <div className="aspect-square flex items-center justify-center overflow-hidden border border-stone-900 bg-stone-100">
+        <span className="text-4xl tracking-widest text-stone-400">
+          [{t("imagePlaceholder")}]
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div className="aspect-square flex items-center justify-center overflow-hidden border border-stone-900 bg-stone-100">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={images[safeIndex]}
+          alt={`${productName} - ${safeIndex + 1}`}
+          className="h-full w-full object-cover object-center"
+        />
+      </div>
+      {images.length > 1 && (
+        <div className="mt-3 grid grid-cols-5 gap-3">
+          {images.map((image, index) => (
+            <button
+              key={`${image}-${index}`}
+              type="button"
+              onClick={() => setActiveIndex(index)}
+              className={`aspect-square overflow-hidden border bg-stone-100 transition-colors ${
+                index === safeIndex
+                  ? "border-stone-900"
+                  : "border-stone-300 hover:border-stone-600"
+              }`}
+              aria-label={`${productName} - ${index + 1}`}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={image}
+                alt=""
+                className="h-full w-full object-cover object-center"
+              />
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

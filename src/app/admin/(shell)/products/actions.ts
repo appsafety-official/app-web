@@ -17,6 +17,7 @@ const productSchema = z.object({
   stock: z.coerce.number().int().min(0).default(0),
   description: z.string().trim().max(20000).optional().or(z.literal("")),
   imageUrl: z.string().url().optional().or(z.literal("")),
+  imageGallery: z.array(z.string().url()).max(30).optional(),
   specs: z
     .array(
       z.object({
@@ -39,8 +40,12 @@ async function requireAdmin() {
   }
 }
 
-type ProductInput = Omit<z.infer<typeof productSchema>, "imageUrl"> & {
+type ProductInput = Omit<
+  z.infer<typeof productSchema>,
+  "imageUrl" | "imageGallery"
+> & {
   imageUrl?: string | null;
+  imageGallery: string[];
 };
 
 function toProductInput(data: ProductInput) {
@@ -51,13 +56,46 @@ function toProductInput(data: ProductInput) {
     stock: data.stock,
     description: sanitizeProductDescription(data.description),
     imageUrl: data.imageUrl || null,
+    imageGallery: data.imageGallery,
     specs: data.specs || undefined,
   };
+}
+
+async function uploadGalleryFiles(
+  files: File[] | undefined,
+): Promise<string[]> {
+  const urls: string[] = [];
+  for (const file of files ?? []) {
+    if (file.size > 0) {
+      urls.push(await storageService.upload(file, PRODUCT_IMAGE_BUCKET));
+    }
+  }
+  return urls;
+}
+
+async function deleteGalleryFiles(urls: string[]) {
+  for (const url of urls) {
+    try {
+      await storageService.delete(url, PRODUCT_IMAGE_BUCKET);
+    } catch {
+      // best-effort cleanup
+    }
+  }
+}
+
+async function cleanupImage(existing: { imageUrl: string | null }) {
+  if (!existing.imageUrl) return;
+  try {
+    await storageService.delete(existing.imageUrl, PRODUCT_IMAGE_BUCKET);
+  } catch {
+    // best-effort cleanup
+  }
 }
 
 export async function createProductAction(
   input: unknown,
   imageFile?: File | null,
+  galleryFiles?: File[],
 ): Promise<ProductActionResult> {
   try {
     await requireAdmin();
@@ -66,8 +104,13 @@ export async function createProductAction(
     if (imageFile && imageFile.size > 0) {
       imageUrl = await storageService.upload(imageFile, PRODUCT_IMAGE_BUCKET);
     }
+    const uploadedGallery = await uploadGalleryFiles(galleryFiles);
     const product = await productRepository.create(
-      toProductInput({ ...parsed, imageUrl }),
+      toProductInput({
+        ...parsed,
+        imageUrl,
+        imageGallery: [...(parsed.imageGallery ?? []), ...uploadedGallery],
+      }),
     );
     revalidatePath("/admin/products");
     return { ok: true, productId: product.id };
@@ -83,6 +126,7 @@ export async function updateProductAction(
   id: string,
   input: unknown,
   imageFile?: File | null,
+  galleryFiles?: File[],
 ): Promise<ProductActionResult> {
   try {
     await requireAdmin();
@@ -92,17 +136,21 @@ export async function updateProductAction(
     let imageUrl = parsed.imageUrl || null;
     if (imageFile && imageFile.size > 0) {
       imageUrl = await storageService.upload(imageFile, PRODUCT_IMAGE_BUCKET);
-      if (existing.imageUrl) {
-        try {
-          await storageService.delete(existing.imageUrl, PRODUCT_IMAGE_BUCKET);
-        } catch {
-          // best-effort cleanup
-        }
-      }
+      await cleanupImage(existing);
     }
+    const uploadedGallery = await uploadGalleryFiles(galleryFiles);
+    const nextGallery = [...(parsed.imageGallery ?? []), ...uploadedGallery];
+    const removedGallery = existing.imageGallery.filter(
+      (url) => !nextGallery.includes(url),
+    );
+    await deleteGalleryFiles(removedGallery);
     const product = await productRepository.update(
       id,
-      toProductInput({ ...parsed, imageUrl }),
+      toProductInput({
+        ...parsed,
+        imageUrl,
+        imageGallery: nextGallery,
+      }),
     );
     revalidatePath("/admin/products");
     return { ok: true, productId: product.id };
@@ -120,12 +168,9 @@ export async function deleteProductAction(
   try {
     await requireAdmin();
     const existing = await productRepository.findById(id);
-    if (existing?.imageUrl) {
-      try {
-        await storageService.delete(existing.imageUrl, PRODUCT_IMAGE_BUCKET);
-      } catch {
-        // best-effort cleanup
-      }
+    if (existing) {
+      await cleanupImage(existing);
+      await deleteGalleryFiles(existing.imageGallery);
     }
     await productRepository.delete(id);
     revalidatePath("/admin/products");

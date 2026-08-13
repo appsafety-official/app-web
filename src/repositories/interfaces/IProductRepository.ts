@@ -13,6 +13,7 @@ export interface ProductData {
   stock: number;
   description: string | null;
   imageUrl: string | null;
+  imageGallery: string[];
   specs: ProductSpecs;
   createdAt: Date;
   updatedAt: Date;
@@ -25,6 +26,7 @@ export interface ProductInput {
   stock?: number;
   description?: string | null;
   imageUrl?: string | null;
+  imageGallery?: string[];
   specs?: ProductSpecs;
 }
 

@@ -25,6 +25,7 @@ export default async function ProductDetailPage({
         category: product.category,
         price: product.price,
         imageUrl: product.imageUrl,
+        imageGallery: product.imageGallery,
         descriptionHtml: sanitizeProductDescription(product.description),
         specs: normalizeSpecs(product.specs),
       }}

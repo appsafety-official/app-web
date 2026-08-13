@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { ImageIcon, Loader2, Plus, Trash2, Upload } from "lucide-react";
+import { ImageIcon, Loader2, Plus, Trash2, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
@@ -49,7 +49,13 @@ type ProductFormInitialData = {
   stock: number;
   description: string | null;
   imageUrl: string | null;
+  imageGallery: string[];
   specs: unknown;
+};
+
+type GalleryFile = {
+  file: File;
+  preview: string;
 };
 
 export function ProductForm({
@@ -63,6 +69,10 @@ export function ProductForm({
   const [imagePreview, setImagePreview] = useState<string | null>(
     initialData?.imageUrl ?? null,
   );
+  const [keptGallery, setKeptGallery] = useState<string[]>(
+    initialData?.imageGallery ?? [],
+  );
+  const [galleryFiles, setGalleryFiles] = useState<GalleryFile[]>([]);
   const [uploading, setUploading] = useState(false);
 
   const specData = normalizeSpecs(initialData?.specs);
@@ -130,7 +140,40 @@ export function ProductForm({
     setImagePreview(URL.createObjectURL(file));
   }
 
+  function handleGalleryFiles(files: File[]) {
+    const valid: GalleryFile[] = [];
+    for (const file of files) {
+      if (!file.type.startsWith("image/")) {
+        toast.error(t("imageTypeInvalid"));
+        continue;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error(t("imageTooLarge"));
+        continue;
+      }
+      valid.push({ file, preview: URL.createObjectURL(file) });
+    }
+    if (valid.length > 0) {
+      setGalleryFiles((prev) => [...prev, ...valid]);
+    }
+  }
+
+  function removeKeptGallery(url: string) {
+    setKeptGallery((prev) => prev.filter((item) => item !== url));
+  }
+
+  function removeGalleryFile(galleryItem: GalleryFile) {
+    URL.revokeObjectURL(galleryItem.preview);
+    setGalleryFiles((prev) =>
+      prev.filter((item) => item.file !== galleryItem.file),
+    );
+  }
+
   async function onSubmit(values: ProductFormValues) {
+    if (!imageFile && !imagePreview) {
+      toast.error(t("imageRequired"));
+      return;
+    }
     setUploading(true);
     try {
       const payload = {
@@ -140,14 +183,24 @@ export function ProductForm({
         stock: Number(values.stock),
         description: values.description,
         imageUrl: initialData?.imageUrl ?? "",
+        imageGallery: keptGallery,
         specs: values.specs
           .map((spec) => ({ key: spec.key.trim(), value: spec.value.trim() }))
           .filter((spec) => spec.key !== "" || spec.value !== ""),
       };
 
       const result = initialData
-        ? await updateProductAction(initialData.id, payload, imageFile)
-        : await createProductAction(payload, imageFile);
+        ? await updateProductAction(
+            initialData.id,
+            payload,
+            imageFile,
+            galleryFiles.map((item) => item.file),
+          )
+        : await createProductAction(
+            payload,
+            imageFile,
+            galleryFiles.map((item) => item.file),
+          );
 
       if (result.ok) {
         toast.success(initialData ? t("updated") : t("created"));
@@ -310,6 +363,81 @@ export function ProductForm({
                 const file = event.target.files?.[0];
                 if (file) {
                   handleImageChange(file);
+                }
+                event.target.value = "";
+              }}
+            />
+          </div>
+
+          <div className="mt-4 border-t border-stone-900 pt-4">
+            <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-wider text-stone-500">
+              {t("imageGallery")}
+            </p>
+            <p className="mb-3 text-xs text-stone-500">
+              {t("imageGalleryHint")}
+            </p>
+            {(keptGallery.length > 0 || galleryFiles.length > 0) && (
+              <div className="mb-4 grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
+                {keptGallery.map((url) => (
+                  <div
+                    key={url}
+                    className="relative flex h-20 items-center justify-center overflow-hidden rounded-none border border-stone-900 bg-stone-100"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={url}
+                      alt=""
+                      className="h-full w-full object-cover object-center"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeKeptGallery(url)}
+                      className="absolute right-0 top-0 flex h-6 w-6 items-center justify-center bg-stone-900 text-white transition-colors hover:bg-red-600"
+                      aria-label={t("removeImage")}
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                ))}
+                {galleryFiles.map((item) => (
+                  <div
+                    key={item.preview}
+                    className="relative flex h-20 items-center justify-center overflow-hidden rounded-none border border-stone-900 bg-stone-100"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={item.preview}
+                      alt=""
+                      className="h-full w-full object-cover object-center"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeGalleryFile(item)}
+                      className="absolute right-0 top-0 flex h-6 w-6 items-center justify-center bg-stone-900 text-white transition-colors hover:bg-red-600"
+                      aria-label={t("removeImage")}
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+            <label
+              htmlFor="product-gallery"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-none border border-stone-900 bg-white px-3 py-2 font-mono text-xs font-bold uppercase tracking-widest text-stone-900 transition-colors hover:bg-yellow-500"
+            >
+              <Upload className="h-4 w-4" /> {t("addGalleryImages")}
+            </label>
+            <input
+              id="product-gallery"
+              type="file"
+              accept="image/*"
+              multiple
+              className="hidden"
+              onChange={(event) => {
+                const files = Array.from(event.target.files ?? []);
+                if (files.length > 0) {
+                  handleGalleryFiles(files);
                 }
                 event.target.value = "";
               }}

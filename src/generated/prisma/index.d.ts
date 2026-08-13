@@ -1715,6 +1715,7 @@ export namespace Prisma {
     stock: number
     description: number
     imageUrl: number
+    imageGallery: number
     specs: number
     createdAt: number
     updatedAt: number
@@ -1764,6 +1765,7 @@ export namespace Prisma {
     stock?: true
     description?: true
     imageUrl?: true
+    imageGallery?: true
     specs?: true
     createdAt?: true
     updatedAt?: true
@@ -1864,6 +1866,7 @@ export namespace Prisma {
     stock: number
     description: string | null
     imageUrl: string | null
+    imageGallery: string[]
     specs: JsonValue | null
     createdAt: Date
     updatedAt: Date
@@ -1896,6 +1899,7 @@ export namespace Prisma {
     stock?: boolean
     description?: boolean
     imageUrl?: boolean
+    imageGallery?: boolean
     specs?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1909,6 +1913,7 @@ export namespace Prisma {
     stock?: boolean
     description?: boolean
     imageUrl?: boolean
+    imageGallery?: boolean
     specs?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1922,6 +1927,7 @@ export namespace Prisma {
     stock?: boolean
     description?: boolean
     imageUrl?: boolean
+    imageGallery?: boolean
     specs?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1935,12 +1941,13 @@ export namespace Prisma {
     stock?: boolean
     description?: boolean
     imageUrl?: boolean
+    imageGallery?: boolean
     specs?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "category" | "price" | "stock" | "description" | "imageUrl" | "specs" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "category" | "price" | "stock" | "description" | "imageUrl" | "imageGallery" | "specs" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
 
   export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Product"
@@ -1953,6 +1960,7 @@ export namespace Prisma {
       stock: number
       description: string | null
       imageUrl: string | null
+      imageGallery: string[]
       specs: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
@@ -2386,6 +2394,7 @@ export namespace Prisma {
     readonly stock: FieldRef<"Product", 'Int'>
     readonly description: FieldRef<"Product", 'String'>
     readonly imageUrl: FieldRef<"Product", 'String'>
+    readonly imageGallery: FieldRef<"Product", 'String[]'>
     readonly specs: FieldRef<"Product", 'Json'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
@@ -11495,6 +11504,7 @@ export namespace Prisma {
     stock: 'stock',
     description: 'description',
     imageUrl: 'imageUrl',
+    imageGallery: 'imageGallery',
     specs: 'specs',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -11765,6 +11775,7 @@ export namespace Prisma {
     stock?: IntFilter<"Product"> | number
     description?: StringNullableFilter<"Product"> | string | null
     imageUrl?: StringNullableFilter<"Product"> | string | null
+    imageGallery?: StringNullableListFilter<"Product">
     specs?: JsonNullableFilter<"Product">
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
@@ -11778,6 +11789,7 @@ export namespace Prisma {
     stock?: SortOrder
     description?: SortOrderInput | SortOrder
     imageUrl?: SortOrderInput | SortOrder
+    imageGallery?: SortOrder
     specs?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11794,6 +11806,7 @@ export namespace Prisma {
     stock?: IntFilter<"Product"> | number
     description?: StringNullableFilter<"Product"> | string | null
     imageUrl?: StringNullableFilter<"Product"> | string | null
+    imageGallery?: StringNullableListFilter<"Product">
     specs?: JsonNullableFilter<"Product">
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
@@ -11807,6 +11820,7 @@ export namespace Prisma {
     stock?: SortOrder
     description?: SortOrderInput | SortOrder
     imageUrl?: SortOrderInput | SortOrder
+    imageGallery?: SortOrder
     specs?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11828,6 +11842,7 @@ export namespace Prisma {
     stock?: IntWithAggregatesFilter<"Product"> | number
     description?: StringNullableWithAggregatesFilter<"Product"> | string | null
     imageUrl?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    imageGallery?: StringNullableListFilter<"Product">
     specs?: JsonNullableWithAggregatesFilter<"Product">
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
@@ -12427,6 +12442,7 @@ export namespace Prisma {
     stock?: number
     description?: string | null
     imageUrl?: string | null
+    imageGallery?: ProductCreateimageGalleryInput | string[]
     specs?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12440,6 +12456,7 @@ export namespace Prisma {
     stock?: number
     description?: string | null
     imageUrl?: string | null
+    imageGallery?: ProductCreateimageGalleryInput | string[]
     specs?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12453,6 +12470,7 @@ export namespace Prisma {
     stock?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageGallery?: ProductUpdateimageGalleryInput | string[]
     specs?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12466,6 +12484,7 @@ export namespace Prisma {
     stock?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageGallery?: ProductUpdateimageGalleryInput | string[]
     specs?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12479,6 +12498,7 @@ export namespace Prisma {
     stock?: number
     description?: string | null
     imageUrl?: string | null
+    imageGallery?: ProductCreateimageGalleryInput | string[]
     specs?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12492,6 +12512,7 @@ export namespace Prisma {
     stock?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageGallery?: ProductUpdateimageGalleryInput | string[]
     specs?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12505,6 +12526,7 @@ export namespace Prisma {
     stock?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageGallery?: ProductUpdateimageGalleryInput | string[]
     specs?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13214,6 +13236,14 @@ export namespace Prisma {
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -13262,6 +13292,7 @@ export namespace Prisma {
     stock?: SortOrder
     description?: SortOrder
     imageUrl?: SortOrder
+    imageGallery?: SortOrder
     specs?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13844,6 +13875,10 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type ProductCreateimageGalleryInput = {
+    set: string[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -13858,6 +13893,11 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type ProductUpdateimageGalleryInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type DateTimeFieldUpdateOperationsInput = {

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Minus, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCartStore } from "@/store/useCartStore";
+import { useCheckoutStore } from "@/store/useCheckoutStore";
 
 export type PublicProductDetail = {
   id: string;
@@ -22,6 +23,7 @@ export default function ProductDetailView({
   product: PublicProductDetail | null;
 }) {
   const addItem = useCartStore((s) => s.addItem);
+  const openCheckout = useCheckoutStore((s) => s.openCheckout);
   const [qty, setQty] = useState(1);
   const t = useTranslations("common.productDetail");
 
@@ -126,9 +128,25 @@ export default function ProductDetailView({
                 });
               }
             }}
-            className="mt-4 w-full rounded-sm bg-yellow px-4 py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
+            className="mt-4 w-full rounded-sm border border-stone-900 px-4 py-3 text-center text-sm font-semibold text-black transition-colors hover:bg-stone-100"
           >
             {t("addToCart")}
+          </button>
+
+          <button
+            onClick={() =>
+              openCheckout([
+                {
+                  productId: product.id,
+                  name: product.name,
+                  price: product.price,
+                  quantity: qty,
+                },
+              ])
+            }
+            className="mt-2 w-full rounded-sm bg-yellow px-4 py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
+          >
+            {t("checkout")}
           </button>
         </div>
       </div>

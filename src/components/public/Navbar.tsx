@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Menu, ShoppingCart, User, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCartStore } from "@/store/useCartStore";
+import { useCheckoutStore } from "@/store/useCheckoutStore";
 import { useEffect, useState } from "react";
 import CartDrawer from "./CartDrawer";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -13,7 +14,7 @@ export default function Navbar() {
   const t = useTranslations("common.navbar");
   const pathname = usePathname();
   const totalItems = useCartStore((s) => s.totalItems());
-  const [cartOpen, setCartOpen] = useState(false);
+  const openCart = useCheckoutStore((s) => s.openCart);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -74,7 +75,7 @@ export default function Navbar() {
             <LanguageSwitcher />
             <div className="relative">
               <button
-                onClick={() => setCartOpen(true)}
+                onClick={openCart}
                 className="rounded-sm border border-gray-200 bg-white p-2 transition-colors hover:bg-gray-50"
               >
                 <ShoppingCart className="h-4 w-4 text-gray-600" />
@@ -128,7 +129,7 @@ export default function Navbar() {
           </div>
         )}
       </nav>
-      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+      <CartDrawer />
     </>
   );
 }

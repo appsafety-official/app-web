@@ -2,6 +2,7 @@
 
 import { checkoutSchema, type CheckoutInput } from "@/lib/checkoutSchema";
 import { prospectRepository } from "@/repositories/implementations/PrismaProspectRepository";
+import { productRepository } from "@/repositories/product.repository";
 
 const WHATSAPP_NUMBER = "6287824604747";
 
@@ -32,22 +33,43 @@ function buildWaMessage(input: CheckoutInput): string {
 export async function submitCheckout(input: unknown): Promise<CheckoutResult> {
   try {
     const parsed = checkoutSchema.parse(input);
-    const totalAmount = parsed.items.reduce(
+
+    const resolvedItems = await Promise.all(
+      parsed.items.map(async (item) => {
+        const product = await productRepository.findById(item.productId);
+        if (!product) {
+          throw new Error(`Produk tidak ditemukan (${item.productId})`);
+        }
+        return {
+          productId: product.id,
+          name: product.name,
+          price: product.price,
+          quantity: item.quantity,
+        };
+      }),
+    );
+
+    const resolved: CheckoutInput = {
+      ...parsed,
+      items: resolvedItems,
+    };
+
+    const totalAmount = resolved.items.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0,
     );
 
     const prospect = await prospectRepository.create({
-      name: parsed.name,
-      whatsapp: parsed.whatsapp,
-      address: parsed.address || null,
-      acquisitionChannel: "organic_web",
+      name: resolved.name,
+      whatsapp: resolved.whatsapp,
+      address: resolved.address || null,
+      acquisitionChannel: resolved.acquisitionChannel ?? "organic_web",
       status: "warm",
       totalAmount,
-      orderItems: parsed.items,
+      orderItems: resolved.items,
     });
 
-    const message = buildWaMessage(parsed);
+    const message = buildWaMessage(resolved);
     const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
     return { ok: true, waUrl, orderId: prospect.id };

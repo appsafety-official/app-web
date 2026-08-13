@@ -33,6 +33,7 @@
       "remove": "Hapus"
     },
     "checkout": {
+      "title": "CHECKOUT",
       "name": "NAMA",
       "namePlaceholder": "Budi Santoso",
       "whatsapp": "WHATSAPP",
@@ -58,6 +59,7 @@
       "size": "ukuran",
       "certification": "sertifikasi",
       "addToCart": "TAMBAH KE KERANJANG",
+      "checkout": "PESAN SEKARANG",
       "notFound": "Produk tidak ditemukan."
     }
   },
@@ -338,6 +340,7 @@
       },
       "source": {
         "organic_web": "WEB ORGANIK",
+        "web_buy_now": "WEB BELI LANGSUNG",
         "tokopedia_insert": "TOKOPEDIA",
         "instagram": "INSTAGRAM",
         "walk_in": "WALK-IN"

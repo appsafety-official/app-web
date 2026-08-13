@@ -16,6 +16,7 @@ export const checkoutSchema = z.object({
     .pipe(z.string().regex(/^(\+?62|0)8\d{7,12}$/)),
   address: z.string().trim().max(500).optional().or(z.literal("")),
   items: z.array(cartItemSchema).min(1),
+  acquisitionChannel: z.enum(["organic_web", "web_buy_now"]).optional(),
 });
 
 export type CheckoutInput = z.infer<typeof checkoutSchema>;

@@ -33,6 +33,7 @@
       "remove": "Remove"
     },
     "checkout": {
+      "title": "CHECKOUT",
       "name": "NAME",
       "namePlaceholder": "Budi Santoso",
       "whatsapp": "WHATSAPP",
@@ -58,6 +59,7 @@
       "size": "size",
       "certification": "certification",
       "addToCart": "ADD TO CART",
+      "checkout": "CHECK OUT",
       "notFound": "Product not found."
     }
   },
@@ -338,6 +340,7 @@
       },
       "source": {
         "organic_web": "ORGANIC WEB",
+        "web_buy_now": "WEB BUY NOW",
         "tokopedia_insert": "TOKOPEDIA",
         "instagram": "INSTAGRAM",
         "walk_in": "WALK-IN"

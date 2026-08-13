@@ -12,14 +12,21 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { checkoutSchema } from "@/lib/checkoutSchema";
 import { submitCheckout } from "@/actions/checkoutActions";
-import { useCartStore } from "@/store/useCartStore";
+import { useCartStore, type CartItem } from "@/store/useCartStore";
 
 const formSchema = checkoutSchema.pick({ name: true, whatsapp: true, address: true });
 type CheckoutFormValues = z.infer<typeof formSchema>;
 
-export function CheckoutForm() {
+interface CheckoutFormProps {
+  items?: CartItem[];
+  onSuccess?: () => void;
+}
+
+export function CheckoutForm({ items: fixedItems, onSuccess }: CheckoutFormProps) {
   const t = useTranslations("common.checkout");
-  const { items, clearCart } = useCartStore();
+  const cartItems = useCartStore((s) => s.items);
+  const clearCart = useCartStore((s) => s.clearCart);
+  const items = fixedItems ?? cartItems;
   const [pending, setPending] = useState(false);
 
   const {
@@ -43,12 +50,14 @@ export function CheckoutForm() {
         price: item.price,
         quantity: item.quantity,
       })),
+      acquisitionChannel: fixedItems ? "web_buy_now" : "organic_web",
     });
     setPending(false);
 
     if (result.ok) {
       toast.success(t("success"));
-      clearCart();
+      if (!fixedItems) clearCart();
+      onSuccess?.();
       window.open(result.waUrl, "_blank", "noopener,noreferrer");
     } else {
       toast.error(result.error);

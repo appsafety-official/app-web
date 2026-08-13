@@ -1,3 +1,10 @@
+export type SpecPair = {
+  key: string;
+  value: string;
+};
+
+export type ProductSpecs = SpecPair[];
+
 export interface ProductData {
   id: string;
   name: string;
@@ -6,7 +13,7 @@ export interface ProductData {
   stock: number;
   description: string | null;
   imageUrl: string | null;
-  specs: unknown;
+  specs: ProductSpecs;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -18,7 +25,7 @@ export interface ProductInput {
   stock?: number;
   description?: string | null;
   imageUrl?: string | null;
-  specs?: unknown;
+  specs?: ProductSpecs;
 }
 
 export interface IProductRepository {

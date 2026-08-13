@@ -2,15 +2,17 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { ImageIcon, Loader2, Upload } from "lucide-react";
+import { ImageIcon, Loader2, Plus, Trash2, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { RichTextEditor } from "@/components/admin/RichTextEditor";
+import type { SpecPair } from "@/repositories/interfaces/IProductRepository";
+import { normalizeSpecs } from "@/lib/product-specs";
 import {
   Select,
   SelectContent,
@@ -36,9 +38,7 @@ type ProductFormValues = {
   price: string;
   stock: string;
   description: string;
-  material: string;
-  size: string;
-  certification: string;
+  specs: SpecPair[];
 };
 
 type ProductFormInitialData = {
@@ -65,10 +65,7 @@ export function ProductForm({
   );
   const [uploading, setUploading] = useState(false);
 
-  const specData =
-    initialData?.specs && typeof initialData.specs === "object"
-      ? (initialData.specs as Record<string, string>)
-      : {};
+  const specData = normalizeSpecs(initialData?.specs);
 
   const schema = useMemo(
     () =>
@@ -84,9 +81,12 @@ export function ProductForm({
           .min(1, { error: t("stockRequired") })
           .regex(/^\d+$/, { error: t("stockInvalid") }),
         description: z.string(),
-        material: z.string(),
-        size: z.string(),
-        certification: z.string(),
+        specs: z.array(
+          z.object({
+            key: z.string().trim().max(200),
+            value: z.string().trim().max(1000),
+          }),
+        ),
       }),
     [t],
   );
@@ -104,10 +104,17 @@ export function ProductForm({
       price: initialData ? String(initialData.price) : "",
       stock: initialData ? String(initialData.stock) : "0",
       description: initialData?.description ?? "",
-      material: specData.material ?? "",
-      size: specData.size ?? "",
-      certification: specData.certification ?? "",
+      specs: specData.length > 0 ? specData : [{ key: "", value: "" }],
     },
+  });
+
+  const {
+    fields: specFields,
+    append: appendSpec,
+    remove: removeSpec,
+  } = useFieldArray({
+    control,
+    name: "specs",
   });
 
   function handleImageChange(file: File) {
@@ -133,11 +140,9 @@ export function ProductForm({
         stock: Number(values.stock),
         description: values.description,
         imageUrl: initialData?.imageUrl ?? "",
-        specs: {
-          material: values.material,
-          size: values.size,
-          certification: values.certification,
-        },
+        specs: values.specs
+          .map((spec) => ({ key: spec.key.trim(), value: spec.value.trim() }))
+          .filter((spec) => spec.key !== "" || spec.value !== ""),
       };
 
       const result = initialData
@@ -252,17 +257,19 @@ export function ProductForm({
         </div>
 
         <div className="space-y-2 md:col-span-2">
-          <label
-            htmlFor="product-description"
-            className="block font-mono text-xs font-semibold uppercase tracking-wider text-stone-900"
-          >
+          <label className="block font-mono text-xs font-semibold uppercase tracking-wider text-stone-900">
             {t("description")}
           </label>
-          <Textarea
-            id="product-description"
-            placeholder={t("descriptionPlaceholder")}
-            className="rounded-none border-stone-900"
-            {...register("description")}
+          <Controller
+            name="description"
+            control={control}
+            render={({ field }) => (
+              <RichTextEditor
+                value={field.value ?? ""}
+                onChange={field.onChange}
+                placeholder={t("descriptionPlaceholder")}
+              />
+            )}
           />
         </div>
 
@@ -315,49 +322,63 @@ export function ProductForm({
         <p className="mb-4 font-mono text-xs font-semibold uppercase tracking-wider text-stone-500">
           {t("specs")}
         </p>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="space-y-2">
-            <label
-              htmlFor="spec-material"
-              className="block font-mono text-xs font-semibold uppercase tracking-wider text-stone-900"
+        <div className="space-y-3">
+          {specFields.map((field, index) => (
+            <div
+              key={field.id}
+              className="grid grid-cols-1 gap-3 md:grid-cols-[1fr_1fr_auto]"
             >
-              {t("specMaterial")}
-            </label>
-            <Input
-              id="spec-material"
-              placeholder={t("specMaterialPlaceholder")}
-              className="rounded-none border-stone-900"
-              {...register("material")}
-            />
-          </div>
-          <div className="space-y-2">
-            <label
-              htmlFor="spec-size"
-              className="block font-mono text-xs font-semibold uppercase tracking-wider text-stone-900"
-            >
-              {t("specSize")}
-            </label>
-            <Input
-              id="spec-size"
-              placeholder={t("specSizePlaceholder")}
-              className="rounded-none border-stone-900"
-              {...register("size")}
-            />
-          </div>
-          <div className="space-y-2">
-            <label
-              htmlFor="spec-certification"
-              className="block font-mono text-xs font-semibold uppercase tracking-wider text-stone-900"
-            >
-              {t("specCertification")}
-            </label>
-            <Input
-              id="spec-certification"
-              placeholder={t("specCertificationPlaceholder")}
-              className="rounded-none border-stone-900"
-              {...register("certification")}
-            />
-          </div>
+              <div className="space-y-2">
+                <label
+                  htmlFor={`spec-${index}-key`}
+                  className="block font-mono text-xs font-semibold uppercase tracking-wider text-stone-900"
+                >
+                  {t("specKey")}
+                </label>
+                <Input
+                  id={`spec-${index}-key`}
+                  placeholder={t("specKeyPlaceholder")}
+                  className="rounded-none border-stone-900"
+                  {...register(`specs.${index}.key`)}
+                />
+              </div>
+              <div className="space-y-2">
+                <label
+                  htmlFor={`spec-${index}-value`}
+                  className="block font-mono text-xs font-semibold uppercase tracking-wider text-stone-900"
+                >
+                  {t("specValue")}
+                </label>
+                <Input
+                  id={`spec-${index}-value`}
+                  placeholder={t("specValuePlaceholder")}
+                  className="rounded-none border-stone-900"
+                  {...register(`specs.${index}.value`)}
+                />
+              </div>
+              <div className="flex items-end">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => removeSpec(index)}
+                  disabled={specFields.length <= 1}
+                  className="rounded-none border-stone-900"
+                  aria-label={t("removeSpec")}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          ))}
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => appendSpec({ key: "", value: "" })}
+            className="rounded-none border-stone-900 font-mono text-xs font-bold uppercase tracking-widest"
+          >
+            <Plus className="h-4 w-4" /> {t("addSpec")}
+          </Button>
         </div>
       </div>
 

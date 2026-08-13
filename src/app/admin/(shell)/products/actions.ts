@@ -4,6 +4,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/lib/auth";
 import { productRepository } from "@/repositories/product.repository";
+import { sanitizeProductDescription } from "@/lib/sanitize-product-description";
 import {
   PRODUCT_IMAGE_BUCKET,
   storageService,
@@ -14,19 +15,16 @@ const productSchema = z.object({
   category: z.string().trim().min(1, "Category is required").max(100),
   price: z.coerce.number().int().min(0),
   stock: z.coerce.number().int().min(0).default(0),
-  description: z.string().trim().max(1000).optional().or(z.literal("")),
+  description: z.string().trim().max(20000).optional().or(z.literal("")),
   imageUrl: z.string().url().optional().or(z.literal("")),
   specs: z
-    .object({
-      material: z.string().trim().max(200).optional().or(z.literal("")),
-      size: z.string().trim().max(200).optional().or(z.literal("")),
-      certification: z
-        .string()
-        .trim()
-        .max(200)
-        .optional()
-        .or(z.literal("")),
-    })
+    .array(
+      z.object({
+        key: z.string().trim().min(1).max(200),
+        value: z.string().trim().min(1).max(1000),
+      }),
+    )
+    .max(50)
     .optional(),
 });
 
@@ -51,15 +49,9 @@ function toProductInput(data: ProductInput) {
     category: data.category,
     price: data.price,
     stock: data.stock,
-    description: data.description || null,
+    description: sanitizeProductDescription(data.description),
     imageUrl: data.imageUrl || null,
-    specs: data.specs
-      ? {
-          material: data.specs.material || undefined,
-          size: data.specs.size || undefined,
-          certification: data.specs.certification || undefined,
-        }
-      : undefined,
+    specs: data.specs || undefined,
   };
 }
 

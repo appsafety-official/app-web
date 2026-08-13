@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import { normalizeSpecs } from "@/lib/product-specs";
 import type { Prisma } from "@/generated/prisma/client";
 import type {
   IProductRepository,
@@ -7,38 +8,49 @@ import type {
 } from "./interfaces/IProductRepository";
 
 export class ProductRepository implements IProductRepository {
-  findAll(): Promise<ProductData[]> {
-    return prisma.product.findMany({ orderBy: { createdAt: "desc" } });
+  private toData(row: Omit<ProductData, "specs"> & { specs: unknown }): ProductData {
+    return { ...row, specs: normalizeSpecs(row.specs) };
   }
 
-  findById(id: string): Promise<ProductData | null> {
-    return prisma.product.findUnique({ where: { id } });
+  async findAll(): Promise<ProductData[]> {
+    const rows = await prisma.product.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+    return rows.map((row) => this.toData(row as Omit<ProductData, "specs"> & { specs: unknown }));
   }
 
-  findByCategory(category: string): Promise<ProductData[]> {
-    return prisma.product.findMany({
+  async findById(id: string): Promise<ProductData | null> {
+    const row = await prisma.product.findUnique({ where: { id } });
+    return row ? this.toData(row as Omit<ProductData, "specs"> & { specs: unknown }) : null;
+  }
+
+  async findByCategory(category: string): Promise<ProductData[]> {
+    const rows = await prisma.product.findMany({
       where: { category },
       orderBy: { createdAt: "desc" },
     });
+    return rows.map((row) => this.toData(row as Omit<ProductData, "specs"> & { specs: unknown }));
   }
 
-  create(data: ProductInput): Promise<ProductData> {
-    return prisma.product.create({
+  async create(data: ProductInput): Promise<ProductData> {
+    const row = await prisma.product.create({
       data: {
         ...data,
         specs: data.specs as Prisma.InputJsonValue | undefined,
       },
     });
+    return this.toData(row as Omit<ProductData, "specs"> & { specs: unknown });
   }
 
-  update(id: string, data: Partial<ProductInput>): Promise<ProductData> {
-    return prisma.product.update({
+  async update(id: string, data: Partial<ProductInput>): Promise<ProductData> {
+    const row = await prisma.product.update({
       where: { id },
       data: {
         ...data,
         specs: data.specs as Prisma.InputJsonValue | undefined,
       },
     });
+    return this.toData(row as Omit<ProductData, "specs"> & { specs: unknown });
   }
 
   delete(id: string): Promise<void> {

@@ -6,6 +6,7 @@ import { ArrowLeft, Minus, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCartStore } from "@/store/useCartStore";
 import { useCheckoutStore } from "@/store/useCheckoutStore";
+import type { SpecPair } from "@/repositories/interfaces/IProductRepository";
 
 export type PublicProductDetail = {
   id: string;
@@ -13,8 +14,8 @@ export type PublicProductDetail = {
   category: string;
   price: number;
   imageUrl: string | null;
-  description: string | null;
-  specs: { material: string; size: string; certification: string };
+  descriptionHtml: string;
+  specs: SpecPair[];
 };
 
 export default function ProductDetailView({
@@ -40,8 +41,6 @@ export default function ProductDetailView({
       </div>
     );
   }
-
-  const specKeys = ["material", "size", "certification"] as const;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
@@ -76,26 +75,33 @@ export default function ProductDetailView({
           <p className="mt-4 text-2xl font-bold text-stone-900">
             Rp {product.price.toLocaleString("id-ID")}
           </p>
-          {product.description && (
-            <p className="mt-4 text-xs leading-relaxed text-stone-600">
-              {product.description}
-            </p>
+          {product.descriptionHtml && (
+            <div
+              className="prose prose-stone max-w-none prose-sm mt-4 prose-headings:font-mono prose-headings:text-stone-900 prose-headings:font-bold prose-p:text-stone-600 prose-p:leading-relaxed prose-a:font-semibold prose-a:text-stone-900 prose-a:underline prose-a:underline-offset-4 prose-ul:list-disc prose-ol:list-decimal"
+              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+            />
           )}
 
           <div className="mt-6 border border-stone-900">
-            {specKeys.map((key) => (
-              <div
-                key={key}
-                className="flex border-b border-stone-900 last:border-b-0"
-              >
-                <span className="w-28 border-r border-stone-900 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-stone-500">
-                  {t(key)}
-                </span>
-                <span className="flex-1 px-3 py-2 text-xs">
-                  {product.specs[key] || "-"}
-                </span>
+            {product.specs.length > 0 ? (
+              product.specs.map((spec, index) => (
+                <div
+                  key={`${spec.key}-${index}`}
+                  className="flex border-b border-stone-900 last:border-b-0"
+                >
+                  <span className="w-28 shrink-0 border-r border-stone-900 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-stone-500">
+                    {spec.key}
+                  </span>
+                  <span className="flex-1 px-3 py-2 text-xs">
+                    {spec.value || "-"}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <div className="px-3 py-2 text-xs text-stone-500">
+                {t("noSpecs")}
               </div>
-            ))}
+            )}
           </div>
 
           <div className="mt-6 flex items-center gap-4">

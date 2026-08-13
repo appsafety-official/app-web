@@ -1,4 +1,6 @@
 import { productRepository } from "@/repositories/product.repository";
+import { normalizeSpecs } from "@/lib/product-specs";
+import { sanitizeProductDescription } from "@/lib/sanitize-product-description";
 import ProductDetailView from "@/components/public/ProductDetailView";
 
 export const dynamic = "force-dynamic";
@@ -15,11 +17,6 @@ export default async function ProductDetailPage({
     return <ProductDetailView product={null} />;
   }
 
-  const specData =
-    product.specs && typeof product.specs === "object"
-      ? (product.specs as Record<string, string>)
-      : {};
-
   return (
     <ProductDetailView
       product={{
@@ -28,12 +25,8 @@ export default async function ProductDetailPage({
         category: product.category,
         price: product.price,
         imageUrl: product.imageUrl,
-        description: product.description,
-        specs: {
-          material: specData.material ?? "",
-          size: specData.size ?? "",
-          certification: specData.certification ?? "",
-        },
+        descriptionHtml: sanitizeProductDescription(product.description),
+        specs: normalizeSpecs(product.specs),
       }}
     />
   );

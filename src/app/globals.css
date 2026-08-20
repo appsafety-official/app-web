@@ -78,25 +78,38 @@ body {
 }
 
 @keyframes marquee-left {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
 }
 
 @keyframes marquee-right {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
 }
 
 .animate-marquee-left {
-    animation: marquee-left 30s linear infinite;
+  animation: marquee-left 30s linear infinite;
+  will-change: transform;
 }
 
 .animate-marquee-right {
-    animation: marquee-right 30s linear infinite;
+  animation: marquee-right 30s linear infinite;
+  will-change: transform;
 }
 
-.marquee-row:hover {
-  animation-play-state: paused;
+/* Pause on hover only on devices that actually support hover.
+   On touch screens a single tap sticks :hover and freezes the animation. */
+@media (hover: hover) and (pointer: fine) {
+  .marquee-row:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* Touch devices: ignore pointer events so taps can never freeze the marquee. */
+@media (hover: none), (pointer: coarse) {
+  .marquee-row {
+    pointer-events: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

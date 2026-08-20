@@ -77,48 +77,6 @@ body {
   z-index: 9999;
 }
 
-@keyframes marquee-left {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
-}
-
-@keyframes marquee-right {
-  from { transform: translate3d(-50%, 0, 0); }
-  to { transform: translate3d(0, 0, 0); }
-}
-
-.animate-marquee-left {
-  animation: marquee-left 30s linear infinite;
-  will-change: transform;
-}
-
-.animate-marquee-right {
-  animation: marquee-right 30s linear infinite;
-  will-change: transform;
-}
-
-/* Pause on hover only on devices that actually support hover.
-   On touch screens a single tap sticks :hover and freezes the animation. */
-@media (hover: hover) and (pointer: fine) {
-  .marquee-row:hover {
-    animation-play-state: paused;
-  }
-}
-
-/* Touch devices: ignore pointer events so taps can never freeze the marquee. */
-@media (hover: none), (pointer: coarse) {
-  .marquee-row {
-    pointer-events: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-marquee-left,
-  .animate-marquee-right {
-    animation: none;
-  }
-}
-
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

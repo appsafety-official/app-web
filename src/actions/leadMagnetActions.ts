@@ -28,7 +28,9 @@ function toError(error: unknown): { ok: false; error: string } {
 
 const leadMagnetSchema = z.object({
   title: z.string().trim().min(1, "Title is required").max(200),
+  titleEn: z.string().trim().max(200).optional().or(z.literal("")),
   description: z.string().trim().max(500).optional().or(z.literal("")),
+  descriptionEn: z.string().trim().max(500).optional().or(z.literal("")),
   pdfUrl: z.string().url().optional().or(z.literal("")),
   isActive: z.boolean().optional().default(false),
 });
@@ -67,7 +69,9 @@ export async function createLeadMagnet(
     );
     const leadMagnet = await leadMagnetRepository.create({
       title: parsed.title,
+      titleEn: parsed.titleEn || null,
       description: parsed.description || null,
+      descriptionEn: parsed.descriptionEn || null,
       pdfUrl,
       isActive: parsed.isActive,
     });
@@ -110,7 +114,9 @@ export async function updateLeadMagnet(
 
     const leadMagnet = await leadMagnetRepository.update(id, {
       title: parsed.title,
+      titleEn: parsed.titleEn || null,
       description: parsed.description || null,
+      descriptionEn: parsed.descriptionEn || null,
       pdfUrl,
       isActive: parsed.isActive,
     });

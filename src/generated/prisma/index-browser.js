@@ -149,7 +149,9 @@ exports.Prisma.PostScalarFieldEnum = {
 exports.Prisma.LeadMagnetScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  titleEn: 'titleEn',
   description: 'description',
+  descriptionEn: 'descriptionEn',
   pdfUrl: 'pdfUrl',
   isActive: 'isActive',
   createdAt: 'createdAt',

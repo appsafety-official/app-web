@@ -15,14 +15,18 @@ import { createLeadMagnet, updateLeadMagnet } from "@/actions/leadMagnetActions"
 
 type LeadMagnetFormValues = {
   title: string;
+  titleEn: string;
   description: string;
+  descriptionEn: string;
   isActive: boolean;
 };
 
 type LeadMagnetFormInitialData = {
   id: string;
   title: string;
+  titleEn: string | null;
   description: string | null;
+  descriptionEn: string | null;
   pdfUrl: string;
   isActive: boolean;
 };
@@ -41,7 +45,9 @@ export function LeadMagnetForm({
     () =>
       z.object({
         title: z.string().trim().min(1, { error: t("titleRequired") }),
+        titleEn: z.string().trim().max(200),
         description: z.string().trim().max(500),
+        descriptionEn: z.string().trim().max(500),
         isActive: z.boolean(),
       }),
     [t],
@@ -55,7 +61,9 @@ export function LeadMagnetForm({
     resolver: zodResolver(schema),
     defaultValues: {
       title: initialData?.title ?? "",
+      titleEn: initialData?.titleEn ?? "",
       description: initialData?.description ?? "",
+      descriptionEn: initialData?.descriptionEn ?? "",
       isActive: initialData?.isActive ?? false,
     },
   });
@@ -78,7 +86,9 @@ export function LeadMagnetForm({
     try {
       const payload = {
         title: values.title,
+        titleEn: values.titleEn,
         description: values.description,
+        descriptionEn: values.descriptionEn,
         pdfUrl: initialData?.pdfUrl ?? "",
         isActive: values.isActive,
       };
@@ -124,6 +134,27 @@ export function LeadMagnetForm({
 
       <div className="space-y-2">
         <label
+          htmlFor="leadmagnet-title-en"
+          className="block font-mono text-xs font-semibold uppercase tracking-wider text-stone-900"
+        >
+          {t("titleEnLabel")}
+        </label>
+        <Input
+          id="leadmagnet-title-en"
+          placeholder={t("titleEnPlaceholder")}
+          className="rounded-none border-stone-900"
+          aria-invalid={Boolean(errors.titleEn)}
+          {...register("titleEn")}
+        />
+        {errors.titleEn && (
+          <p className="font-mono text-xs text-red-600">
+            {errors.titleEn.message}
+          </p>
+        )}
+      </div>
+
+      <div className="space-y-2">
+        <label
           htmlFor="leadmagnet-description"
           className="block font-mono text-xs font-semibold uppercase tracking-wider text-stone-900"
         >
@@ -135,6 +166,22 @@ export function LeadMagnetForm({
           placeholder={t("descriptionPlaceholder")}
           className="rounded-none border-stone-900"
           {...register("description")}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label
+          htmlFor="leadmagnet-description-en"
+          className="block font-mono text-xs font-semibold uppercase tracking-wider text-stone-900"
+        >
+          {t("descriptionEnLabel")}
+        </label>
+        <Textarea
+          id="leadmagnet-description-en"
+          rows={3}
+          placeholder={t("descriptionEnPlaceholder")}
+          className="rounded-none border-stone-900"
+          {...register("descriptionEn")}
         />
       </div>
 

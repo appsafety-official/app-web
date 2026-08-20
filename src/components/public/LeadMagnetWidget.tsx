@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Download, Loader2, X } from "lucide-react";
@@ -18,8 +18,17 @@ type LeadMagnetWidgetProps = {
 
 export function LeadMagnetWidget({ leadMagnet }: LeadMagnetWidgetProps) {
   const t = useTranslations("leadMagnet");
+  const locale = useLocale();
   const [open, setOpen] = useState(false);
   const [downloading, setDownloading] = useState(false);
+
+  const isEnglish = locale === "en";
+  const title = isEnglish
+    ? (leadMagnet.titleEn || leadMagnet.title)
+    : leadMagnet.title;
+  const description = isEnglish
+    ? (leadMagnet.descriptionEn || leadMagnet.description)
+    : leadMagnet.description;
 
   const schema = z.object({
     name: z.string().trim().min(1, { error: t("nameRequired") }),
@@ -93,7 +102,7 @@ export function LeadMagnetWidget({ leadMagnet }: LeadMagnetWidgetProps) {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
           role="dialog"
           aria-modal="true"
-          aria-label={leadMagnet.description ?? ""}
+          aria-label={description ?? ""}
           onClick={() => setOpen(false)}
         >
           <div
@@ -107,11 +116,11 @@ export function LeadMagnetWidget({ leadMagnet }: LeadMagnetWidgetProps) {
                   {t("title")}
                 </p>
                 <h2 className="font-mono text-xl font-bold uppercase tracking-wider text-stone-900">
-                  {leadMagnet.title}
+                  {title}
                 </h2>
-                {leadMagnet.description && (
+                {description && (
                   <p className="mt-2 max-w-md text-sm leading-relaxed text-stone-600">
-                    {leadMagnet.description}
+                    {description}
                   </p>
                 )}
               </div>

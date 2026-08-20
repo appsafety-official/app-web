@@ -1,7 +1,9 @@
 export interface LeadMagnetData {
   id: string;
   title: string;
+  titleEn: string | null;
   description: string | null;
+  descriptionEn: string | null;
   pdfUrl: string;
   isActive: boolean;
   createdAt: Date;
@@ -10,7 +12,9 @@ export interface LeadMagnetData {
 
 export interface LeadMagnetInput {
   title: string;
+  titleEn?: string | null;
   description?: string | null;
+  descriptionEn?: string | null;
   pdfUrl: string;
   isActive?: boolean;
 }

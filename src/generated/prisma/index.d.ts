@@ -3834,7 +3834,9 @@ export namespace Prisma {
   export type LeadMagnetMinAggregateOutputType = {
     id: string | null
     title: string | null
+    titleEn: string | null
     description: string | null
+    descriptionEn: string | null
     pdfUrl: string | null
     isActive: boolean | null
     createdAt: Date | null
@@ -3844,7 +3846,9 @@ export namespace Prisma {
   export type LeadMagnetMaxAggregateOutputType = {
     id: string | null
     title: string | null
+    titleEn: string | null
     description: string | null
+    descriptionEn: string | null
     pdfUrl: string | null
     isActive: boolean | null
     createdAt: Date | null
@@ -3854,7 +3858,9 @@ export namespace Prisma {
   export type LeadMagnetCountAggregateOutputType = {
     id: number
     title: number
+    titleEn: number
     description: number
+    descriptionEn: number
     pdfUrl: number
     isActive: number
     createdAt: number
@@ -3866,7 +3872,9 @@ export namespace Prisma {
   export type LeadMagnetMinAggregateInputType = {
     id?: true
     title?: true
+    titleEn?: true
     description?: true
+    descriptionEn?: true
     pdfUrl?: true
     isActive?: true
     createdAt?: true
@@ -3876,7 +3884,9 @@ export namespace Prisma {
   export type LeadMagnetMaxAggregateInputType = {
     id?: true
     title?: true
+    titleEn?: true
     description?: true
+    descriptionEn?: true
     pdfUrl?: true
     isActive?: true
     createdAt?: true
@@ -3886,7 +3896,9 @@ export namespace Prisma {
   export type LeadMagnetCountAggregateInputType = {
     id?: true
     title?: true
+    titleEn?: true
     description?: true
+    descriptionEn?: true
     pdfUrl?: true
     isActive?: true
     createdAt?: true
@@ -3969,7 +3981,9 @@ export namespace Prisma {
   export type LeadMagnetGroupByOutputType = {
     id: string
     title: string
+    titleEn: string | null
     description: string | null
+    descriptionEn: string | null
     pdfUrl: string
     isActive: boolean
     createdAt: Date
@@ -3996,7 +4010,9 @@ export namespace Prisma {
   export type LeadMagnetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    titleEn?: boolean
     description?: boolean
+    descriptionEn?: boolean
     pdfUrl?: boolean
     isActive?: boolean
     createdAt?: boolean
@@ -4006,7 +4022,9 @@ export namespace Prisma {
   export type LeadMagnetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    titleEn?: boolean
     description?: boolean
+    descriptionEn?: boolean
     pdfUrl?: boolean
     isActive?: boolean
     createdAt?: boolean
@@ -4016,7 +4034,9 @@ export namespace Prisma {
   export type LeadMagnetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    titleEn?: boolean
     description?: boolean
+    descriptionEn?: boolean
     pdfUrl?: boolean
     isActive?: boolean
     createdAt?: boolean
@@ -4026,14 +4046,16 @@ export namespace Prisma {
   export type LeadMagnetSelectScalar = {
     id?: boolean
     title?: boolean
+    titleEn?: boolean
     description?: boolean
+    descriptionEn?: boolean
     pdfUrl?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type LeadMagnetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "pdfUrl" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["leadMagnet"]>
+  export type LeadMagnetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "titleEn" | "description" | "descriptionEn" | "pdfUrl" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["leadMagnet"]>
 
   export type $LeadMagnetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "LeadMagnet"
@@ -4041,7 +4063,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
+      titleEn: string | null
       description: string | null
+      descriptionEn: string | null
       pdfUrl: string
       isActive: boolean
       createdAt: Date
@@ -4471,7 +4495,9 @@ export namespace Prisma {
   interface LeadMagnetFieldRefs {
     readonly id: FieldRef<"LeadMagnet", 'String'>
     readonly title: FieldRef<"LeadMagnet", 'String'>
+    readonly titleEn: FieldRef<"LeadMagnet", 'String'>
     readonly description: FieldRef<"LeadMagnet", 'String'>
+    readonly descriptionEn: FieldRef<"LeadMagnet", 'String'>
     readonly pdfUrl: FieldRef<"LeadMagnet", 'String'>
     readonly isActive: FieldRef<"LeadMagnet", 'Boolean'>
     readonly createdAt: FieldRef<"LeadMagnet", 'DateTime'>
@@ -11531,7 +11557,9 @@ export namespace Prisma {
   export const LeadMagnetScalarFieldEnum: {
     id: 'id',
     title: 'title',
+    titleEn: 'titleEn',
     description: 'description',
+    descriptionEn: 'descriptionEn',
     pdfUrl: 'pdfUrl',
     isActive: 'isActive',
     createdAt: 'createdAt',
@@ -11926,7 +11954,9 @@ export namespace Prisma {
     NOT?: LeadMagnetWhereInput | LeadMagnetWhereInput[]
     id?: StringFilter<"LeadMagnet"> | string
     title?: StringFilter<"LeadMagnet"> | string
+    titleEn?: StringNullableFilter<"LeadMagnet"> | string | null
     description?: StringNullableFilter<"LeadMagnet"> | string | null
+    descriptionEn?: StringNullableFilter<"LeadMagnet"> | string | null
     pdfUrl?: StringFilter<"LeadMagnet"> | string
     isActive?: BoolFilter<"LeadMagnet"> | boolean
     createdAt?: DateTimeFilter<"LeadMagnet"> | Date | string
@@ -11936,7 +11966,9 @@ export namespace Prisma {
   export type LeadMagnetOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
+    titleEn?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
+    descriptionEn?: SortOrderInput | SortOrder
     pdfUrl?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -11949,7 +11981,9 @@ export namespace Prisma {
     OR?: LeadMagnetWhereInput[]
     NOT?: LeadMagnetWhereInput | LeadMagnetWhereInput[]
     title?: StringFilter<"LeadMagnet"> | string
+    titleEn?: StringNullableFilter<"LeadMagnet"> | string | null
     description?: StringNullableFilter<"LeadMagnet"> | string | null
+    descriptionEn?: StringNullableFilter<"LeadMagnet"> | string | null
     pdfUrl?: StringFilter<"LeadMagnet"> | string
     isActive?: BoolFilter<"LeadMagnet"> | boolean
     createdAt?: DateTimeFilter<"LeadMagnet"> | Date | string
@@ -11959,7 +11993,9 @@ export namespace Prisma {
   export type LeadMagnetOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
+    titleEn?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
+    descriptionEn?: SortOrderInput | SortOrder
     pdfUrl?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -11975,7 +12011,9 @@ export namespace Prisma {
     NOT?: LeadMagnetScalarWhereWithAggregatesInput | LeadMagnetScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"LeadMagnet"> | string
     title?: StringWithAggregatesFilter<"LeadMagnet"> | string
+    titleEn?: StringNullableWithAggregatesFilter<"LeadMagnet"> | string | null
     description?: StringNullableWithAggregatesFilter<"LeadMagnet"> | string | null
+    descriptionEn?: StringNullableWithAggregatesFilter<"LeadMagnet"> | string | null
     pdfUrl?: StringWithAggregatesFilter<"LeadMagnet"> | string
     isActive?: BoolWithAggregatesFilter<"LeadMagnet"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"LeadMagnet"> | Date | string
@@ -12619,7 +12657,9 @@ export namespace Prisma {
   export type LeadMagnetCreateInput = {
     id?: string
     title: string
+    titleEn?: string | null
     description?: string | null
+    descriptionEn?: string | null
     pdfUrl: string
     isActive?: boolean
     createdAt?: Date | string
@@ -12629,7 +12669,9 @@ export namespace Prisma {
   export type LeadMagnetUncheckedCreateInput = {
     id?: string
     title: string
+    titleEn?: string | null
     description?: string | null
+    descriptionEn?: string | null
     pdfUrl: string
     isActive?: boolean
     createdAt?: Date | string
@@ -12639,7 +12681,9 @@ export namespace Prisma {
   export type LeadMagnetUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
     pdfUrl?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12649,7 +12693,9 @@ export namespace Prisma {
   export type LeadMagnetUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
     pdfUrl?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12659,7 +12705,9 @@ export namespace Prisma {
   export type LeadMagnetCreateManyInput = {
     id?: string
     title: string
+    titleEn?: string | null
     description?: string | null
+    descriptionEn?: string | null
     pdfUrl: string
     isActive?: boolean
     createdAt?: Date | string
@@ -12669,7 +12717,9 @@ export namespace Prisma {
   export type LeadMagnetUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
     pdfUrl?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12679,7 +12729,9 @@ export namespace Prisma {
   export type LeadMagnetUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
     pdfUrl?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13476,7 +13528,9 @@ export namespace Prisma {
   export type LeadMagnetCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    titleEn?: SortOrder
     description?: SortOrder
+    descriptionEn?: SortOrder
     pdfUrl?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -13486,7 +13540,9 @@ export namespace Prisma {
   export type LeadMagnetMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    titleEn?: SortOrder
     description?: SortOrder
+    descriptionEn?: SortOrder
     pdfUrl?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -13496,7 +13552,9 @@ export namespace Prisma {
   export type LeadMagnetMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    titleEn?: SortOrder
     description?: SortOrder
+    descriptionEn?: SortOrder
     pdfUrl?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder

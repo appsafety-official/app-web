@@ -38,13 +38,15 @@ model Post {
 }
 
 model LeadMagnet {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  pdfUrl      String
-  isActive    Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(cuid())
+  title         String
+  titleEn       String?
+  description   String?
+  descriptionEn String?
+  pdfUrl        String
+  isActive      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@map("lead_magnets")
 }

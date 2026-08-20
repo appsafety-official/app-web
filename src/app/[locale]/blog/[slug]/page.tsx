@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
-import { getPostBySlug } from "@/actions/postActions";
+import { getPostBySlug, getAllPosts } from "@/actions/postActions";
 import { MarkdownContent } from "@/components/public/MarkdownContent";
 
 function stripLeadingH1(markdown: string): string {
@@ -12,6 +12,16 @@ function stripLeadingH1(markdown: string): string {
 
 export const dynamic = "force-dynamic";
 
+export async function generateStaticParams() {
+  try {
+    const posts = await getAllPosts(true);
+    return posts.map((post) => ({ slug: post.slug }));
+  } catch (error) {
+    console.error("generateStaticParams failed for blog detail:", error);
+    return [];
+  }
+}
+
 export default async function BlogPostPage({
   params,
 }: {
@@ -19,7 +29,7 @@ export default async function BlogPostPage({
 }) {
   const { slug } = await params;
   const t = await getTranslations("blog");
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug).catch(() => null);
 
   if (!post) {
     notFound();

@@ -1,4 +1,4 @@
-import { supabaseAdmin } from "@/lib/supabase/server";
+import { getSupabaseAdmin } from "@/lib/supabase/server";
 import type { IStorageService } from "./interfaces/IStorageService";
 
 export const PRODUCT_IMAGE_BUCKET = "product-images";
@@ -17,17 +17,18 @@ function getFileNameFromUrl(fileUrl: string): string | null {
 }
 
 export class SupabaseStorageService implements IStorageService {
-  private requireAdmin() {
-    if (!supabaseAdmin) {
+  private getClient() {
+    const client = getSupabaseAdmin();
+    if (!client) {
       throw new Error(
         "Supabase Admin is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.",
       );
     }
-    return supabaseAdmin;
+    return client;
   }
 
   async upload(file: File, bucket: string): Promise<string> {
-    const client = this.requireAdmin();
+    const client = this.getClient();
     const fileName = `${Date.now()}-${file.name}`;
     const { error } = await client.storage
       .from(bucket)
@@ -38,7 +39,7 @@ export class SupabaseStorageService implements IStorageService {
   }
 
   async delete(fileUrl: string, bucket: string): Promise<void> {
-    const client = this.requireAdmin();
+    const client = this.getClient();
     const fileName = getFileNameFromUrl(fileUrl);
     if (!fileName) {
       throw new Error("Invalid file URL");

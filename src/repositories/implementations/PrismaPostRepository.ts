@@ -6,19 +6,34 @@ import type {
 } from "../interfaces/IPostRepository";
 
 export class PrismaPostRepository implements IPostRepository {
-  findAll(publishedOnly = false): Promise<PostData[]> {
-    return prisma.post.findMany({
-      where: publishedOnly ? { published: true } : undefined,
-      orderBy: { createdAt: "desc" },
-    });
+  async findAll(publishedOnly = false): Promise<PostData[]> {
+    try {
+      return await prisma.post.findMany({
+        where: publishedOnly ? { published: true } : undefined,
+        orderBy: { createdAt: "desc" },
+      });
+    } catch (error) {
+      console.error("Failed to fetch posts:", error);
+      return [];
+    }
   }
 
-  findById(id: string): Promise<PostData | null> {
-    return prisma.post.findUnique({ where: { id } });
+  async findById(id: string): Promise<PostData | null> {
+    try {
+      return await prisma.post.findUnique({ where: { id } });
+    } catch (error) {
+      console.error(`Failed to fetch post by id "${id}":`, error);
+      return null;
+    }
   }
 
-  findBySlug(slug: string): Promise<PostData | null> {
-    return prisma.post.findUnique({ where: { slug } });
+  async findBySlug(slug: string): Promise<PostData | null> {
+    try {
+      return await prisma.post.findUnique({ where: { slug } });
+    } catch (error) {
+      console.error(`Failed to fetch post by slug "${slug}":`, error);
+      return null;
+    }
   }
 
   create(data: PostInput): Promise<PostData> {

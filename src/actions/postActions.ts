@@ -66,12 +66,22 @@ export async function getAllPosts(publishedOnly = false): Promise<PostData[]> {
   if (!publishedOnly) {
     await requireAdmin();
   }
-  return postRepository.findAll(publishedOnly);
+  try {
+    return await postRepository.findAll(publishedOnly);
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+    return [];
+  }
 }
 
 export async function getPostBySlug(slug: string): Promise<PostData | null> {
-  const post = await postRepository.findBySlug(slug);
-  return post && post.published ? post : null;
+  try {
+    const post = await postRepository.findBySlug(slug);
+    return post && post.published ? post : null;
+  } catch (error) {
+    console.error(`Failed to fetch post by slug "${slug}":`, error);
+    return null;
+  }
 }
 
 async function resolveCover(

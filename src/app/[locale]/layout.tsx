@@ -5,6 +5,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import Navbar from "@/components/public/Navbar";
 import Footer from "@/components/public/Footer";
+import StickyWhatsAppButton from "@/components/public/StickyWhatsAppButton";
 
 type Props = {
   children: React.ReactNode;
@@ -35,6 +36,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
+      <StickyWhatsAppButton />
     </NextIntlClientProvider>
   );
 }

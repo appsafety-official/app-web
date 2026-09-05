@@ -1,10 +1,9 @@
 "use server";
 
 import { checkoutSchema, type CheckoutInput } from "@/lib/checkoutSchema";
+import { buildWaUrl } from "@/lib/whatsapp";
 import { prospectRepository } from "@/repositories/implementations/PrismaProspectRepository";
 import { productRepository } from "@/repositories/product.repository";
-
-const WHATSAPP_NUMBER = "6287824604747";
 
 type CheckoutResult =
   | { ok: true; waUrl: string; orderId: string }
@@ -67,7 +66,7 @@ export async function submitQuoteRequest(input: unknown): Promise<CheckoutResult
     });
 
     const message = buildWaMessage(resolved);
-    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    const waUrl = buildWaUrl(message);
 
     return { ok: true, waUrl, orderId: prospect.id };
   } catch (error) {

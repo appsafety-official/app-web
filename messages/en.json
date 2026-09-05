@@ -8,6 +8,10 @@
       "blog": "Blog",
       "signIn": "Sign In"
     },
+    "stickyWa": {
+      "label": "Chat on WhatsApp",
+      "ariaLabel": "Chat on WhatsApp"
+    },
     "footer": {
       "enterpriseProcurement": "ENTERPRISE PROCUREMENT",
       "bannerText": "Bulk orders, tender documents, and technical spec sheets — handled by real safety engineers.",

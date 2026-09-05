@@ -8,6 +8,10 @@
       "blog": "Blog",
       "signIn": "Masuk"
     },
+    "stickyWa": {
+      "label": "Chat via WhatsApp",
+      "ariaLabel": "Chat via WhatsApp"
+    },
     "footer": {
       "enterpriseProcurement": "PENGADAAN PERUSAHAAN",
       "bannerText": "Pesanan massal, dokumen tender, dan lembar spesifikasi teknis — ditangani oleh ahli K3 profesional.",

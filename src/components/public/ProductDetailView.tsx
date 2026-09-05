@@ -4,15 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Minus, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useCartStore } from "@/store/useCartStore";
-import { useCheckoutStore } from "@/store/useCheckoutStore";
+import { useQuoteStore } from "@/store/useQuoteStore";
 import type { SpecPair } from "@/repositories/interfaces/IProductRepository";
 
 export type PublicProductDetail = {
   id: string;
   name: string;
   category: string;
-  price: number;
+  price: number | null;
   imageUrl: string | null;
   imageGallery: string[];
   descriptionHtml: string;
@@ -24,8 +23,7 @@ export default function ProductDetailView({
 }: {
   product: PublicProductDetail | null;
 }) {
-  const addItem = useCartStore((s) => s.addItem);
-  const openCheckout = useCheckoutStore((s) => s.openCheckout);
+  const openQuote = useQuoteStore((s) => s.openQuote);
   const [qty, setQty] = useState(1);
   const t = useTranslations("common.productDetail");
 
@@ -64,8 +62,8 @@ export default function ProductDetailView({
             {product.category}
           </span>
           <h1 className="mt-4 text-2xl font-bold leading-tight">{product.name}</h1>
-          <p className="mt-4 text-2xl font-bold text-stone-900">
-            Rp {product.price.toLocaleString("id-ID")}
+          <p className="mt-4 text-sm font-semibold uppercase tracking-wider text-stone-600">
+            {t("priceOnRequest")}
           </p>
           {product.descriptionHtml && (
             <div
@@ -117,34 +115,20 @@ export default function ProductDetailView({
           </div>
 
           <button
-            onClick={() => {
-              for (let i = 0; i < qty; i++) {
-                addItem({
-                  productId: product.id,
-                  name: product.name,
-                  price: product.price,
-                });
-              }
-            }}
-            className="mt-4 w-full rounded-sm border border-stone-900 px-4 py-3 text-center text-sm font-semibold text-black transition-colors hover:bg-stone-100"
-          >
-            {t("addToCart")}
-          </button>
-
-          <button
             onClick={() =>
-              openCheckout([
+              openQuote(
                 {
                   productId: product.id,
                   name: product.name,
                   price: product.price,
-                  quantity: qty,
+                  imageUrl: product.imageUrl,
                 },
-              ])
+                qty,
+              )
             }
-            className="mt-2 w-full rounded-sm bg-yellow px-4 py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
+            className="mt-4 w-full rounded-sm bg-yellow px-4 py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
           >
-            {t("checkout")}
+            {t("requestQuote")}
           </button>
         </div>
       </div>

@@ -11,7 +11,7 @@ model Product {
   id           String   @id @default(cuid())
   name         String
   category     String
-  price        Int
+  price        Int?
   stock        Int      @default(0)
   description  String?
   imageUrl     String?

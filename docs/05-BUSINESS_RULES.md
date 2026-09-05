@@ -5,15 +5,17 @@
 ```markdown
 # 04-BUSINESS_RULES.md - Business Logic & Validation
 
-## 1. Checkout & Lead Capture Flow
-- **Validation**: Name and WhatsApp number are mandatory. Address is mandatory if `orderItems` length > 0.
-- **Acquisition Channel**: Auto-detected from URL query param. Defaults to `organic_web`.
-- **Execution**: 
-  1. Validate payload using Zod.
-  2. Call `createProspectAction`.
-  3. Repository saves to DB with default status `cold` (or `warm` if source is `tokopedia_insert`).
-  4. Server Action returns a formatted WhatsApp URL.
-  5. Frontend redirects user to this URL in a new tab.
+## 1. Quote Request (Conversation-First B2B Flow)
+- **Concept**: B2B buyers discuss before transacting. There is no transactional checkout — all CTAs lead to a WhatsApp conversation ("Request Quotation").
+- **No public prices**: Product pages and cards never display prices (label: "Price on request"). `Product.price` is optional in the CMS (nullable) and serves only as an internal baseline.
+- **Validation**: Name and WhatsApp number are mandatory. Email and notes/requirements are optional.
+- **Acquisition Channel**: `web_quote` (quote request from the site). Defaults to `web_quote`.
+- **Execution**:
+  1. Validate payload using Zod (`checkoutSchema`).
+  2. Re-resolve product name/price from the DB (never trust client values).
+  3. Repository saves to `prospects` with default status `cold`, `orderItems` JSON as requirement reference.
+  4. Server action returns a WhatsApp URL with an inquiry-style message (no prices).
+  5. Frontend opens the URL in a new tab.
 
 ## 2. Admin Manual Input Flow
 - Admin can create a prospect without `orderItems` (e.g., walk-in inquiry).

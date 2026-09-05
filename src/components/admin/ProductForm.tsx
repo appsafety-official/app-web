@@ -35,7 +35,7 @@ const productCategories = [
 type ProductFormValues = {
   name: string;
   category: string;
-  price: string;
+  price?: string;
   stock: string;
   description: string;
   specs: SpecPair[];
@@ -45,7 +45,7 @@ type ProductFormInitialData = {
   id: string;
   name: string;
   category: string;
-  price: number;
+  price: number | null;
   stock: number;
   description: string | null;
   imageUrl: string | null;
@@ -98,8 +98,9 @@ export function ProductForm({
         category: z.string().trim().min(1, { error: t("categoryRequired") }),
         price: z
           .string()
-          .min(1, { error: t("priceRequired") })
-          .regex(/^\d+$/, { error: t("priceInvalid") }),
+          .regex(/^\d+$/, { error: t("priceInvalid") })
+          .optional()
+          .or(z.literal("")),
         stock: z
           .string()
           .min(1, { error: t("stockRequired") })
@@ -125,7 +126,7 @@ export function ProductForm({
     defaultValues: {
       name: initialData?.name ?? "",
       category: initialData?.category ?? "",
-      price: initialData ? String(initialData.price) : "",
+      price: initialData?.price != null ? String(initialData.price) : "",
       stock: initialData ? String(initialData.stock) : "0",
       description: initialData?.description ?? "",
       specs: specData.length > 0 ? specData : [{ key: "", value: "" }],
@@ -257,7 +258,7 @@ export function ProductForm({
       const payload = {
         name: values.name,
         category: values.category,
-        price: Number(values.price),
+        price: values.price ? Number(values.price) : null,
         stock: Number(values.stock),
         description: values.description,
         imageUrl: initialData?.imageUrl ?? "",

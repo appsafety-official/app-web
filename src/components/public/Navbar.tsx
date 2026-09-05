@@ -2,19 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, ShoppingCart, User, X } from "lucide-react";
+import { Menu, User, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useCartStore } from "@/store/useCartStore";
-import { useCheckoutStore } from "@/store/useCheckoutStore";
 import { useEffect, useState } from "react";
-import CartDrawer from "./CartDrawer";
+import QuoteDrawer from "./QuoteDrawer";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
   const t = useTranslations("common.navbar");
   const pathname = usePathname();
-  const totalItems = useCartStore((s) => s.totalItems());
-  const openCart = useCheckoutStore((s) => s.openCart);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -73,19 +69,6 @@ export default function Navbar() {
               {t("signIn")}
             </Link>
             <LanguageSwitcher />
-            <div className="relative">
-              <button
-                onClick={openCart}
-                className="rounded-sm border border-gray-200 bg-white p-2 transition-colors hover:bg-gray-50"
-              >
-                <ShoppingCart className="h-4 w-4 text-gray-600" />
-              </button>
-              {totalItems > 0 && (
-                <span className="absolute -right-2 -top-2 z-10 flex h-5 min-w-5 items-center justify-center rounded-full bg-yellow-500 px-1 font-mono text-xs font-bold text-stone-900">
-                  {totalItems}
-                </span>
-              )}
-            </div>
             <button
               onClick={() => setMobileOpen((v) => !v)}
               className="rounded-sm border border-gray-200 bg-white p-2 transition-colors hover:bg-gray-50 sm:hidden"
@@ -129,7 +112,7 @@ export default function Navbar() {
           </div>
         )}
       </nav>
-      <CartDrawer />
+      <QuoteDrawer />
     </>
   );
 }

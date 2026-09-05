@@ -20,7 +20,7 @@ export type ProductRow = {
   id: string;
   name: string;
   category: string;
-  price: number;
+  price: number | null;
   stock: number;
   imageUrl: string | null;
 };
@@ -173,7 +173,9 @@ export function ProductListManager({ products }: { products: ProductRow[] }) {
               </td>
               <td className="px-4 py-3 text-stone-600">{product.category}</td>
               <td className="px-4 py-3 text-stone-900">
-                Rp {product.price.toLocaleString("id-ID")}
+                {product.price !== null
+                  ? `Rp ${product.price.toLocaleString("id-ID")}`
+                  : "—"}
               </td>
               <td className="px-4 py-3 text-stone-600">{product.stock}</td>
               <td className="px-4 py-3">

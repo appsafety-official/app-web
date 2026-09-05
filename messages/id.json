@@ -6,8 +6,7 @@
       "about": "Tentang",
       "contact": "Kontak",
       "blog": "Blog",
-      "signIn": "Masuk",
-      "cart": "Keranjang"
+      "signIn": "Masuk"
     },
     "footer": {
       "enterpriseProcurement": "PENGADAAN PERUSAHAAN",
@@ -25,39 +24,36 @@
       "copyright": "© 2026 APP SAFETY. Hak cipta dilindungi.",
       "version": "v1.0.0"
     },
-    "cart": {
-      "title": "KERANJANG",
-      "empty": "Keranjang Anda kosong",
-      "total": "TOTAL",
-      "checkout": "SELESAIKAN PESANAN VIA WA >>",
-      "remove": "Hapus"
-    },
-    "checkout": {
-      "title": "CHECKOUT",
+    "quote": {
+      "title": "MINTA PENAWARAN",
       "name": "NAMA",
       "namePlaceholder": "Budi Santoso",
       "whatsapp": "WHATSAPP",
       "whatsappPlaceholder": "0812-3456-7890",
-      "address": "ALAMAT (OPSIONAL)",
-      "addressPlaceholder": "Alamat pengiriman...",
-      "submit": "KIRIM ORDER VIA WA",
+      "email": "EMAIL (OPSIONAL)",
+      "emailPlaceholder": "anda@perusahaan.co.id",
+      "notes": "CATATAN / KEBUTUHAN (OPSIONAL)",
+      "notesPlaceholder": "Jumlah, kustomisasi, detail proyek...",
+      "quoteHint": "Harga tidak ditampilkan di sini — tim kami akan membahas penawaran terbaik langsung via WhatsApp.",
+      "submit": "MINTA PENAWARAN VIA WA",
       "submitting": "MENGIRIM...",
-      "success": "Pesanan tersimpan. Membuka WhatsApp...",
+      "success": "Permintaan tersimpan. Membuka WhatsApp...",
       "errorName": "Silakan masukkan nama Anda.",
       "errorWhatsapp": "Masukkan nomor WhatsApp yang valid.",
-      "errorAddress": "Alamat maksimal 500 karakter."
+      "errorEmail": "Masukkan alamat email yang valid.",
+      "errorNotes": "Catatan maksimal 500 karakter."
     },
     "productCard": {
-      "addToCart": "+ Tambah ke Keranjang",
       "viewDetail": "Lihat Detail",
-      "productPlaceholder": "[PRODUK]"
+      "productPlaceholder": "[PRODUK]",
+      "priceOnRequest": "Harga hubungi kami"
     },
     "productDetail": {
       "backToCatalog": "KEMBALI KE KATALOG",
       "viewAllProducts": "LIHAT SEMUA PRODUK",
       "imagePlaceholder": "[GMB]",
-      "addToCart": "TAMBAH KE KERANJANG",
-      "checkout": "PESAN SEKARANG",
+      "requestQuote": "MINTA PENAWARAN",
+      "priceOnRequest": "Harga hubungi kami",
       "notFound": "Produk tidak ditemukan.",
       "noSpecs": "Belum ada spesifikasi."
     }
@@ -259,7 +255,7 @@
       "namePlaceholder": "cth. Aluminized Fire Proximity Suit",
       "category": "KATEGORI",
       "categoryPlaceholder": "Pilih kategori",
-      "price": "HARGA",
+      "price": "HARGA (OPSIONAL)",
       "stock": "STOK",
       "description": "DESKRIPSI",
       "descriptionPlaceholder": "Deskripsi profesional singkat...",

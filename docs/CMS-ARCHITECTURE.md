@@ -30,7 +30,7 @@ Pola arsitektur utama:
 | Framework | Next.js 16.2.12 (App Router + Turbopack) | RSC sebagai basis render |
 | Frontend UI | React 19, Tailwind CSS v4, shadcn/ui (`@base-ui/react`), `lucide-react` | `react-hook-form` + `zod` untuk form, `sonner` untuk toast |
 | i18n | `next-intl` v4 | Route `[locale]` (id/en), default id; file `messages/{id,en}.json` |
-| State client | `zustand` v5 | `useCartStore`, `useCheckoutStore` (drawer keranjang/checkout) |
+| State client | `zustand` v5 | `useQuoteStore` (drawer quote request) |
 | Backend | Server Actions + RSC | Hanya `/api/auth` berupa route handler |
 | Auth | NextAuth v5 (Credentials + bcrypt + PrismaAdapter, JWT) | Guard boolean "login" di layout admin; belum ada RBAC |
 | Database | PostgreSQL + Prisma 7 (`@prisma/adapter-pg`, `PrismaPg`) | Prisma client di-generate ke `src/generated/prisma` |
@@ -62,7 +62,7 @@ src/
 │   └── api/auth/[...nextauth]/   # Satu-satunya route handler
 ├── components/
 │   ├── public/                   # ProductsView, ProductCard, ProductDetailView,
-│   │                             # CartDrawer, CheckoutForm, Navbar, dll.
+│   │                             # QuoteDrawer, QuoteRequestForm, Navbar, dll.
 │   └── admin/                    # ProductForm, DeleteProductButton, BlogForm,
 │                                 # ProspectsManager, OrdersManager, AdminShell, dll.
 ├── actions/                      # Server actions entitas lain
@@ -76,7 +76,7 @@ src/
 │   ├── implementations/          # PrismaProspectRepository, dll.
 │   ├── product.repository.ts     # Produk (lokasi root, tidak di implementations/)
 │   └── storage.service.ts        # Upload/delete ke Supabase Storage
-├── store/                        # useCartStore, useCheckoutStore (zustand)
+├── store/                          # useQuoteStore (zustand)
 └── lib/                          # db.ts (Prisma), auth.ts, auth.config.ts,
                                   # checkoutSchema.ts, supabase/server.ts
 prisma/
@@ -109,16 +109,15 @@ messages/{id,en}.json             # i18n (termasuk namespace admin.*)
                           → ProductDetailView (qty, add-to-cart, checkout)
 ```
 
-### 4.2 Alur checkout publik
+### 4.2 Alur quote request publik (conversation-first B2B)
 
 ```
-ProductDetailView → CHECK OUT → useCheckoutStore.openCheckout(...)
-   → CartDrawer (drawer terpadu, editable qty)
-   → CheckoutForm → submitCheckout (checkoutActions.ts)
-        ├─ checkoutSchema.parse()
+ProductDetailView → REQUEST QUOTATION → useQuoteStore.openQuote(product, qty)
+   → QuoteDrawer (produk aktif + qty, tanpa harga) → QuoteRequestForm → submitQuoteRequest (checkoutActions.ts)
+        ├─ checkoutSchema.parse() (nama + WA wajib; email & catatan opsional)
         ├─ re-resolve harga/nama dari DB per productId (jangan percaya nilai client)
-        └─ INSERT ke prospects (status "warm", orderItems JSON, channel organic_web | web_buy_now)
-        → redirect WhatsApp admin (wa.me/6287824604747)
+        └─ INSERT ke prospects (status "cold", orderItems JSON, channel web_quote)
+        → buka WhatsApp admin (wa.me/6287824604747) dengan pesan inquiry tanpa harga
 ```
 
 ### 4.3 Diagram lapisan per request

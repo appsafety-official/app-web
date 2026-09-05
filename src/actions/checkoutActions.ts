@@ -11,26 +11,23 @@ type CheckoutResult =
   | { ok: false; error: string };
 
 function buildWaMessage(input: CheckoutInput): string {
-  const lines = input.items.map((item) => {
-    const subtotal = item.price * item.quantity;
-    return `- ${item.name} x${item.quantity} = Rp ${subtotal.toLocaleString("id-ID")}`;
-  });
-  const total = input.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const lines = input.items.map(
+    (item) => `- ${item.name} x${item.quantity}`,
+  );
   return [
-    "Halo APP Safety! Saya mau order:",
+    "Halo APP Safety! Saya ingin minta penawaran untuk:",
     ...lines,
-    "",
-    `Total: Rp ${total.toLocaleString("id-ID")}`,
+    input.notes ? `Catatan: ${input.notes}` : "",
     "",
     `Nama: ${input.name}`,
     `WhatsApp: ${input.whatsapp}`,
-    input.address ? `Alamat: ${input.address}` : "",
+    input.email ? `Email: ${input.email}` : "",
   ]
     .filter(Boolean)
     .join("\n");
 }
 
-export async function submitCheckout(input: unknown): Promise<CheckoutResult> {
+export async function submitQuoteRequest(input: unknown): Promise<CheckoutResult> {
   try {
     const parsed = checkoutSchema.parse(input);
 
@@ -54,17 +51,17 @@ export async function submitCheckout(input: unknown): Promise<CheckoutResult> {
       items: resolvedItems,
     };
 
+    // Reference total from internal baseline prices; unpriced items are skipped.
     const totalAmount = resolved.items.reduce(
-      (sum, item) => sum + item.price * item.quantity,
+      (sum, item) => sum + (item.price ?? 0) * item.quantity,
       0,
     );
 
     const prospect = await prospectRepository.create({
       name: resolved.name,
       whatsapp: resolved.whatsapp,
-      address: resolved.address || null,
-      acquisitionChannel: resolved.acquisitionChannel ?? "organic_web",
-      status: "warm",
+      acquisitionChannel: resolved.acquisitionChannel ?? "web_quote",
+      status: "cold",
       totalAmount,
       orderItems: resolved.items,
     });

@@ -6,8 +6,7 @@
       "about": "About",
       "contact": "Contact",
       "blog": "Blog",
-      "signIn": "Sign In",
-      "cart": "Cart"
+      "signIn": "Sign In"
     },
     "footer": {
       "enterpriseProcurement": "ENTERPRISE PROCUREMENT",
@@ -25,39 +24,36 @@
       "copyright": "© 2026 APP SAFETY. All rights reserved.",
       "version": "v1.0.0"
     },
-    "cart": {
-      "title": "CART",
-      "empty": "Your cart is empty",
-      "total": "TOTAL",
-      "checkout": "COMPLETE ORDER VIA WA >>",
-      "remove": "Remove"
-    },
-    "checkout": {
-      "title": "CHECKOUT",
+    "quote": {
+      "title": "REQUEST QUOTATION",
       "name": "NAME",
       "namePlaceholder": "Budi Santoso",
       "whatsapp": "WHATSAPP",
       "whatsappPlaceholder": "0812-3456-7890",
-      "address": "ADDRESS (OPTIONAL)",
-      "addressPlaceholder": "Shipping address...",
-      "submit": "SEND ORDER VIA WA",
+      "email": "EMAIL (OPTIONAL)",
+      "emailPlaceholder": "you@company.co.id",
+      "notes": "NOTES / REQUIREMENTS (OPTIONAL)",
+      "notesPlaceholder": "Quantities, customization, project details...",
+      "quoteHint": "No fixed prices shown — our team will discuss the best offer with you on WhatsApp.",
+      "submit": "REQUEST QUOTATION VIA WA",
       "submitting": "SENDING...",
-      "success": "Order saved. Opening WhatsApp...",
+      "success": "Request saved. Opening WhatsApp...",
       "errorName": "Please enter your name.",
       "errorWhatsapp": "Enter a valid WhatsApp number.",
-      "errorAddress": "Address must be under 500 characters."
+      "errorEmail": "Enter a valid email address.",
+      "errorNotes": "Notes must be under 500 characters."
     },
     "productCard": {
-      "addToCart": "+ Add to Cart",
       "viewDetail": "View Detail",
-      "productPlaceholder": "[PRODUCT]"
+      "productPlaceholder": "[PRODUCT]",
+      "priceOnRequest": "Price on request"
     },
     "productDetail": {
       "backToCatalog": "BACK TO CATALOG",
       "viewAllProducts": "VIEW ALL PRODUCTS",
       "imagePlaceholder": "[IMG]",
-      "addToCart": "ADD TO CART",
-      "checkout": "CHECK OUT",
+      "requestQuote": "REQUEST QUOTATION",
+      "priceOnRequest": "Price on request — contact us",
       "notFound": "Product not found.",
       "noSpecs": "No specifications yet."
     }
@@ -259,7 +255,7 @@
       "namePlaceholder": "e.g. Aluminized Fire Proximity Suit",
       "category": "CATEGORY",
       "categoryPlaceholder": "Select a category",
-      "price": "PRICE",
+      "price": "PRICE (OPTIONAL)",
       "stock": "STOCK",
       "description": "DESCRIPTION",
       "descriptionPlaceholder": "Brief professional description...",

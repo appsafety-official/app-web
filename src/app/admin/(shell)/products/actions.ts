@@ -13,7 +13,7 @@ import {
 const productSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(200),
   category: z.string().trim().min(1, "Category is required").max(100),
-  price: z.coerce.number().int().min(0),
+  price: z.coerce.number().int().min(0).nullable().optional(),
   stock: z.coerce.number().int().min(0).default(0),
   description: z.string().trim().max(20000).optional().or(z.literal("")),
   imageUrl: z.string().url().optional().or(z.literal("")),

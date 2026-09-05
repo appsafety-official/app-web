@@ -160,8 +160,8 @@ export default async function AdminProspectDetailPage({
                 <TableBody>
                   {orderItems.map((item, index) => {
                     const qty = item.qty ?? item.quantity ?? 0;
-                    const price = item.price ?? 0;
-                    const subtotal = item.subtotal ?? qty * price;
+                    const price = item.price ?? null;
+                    const subtotal = item.subtotal ?? (price != null ? qty * price : null);
                     return (
                       <TableRow key={index} className="font-mono">
                         <TableCell className="font-bold text-stone-900">
@@ -171,10 +171,10 @@ export default async function AdminProspectDetailPage({
                           {qty}
                         </TableCell>
                         <TableCell className="text-right text-stone-600">
-                          Rp {price.toLocaleString("id-ID")}
+                          {price != null ? `Rp ${price.toLocaleString("id-ID")}` : "—"}
                         </TableCell>
                         <TableCell className="text-right text-stone-900">
-                          Rp {subtotal.toLocaleString("id-ID")}
+                          {subtotal != null ? `Rp ${subtotal.toLocaleString("id-ID")}` : "—"}
                         </TableCell>
                       </TableRow>
                     );

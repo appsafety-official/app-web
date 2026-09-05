@@ -2,27 +2,21 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useCartStore } from "@/store/useCartStore";
 
 interface ProductCardProps {
   id: string;
   name: string;
   category: string;
-  price: number;
   imageUrl?: string | null;
-  viewDetail?: boolean;
 }
 
 export default function ProductCard({
   id,
   name,
   category,
-  price,
   imageUrl,
-  viewDetail = false,
 }: ProductCardProps) {
   const t = useTranslations("common.productCard");
-  const addItem = useCartStore((s) => s.addItem);
 
   return (
     <div className="flex flex-col rounded-none border border-stone-900 bg-white">
@@ -52,26 +46,17 @@ export default function ProductCard({
             {name}
           </h3>
         </Link>
-        <p className="mt-1 font-mono text-base font-bold text-black">
-          Rp {price.toLocaleString("id-ID")}
+        <p className="mt-1 font-mono text-xs text-stone-500">
+          {t("priceOnRequest")}
         </p>
       </div>
 
-      {viewDetail ? (
-        <Link
-          href={`/products/${id}`}
-          className="mt-auto block w-full rounded-sm bg-yellow px-4 py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
-        >
-          {t("viewDetail")}
-        </Link>
-      ) : (
-        <button
-          onClick={() => addItem({ productId: id, name, price })}
-          className="mt-auto w-full rounded-sm bg-yellow px-4 py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
-        >
-          {t("addToCart")}
-        </button>
-      )}
+      <Link
+        href={`/products/${id}`}
+        className="mt-auto block w-full rounded-sm bg-yellow px-4 py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
+      >
+        {t("viewDetail")}
+      </Link>
     </div>
   );
 }

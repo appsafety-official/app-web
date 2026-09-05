@@ -8,7 +8,6 @@ export default async function ProductsPage() {
     id: p.id,
     name: p.name,
     category: p.category,
-    price: p.price,
     imageUrl: p.imageUrl,
   }));
 

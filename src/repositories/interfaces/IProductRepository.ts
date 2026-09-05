@@ -9,7 +9,7 @@ export interface ProductData {
   id: string;
   name: string;
   category: string;
-  price: number;
+  price: number | null;
   stock: number;
   description: string | null;
   imageUrl: string | null;
@@ -23,7 +23,7 @@ export interface ProductData {
 export interface ProductInput {
   name: string;
   category: string;
-  price: number;
+  price?: number | null;
   stock?: number;
   description?: string | null;
   imageUrl?: string | null;

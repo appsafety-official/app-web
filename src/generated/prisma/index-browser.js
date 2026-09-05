@@ -130,6 +130,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   imageUrl: 'imageUrl',
   imageGallery: 'imageGallery',
   specs: 'specs',
+  sortOrder: 'sortOrder',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

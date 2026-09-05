@@ -52,3 +52,7 @@ _probe*
 .raw*
 expr.js
 .mobile-check.png
+
+dev-server-err.log
+dev-test.log
+dev-test-err.log

@@ -162,6 +162,33 @@ export async function updateProductAction(
   }
 }
 
+const reorderSchema = z.object({
+  ids: z.array(z.string().min(1)).min(1),
+});
+
+export async function reorderProductsAction(
+  input: unknown,
+): Promise<ProductActionResult> {
+  try {
+    await requireAdmin();
+    const parsed = reorderSchema.parse(input);
+    const existing = await productRepository.findAll();
+    const existingIds = new Set(existing.map((p) => p.id));
+    const allPresent =
+      parsed.ids.length === existing.length &&
+      parsed.ids.every((id) => existingIds.has(id));
+    if (!allPresent) throw new Error("Invalid product order payload");
+    await productRepository.reorder(parsed.ids);
+    revalidatePath("/admin/products");
+    return { ok: true, productId: parsed.ids[0] };
+  } catch (error) {
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : "Unexpected error",
+    };
+  }
+}
+
 export async function deleteProductAction(
   id: string,
 ): Promise<ProductActionResult> {

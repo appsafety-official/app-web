@@ -15,6 +15,7 @@ export interface ProductData {
   imageUrl: string | null;
   imageGallery: string[];
   specs: ProductSpecs;
+  sortOrder: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -37,4 +38,6 @@ export interface IProductRepository {
   create(data: ProductInput): Promise<ProductData>;
   update(id: string, data: Partial<ProductInput>): Promise<ProductData>;
   delete(id: string): Promise<void>;
+  /** Persist a new display order. `ids` must contain every product id. */
+  reorder(ids: string[]): Promise<void>;
 }

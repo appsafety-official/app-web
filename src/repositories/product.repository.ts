@@ -14,7 +14,7 @@ export class ProductRepository implements IProductRepository {
 
   async findAll(): Promise<ProductData[]> {
     const rows = await prisma.product.findMany({
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
     });
     return rows.map((row) => this.toData(row as Omit<ProductData, "specs"> & { specs: unknown }));
   }
@@ -27,15 +27,17 @@ export class ProductRepository implements IProductRepository {
   async findByCategory(category: string): Promise<ProductData[]> {
     const rows = await prisma.product.findMany({
       where: { category },
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
     });
     return rows.map((row) => this.toData(row as Omit<ProductData, "specs"> & { specs: unknown }));
   }
 
   async create(data: ProductInput): Promise<ProductData> {
+    // New products always appear at the top of the list (sortOrder 0).
     const row = await prisma.product.create({
       data: {
         ...data,
+        sortOrder: 0,
         specs: data.specs as Prisma.InputJsonValue | undefined,
       },
     });
@@ -55,6 +57,17 @@ export class ProductRepository implements IProductRepository {
 
   delete(id: string): Promise<void> {
     return prisma.product.delete({ where: { id } }).then(() => undefined);
+  }
+
+  async reorder(ids: string[]): Promise<void> {
+    await prisma.$transaction(
+      ids.map((id, index) =>
+        prisma.product.update({
+          where: { id },
+          data: { sortOrder: index + 1 },
+        }),
+      ),
+    );
   }
 }
 

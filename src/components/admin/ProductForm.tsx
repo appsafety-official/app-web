@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { ImageIcon, Loader2, Plus, Trash2, Upload, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, ImageIcon, Loader2, Plus, Trash2, Upload, X, GripVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
@@ -53,10 +53,9 @@ type ProductFormInitialData = {
   specs: unknown;
 };
 
-type GalleryFile = {
-  file: File;
-  preview: string;
-};
+type GalleryItem =
+  | { type: 'kept'; url: string; id: string }
+  | { type: 'new'; file: File; preview: string; id: string };
 
 export function ProductForm({
   initialData,
@@ -69,13 +68,28 @@ export function ProductForm({
   const [imagePreview, setImagePreview] = useState<string | null>(
     initialData?.imageUrl ?? null,
   );
-  const [keptGallery, setKeptGallery] = useState<string[]>(
-    initialData?.imageGallery ?? [],
-  );
-  const [galleryFiles, setGalleryFiles] = useState<GalleryFile[]>([]);
   const [uploading, setUploading] = useState(false);
+  const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
   const specData = normalizeSpecs(initialData?.specs);
+
+  // Initialize unified gallery items
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>(() => {
+    const items: GalleryItem[] = [];
+    initialData?.imageGallery?.forEach((url, index) => {
+      items.push({ type: 'kept', url, id: `kept-${index}-${url}` });
+    });
+    return items;
+  });
+
+  // Derived state for backward compatibility with submit
+  const keptGallery = galleryItems
+    .filter((item): item is GalleryItem & { type: 'kept' } => item.type === 'kept')
+    .map((item) => item.url);
+  const galleryFiles = galleryItems
+    .filter((item): item is GalleryItem & { type: 'new' } => item.type === 'new')
+    .map((item) => ({ file: item.file, preview: item.preview }));
 
   const schema = useMemo(
     () =>
@@ -141,7 +155,7 @@ export function ProductForm({
   }
 
   function handleGalleryFiles(files: File[]) {
-    const valid: GalleryFile[] = [];
+    const valid: GalleryItem[] = [];
     for (const file of files) {
       if (!file.type.startsWith("image/")) {
         toast.error(t("imageTypeInvalid"));
@@ -151,22 +165,86 @@ export function ProductForm({
         toast.error(t("imageTooLarge"));
         continue;
       }
-      valid.push({ file, preview: URL.createObjectURL(file) });
+      valid.push({
+        type: "new",
+        file,
+        preview: URL.createObjectURL(file),
+        id: `new-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      });
     }
     if (valid.length > 0) {
-      setGalleryFiles((prev) => [...prev, ...valid]);
+      setGalleryItems((prev) => [...prev, ...valid]);
     }
   }
 
-  function removeKeptGallery(url: string) {
-    setKeptGallery((prev) => prev.filter((item) => item !== url));
+  function removeGalleryItem(id: string) {
+    setGalleryItems((prev) => {
+      const item = prev.find((entry) => entry.id === id);
+      if (item?.type === "new") {
+        URL.revokeObjectURL(item.preview);
+      }
+      return prev.filter((entry) => entry.id !== id);
+    });
   }
 
-  function removeGalleryFile(galleryItem: GalleryFile) {
-    URL.revokeObjectURL(galleryItem.preview);
-    setGalleryFiles((prev) =>
-      prev.filter((item) => item.file !== galleryItem.file),
-    );
+  // Drag and drop handlers
+  function handleDragStart(
+    event: React.DragEvent<HTMLDivElement>,
+    index: number,
+  ) {
+    // Required: without setData the browser never initiates a valid drag
+    // (Firefox won't start one at all, Chrome's drop won't fire reliably)
+    event.dataTransfer.setData("text/plain", String(index));
+    event.dataTransfer.effectAllowed = "move";
+    setDraggingIndex(index);
+    setDragOverIndex(index);
+  }
+
+  function handleDragOver(event: React.DragEvent<HTMLDivElement>, index: number) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+    setDragOverIndex(index);
+  }
+
+  function handleDrop(
+    event: React.DragEvent<HTMLDivElement>,
+    index: number,
+  ) {
+    event.preventDefault();
+
+    if (draggingIndex === null || draggingIndex === index) {
+      setDraggingIndex(null);
+      setDragOverIndex(null);
+      return;
+    }
+
+    setGalleryItems((prev) => {
+      const newItems = [...prev];
+      const [draggedItem] = newItems.splice(draggingIndex, 1);
+      newItems.splice(index, 0, draggedItem);
+      return newItems;
+    });
+
+    setDraggingIndex(null);
+    setDragOverIndex(null);
+  }
+
+  function handleDragEnd() {
+    setDraggingIndex(null);
+    setDragOverIndex(null);
+  }
+
+  // Touch-device fallback: HTML5 drag & drop doesn't exist on touch screens
+  function moveGalleryItem(from: number, to: number) {
+    setGalleryItems((prev) => {
+      if (to < 0 || to >= prev.length || from === to) {
+        return prev;
+      }
+      const newItems = [...prev];
+      const [movedItem] = newItems.splice(from, 1);
+      newItems.splice(to, 0, movedItem);
+      return newItems;
+    });
   }
 
   async function onSubmit(values: ProductFormValues) {
@@ -376,43 +454,56 @@ export function ProductForm({
             <p className="mb-3 text-xs text-stone-500">
               {t("imageGalleryHint")}
             </p>
-            {(keptGallery.length > 0 || galleryFiles.length > 0) && (
+            {galleryItems.length > 0 && (
               <div className="mb-4 grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
-                {keptGallery.map((url) => (
+                {galleryItems.map((item, index) => (
                   <div
-                    key={url}
-                    className="relative flex h-20 items-center justify-center overflow-hidden rounded-none border border-stone-900 bg-stone-100"
+                    key={item.id}
+                    data-gallery-item
+                    draggable
+                    onDragStart={(event) => handleDragStart(event, index)}
+                    onDragOver={(event) => handleDragOver(event, index)}
+                    onDrop={(event) => handleDrop(event, index)}
+                    onDragEnd={handleDragEnd}
+                    className={`relative flex h-20 items-center justify-center overflow-hidden rounded-none border bg-stone-100 transition-colors ${
+                      dragOverIndex === index && draggingIndex !== null && draggingIndex !== index
+                        ? "border-yellow-500"
+                        : "border-stone-900"
+                    } ${draggingIndex === index ? "opacity-50" : ""}`}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={url}
+                      src={item.type === "kept" ? item.url : item.preview}
                       alt=""
-                      className="h-full w-full object-cover object-center"
+                      draggable={false}
+                      className="pointer-events-none h-full w-full select-none object-cover object-center"
                     />
+                    <span className="absolute bottom-0 left-0 hidden h-5 w-5 cursor-grab items-center justify-center bg-stone-900/70 text-white active:cursor-grabbing md:flex">
+                      <GripVertical className="h-3 w-3" />
+                    </span>
+                    <div className="absolute bottom-0 left-0 flex md:hidden">
+                      <button
+                        type="button"
+                        onClick={() => moveGalleryItem(index, index - 1)}
+                        disabled={index === 0}
+                        className="flex h-5 w-5 items-center justify-center bg-stone-900/70 text-white disabled:opacity-40"
+                        aria-label={t("moveImageLeft")}
+                      >
+                        <ChevronLeft className="h-3 w-3" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => moveGalleryItem(index, index + 1)}
+                        disabled={index === galleryItems.length - 1}
+                        className="flex h-5 w-5 items-center justify-center bg-stone-900/70 text-white disabled:opacity-40"
+                        aria-label={t("moveImageRight")}
+                      >
+                        <ChevronRight className="h-3 w-3" />
+                      </button>
+                    </div>
                     <button
                       type="button"
-                      onClick={() => removeKeptGallery(url)}
-                      className="absolute right-0 top-0 flex h-6 w-6 items-center justify-center bg-stone-900 text-white transition-colors hover:bg-red-600"
-                      aria-label={t("removeImage")}
-                    >
-                      <X className="h-3.5 w-3.5" />
-                    </button>
-                  </div>
-                ))}
-                {galleryFiles.map((item) => (
-                  <div
-                    key={item.preview}
-                    className="relative flex h-20 items-center justify-center overflow-hidden rounded-none border border-stone-900 bg-stone-100"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.preview}
-                      alt=""
-                      className="h-full w-full object-cover object-center"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => removeGalleryFile(item)}
+                      onClick={() => removeGalleryItem(item.id)}
                       className="absolute right-0 top-0 flex h-6 w-6 items-center justify-center bg-stone-900 text-white transition-colors hover:bg-red-600"
                       aria-label={t("removeImage")}
                     >

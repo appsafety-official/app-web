@@ -126,7 +126,7 @@ export default async function HomePage({
                 </span>
               </div>
             </div>
-            <div className="mt-8 flex flex-wrap justify-center gap-4 sm:hidden">
+            <div className="mt-8 flex flex-wrap gap-4 sm:hidden">
               <Link
                 href="/products"
                 className="rounded-sm bg-yellow px-8 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"

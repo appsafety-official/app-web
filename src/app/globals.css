@@ -256,6 +256,34 @@ body {
   margin: 1.25rem 0;
 }
 
+/* Tap/press feedback: user tahu tombol sudah terklik sebelum redirect */
+a,
+button,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 0.12s ease,
+    filter 0.12s ease,
+    opacity 0.12s ease,
+    background-color 0.12s ease,
+    color 0.12s ease;
+}
+
+a:active,
+button:active,
+[role="button"]:active {
+  transform: scale(0.97);
+  filter: brightness(0.88);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a:active,
+  button:active,
+  [role="button"]:active {
+    transform: none;
+  }
+}
+
 /* Sticky WhatsApp button: one-time entrance pop + attention ping (2x only) */
 @keyframes wa-pop {
   0% {

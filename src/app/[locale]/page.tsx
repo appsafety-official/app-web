@@ -126,21 +126,23 @@ export default async function HomePage({
                 </span>
               </div>
             </div>
-            <div className="mt-8 flex flex-wrap gap-4 sm:hidden">
+            <div className="mt-8 flex flex-wrap justify-center gap-4 sm:hidden">
               <Link
                 href="/products"
-                className="rounded-sm bg-yellow px-6 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"
+                className="rounded-sm bg-yellow px-8 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"
               >
                 {t("hero.browseProducts")} &rarr;
               </Link>
               <Link
                 href="/contact"
-                className="rounded-sm border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-gray-50"
+                className="rounded-sm border border-gray-200 bg-white px-8 py-3 text-sm font-semibold text-black transition-colors hover:bg-gray-50"
               >
                 {t("hero.contactUs")}
               </Link>
               {activeLeadMagnet && (
-                <LeadMagnetWidget leadMagnet={activeLeadMagnet} />
+                <div className="[&>button]:px-8">
+                  <LeadMagnetWidget leadMagnet={activeLeadMagnet} />
+                </div>
               )}
             </div>
 

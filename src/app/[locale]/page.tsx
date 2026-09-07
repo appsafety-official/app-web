@@ -63,7 +63,7 @@ export default async function HomePage({
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-red-500" />
                 {t("hero.badge")}
               </p>
-              <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+              <h1 className="text-[2rem] font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
                 {t("hero.title")}
                 <br />
                 {t("hero.titleLine2")}
